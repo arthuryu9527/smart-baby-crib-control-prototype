@@ -1,0 +1,1692 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Smart Baby Crib Control Prototype</title>
+  <style>
+    :root {
+      --primary: #552c95;
+      --ink: #160038;
+      --soft-purple: #c8bdff;
+      --asset-path: "figma-baby-crib-assets/";
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    button {
+      appearance: none;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      color: inherit;
+      font: inherit;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background: #edf0f5;
+      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-variant-numeric: tabular-nums;
+    }
+
+    body {
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+
+    .phone {
+      position: relative;
+      width: 402px;
+      height: 904px;
+      overflow: hidden;
+      background: #fff;
+      color: #000;
+      box-shadow: 0 24px 70px rgba(40, 38, 59, 0.18);
+    }
+
+    .top-glow-frame {
+      position: absolute;
+      left: -21.125px;
+      top: -214.13px;
+      width: 444px;
+      height: 444px;
+      pointer-events: none;
+    }
+
+    .top-glow {
+      position: absolute;
+      left: -200px;
+      top: -200px;
+      width: 844px;
+      height: 844px;
+      display: block;
+      max-width: none;
+    }
+
+    .status-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 402px;
+      height: 62px;
+    }
+
+    .status-time {
+      position: absolute;
+      left: 52px;
+      top: 21px;
+      width: 33px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #000;
+      font-size: 17px;
+      font-weight: 590;
+      line-height: 22px;
+      letter-spacing: 0;
+    }
+
+    .status-levels {
+      position: absolute;
+      left: 287px;
+      top: 26px;
+      height: 13px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .cellular {
+      width: 19.2px;
+      height: 12.226px;
+    }
+
+    .wifi {
+      width: 17.142px;
+      height: 12.328px;
+    }
+
+    .battery {
+      width: 27.328px;
+      height: 13px;
+    }
+
+    .nav {
+      position: absolute;
+      left: 0;
+      top: 62px;
+      width: 402px;
+      height: 64px;
+      padding: 16px;
+    }
+
+    .nav-inner {
+      position: relative;
+      width: 370px;
+      height: 32px;
+    }
+
+    .icon-button {
+      position: absolute;
+      top: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 800px;
+      display: grid;
+      place-items: center;
+      overflow: hidden;
+    }
+
+    .icon-button img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    .back-button {
+      left: 0;
+    }
+
+    .filter-button {
+      right: 0;
+    }
+
+    .title {
+      position: absolute;
+      left: 98px;
+      top: 7px;
+      width: 174px;
+      height: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #1c1c20;
+      font-size: 16px;
+      font-weight: 510;
+      line-height: 18px;
+      text-align: center;
+    }
+
+    .monitor {
+      position: absolute;
+      left: 0;
+      top: 126px;
+      width: 402px;
+      height: 217px;
+      overflow: hidden;
+      background: #140a23;
+    }
+
+    .monitor > .video {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .watermark {
+      position: absolute;
+      left: 82.5px;
+      top: 8px;
+      height: 20px;
+      padding: 2px;
+      border-radius: 1000px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      color: #fff;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .watermark-logo-wrap {
+      width: 16px;
+      height: 16px;
+      display: grid;
+      place-items: center;
+    }
+
+    .watermark-logo {
+      width: 12px;
+      height: 10.132px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      display: block;
+    }
+
+    .watermark-time {
+      font-size: 11px;
+      line-height: 13px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .camera-controls-left {
+      position: absolute;
+      left: 16px;
+      top: 167px;
+      height: 40px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .glass-circle {
+      width: 40px;
+      height: 40px;
+      border-radius: 833.333px;
+      display: grid;
+      place-items: center;
+      background: rgba(21, 8, 43, 0.15);
+      backdrop-filter: blur(3.333px);
+      -webkit-backdrop-filter: blur(3.333px);
+      overflow: hidden;
+    }
+
+    .glass-circle img {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .hd-pill {
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2px;
+      padding: 13.333px 10px;
+      border-radius: 1333.333px;
+      background: rgba(21, 8, 43, 0.15);
+      color: #fff;
+      backdrop-filter: blur(5.333px);
+      -webkit-backdrop-filter: blur(5.333px);
+      font-size: 12px;
+      line-height: 24px;
+      font-weight: 400;
+    }
+
+    .hd-pill img {
+      width: 16px;
+      height: 16px;
+      display: block;
+    }
+
+    .fullscreen {
+      position: absolute;
+      left: 366px;
+      top: 167px;
+      width: 40px;
+      height: 40px;
+      transform: translateX(-50%);
+    }
+
+    .fullscreen img {
+      width: 40px;
+      height: 40px;
+      display: block;
+    }
+
+    .content {
+      position: absolute;
+      left: 0;
+      top: 359px;
+      width: 402px;
+      height: 419px;
+    }
+
+    .tabs {
+      position: absolute;
+      left: 16px;
+      top: 0;
+      width: 370px;
+      height: 48px;
+      padding: 4px;
+      border: 1px solid rgba(200, 189, 255, 0.24);
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      background: rgba(249, 248, 247, 0.92);
+      overflow: hidden;
+    }
+
+    .tab {
+      width: 181px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(60, 61, 64, 0.62);
+      font-size: 14px;
+      font-weight: 510;
+      line-height: 20px;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: var(--primary);
+      font-weight: 590;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(29, 16, 63, 0.04);
+    }
+
+    .care-shell {
+      position: absolute;
+      left: 16px;
+      top: 64px;
+      width: 370px;
+      height: 275px;
+      padding: 16px;
+      border: 1.2px solid rgba(200, 189, 255, 0.2);
+      border-radius: 20px;
+      overflow: hidden;
+      background: rgba(255, 255, 255, 0.56);
+    }
+
+    .mode-header {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 338px;
+      height: 69px;
+    }
+
+    .mode-copy {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 184px;
+      height: 69px;
+    }
+
+    .mode-title {
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 21px;
+      margin: 0;
+      color: #000;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: normal;
+      white-space: nowrap;
+    }
+
+    .timer-pill {
+      position: absolute;
+      left: 0;
+      top: 33px;
+      width: 84px;
+      height: 36px;
+      padding: 8px;
+      border: 1px solid rgba(200, 189, 255, 0.35);
+      border-radius: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      background: rgba(200, 189, 255, 0.2);
+      overflow: hidden;
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 510;
+      line-height: normal;
+      white-space: nowrap;
+    }
+
+    .timer-icon {
+      position: relative;
+      width: 20px;
+      height: 20px;
+      overflow: hidden;
+      flex: none;
+    }
+
+    .timer-ring {
+      position: absolute;
+      left: 2.5px;
+      top: 3.33px;
+      width: 15px;
+      height: 15px;
+    }
+
+    .timer-hand {
+      position: absolute;
+      left: 7.08px;
+      top: 7.08px;
+      width: 2.917px;
+      height: 5.417px;
+    }
+
+    .timer-top {
+      position: absolute;
+      left: 2.315px;
+      top: 3.15px;
+      width: 15.369px;
+      height: 2.684px;
+    }
+
+    .pause-button {
+      position: absolute;
+      left: 274px;
+      top: 2.5px;
+      width: 64px;
+      height: 64px;
+      border-radius: 1800px;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      overflow: hidden;
+    }
+
+    .pause-button img {
+      width: 32px;
+      height: 32px;
+      display: block;
+    }
+
+    .feature-row {
+      position: absolute;
+      left: 16px;
+      top: 109px;
+      width: 338px;
+      height: 150px;
+      display: flex;
+      gap: 8px;
+    }
+
+    .feature-card {
+      position: relative;
+      width: 165px;
+      height: 150px;
+      padding: 16px;
+      border-radius: 20px;
+      border: 1px solid rgba(200, 189, 255, 0.2);
+      overflow: hidden;
+    }
+
+    .feature-card.motion {
+      border-color: #c8bdff;
+      background: linear-gradient(140.581deg, rgba(200, 189, 255, 0.2) 10.1%, rgba(200, 189, 255, 0.1) 56.229%, rgba(200, 189, 255, 0.63) 108.23%);
+    }
+
+    .feature-card.noise {
+      background: linear-gradient(143.052deg, rgba(200, 189, 255, 0.19) 8.0045%, rgba(212, 203, 254, 0.17) 48.01%, #ddd6fe 106.96%);
+    }
+
+    .feature-top {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 133px;
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .round-action {
+      width: 42px;
+      height: 42px;
+      border-radius: 933.333px;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      overflow: hidden;
+    }
+
+    .round-action img {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    .radio {
+      width: 24px;
+      height: 24px;
+      display: block;
+    }
+
+    .feature-copy {
+      position: absolute;
+      left: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
+    }
+
+    .feature-copy.motion-copy {
+      top: 72px;
+    }
+
+    .feature-copy.noise-copy {
+      top: 94px;
+    }
+
+    .mini-pill {
+      display: inline-flex;
+      align-items: flex-end;
+      height: 18px;
+      padding: 2px 8px;
+      border: 1px solid rgba(200, 189, 255, 0.35);
+      border-radius: 32px;
+      background: rgba(200, 189, 255, 0.2);
+      color: var(--primary);
+      font-size: 12px;
+      line-height: normal;
+      font-weight: 510;
+    }
+
+    .feature-title {
+      color: var(--primary);
+      font-size: 16px;
+      font-weight: 510;
+      line-height: normal;
+      letter-spacing: 0.32px;
+      white-space: nowrap;
+    }
+
+    .feature-subtitle {
+      display: block;
+      width: 116px;
+      overflow: hidden;
+      color: rgba(16, 0, 40, 0.5);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: normal;
+      letter-spacing: 0.28px;
+      white-space: nowrap;
+    }
+
+    .marquee-track {
+      display: inline-block;
+      min-width: max-content;
+      will-change: transform, opacity;
+    }
+
+    .music-icon {
+      position: relative;
+      width: 24px;
+      height: 24px;
+      overflow: hidden;
+    }
+
+    .music-icon img {
+      position: absolute;
+      display: block;
+    }
+
+    .music-1 {
+      left: 2px;
+      top: 2px;
+      width: 8px;
+      height: 10px;
+    }
+
+    .music-2 {
+      left: 8px;
+      top: 17px;
+      width: 5px;
+      height: 5px;
+    }
+
+    .music-3 {
+      left: 18px;
+      top: 16px;
+      width: 4px;
+      height: 4px;
+    }
+
+    .music-4 {
+      left: 13px;
+      top: 6.19px;
+      width: 9px;
+      height: 13.33px;
+    }
+
+    .music-5 {
+      left: 13px;
+      top: 10px;
+      width: 9px;
+      height: 3px;
+    }
+
+    .light {
+      --light-fill-width: 170.747px;
+      position: absolute;
+      left: 16px;
+      top: 355px;
+      width: 370px;
+      height: 64px;
+      padding: 0;
+      border: 1px solid rgba(200, 189, 255, 0.2);
+      border-radius: 20px;
+      display: block;
+      background: rgba(255, 255, 255, 0.48);
+      cursor: pointer;
+      overflow: hidden;
+      transition:
+        height 220ms ease,
+        background 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .light-inner {
+      position: absolute;
+      left: 16px;
+      top: 17px;
+      width: 338px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: top 220ms ease;
+    }
+
+    .light-copy {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      height: 18px;
+    }
+
+    .light-name {
+      color: #3c3d40;
+      font-size: 18px;
+      line-height: 18px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .divider {
+      width: 1px;
+      height: 14px;
+      display: block;
+    }
+
+    .light-percent {
+      color: rgba(60, 61, 64, 0.5);
+      font-size: 16px;
+      line-height: 16px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    .switch {
+      position: relative;
+      width: 50px;
+      height: 30px;
+      border-radius: 96.774px;
+      background: rgba(120, 120, 128, 0.16);
+      overflow: hidden;
+      flex: none;
+    }
+
+    .switch::after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 26px;
+      height: 26px;
+      border-radius: 96.296px;
+      background: #fff;
+      box-shadow:
+        0 0 0 0 rgba(0, 0, 0, 0.04),
+        0 2.889px 7.704px rgba(0, 0, 0, 0.15),
+        0 2.889px 0.963px rgba(0, 0, 0, 0.06);
+    }
+
+    .light-slider {
+      position: absolute;
+      left: 16px;
+      top: 66px;
+      width: 336px;
+      height: 46px;
+      display: none;
+      overflow: visible;
+      cursor: pointer;
+    }
+
+    .light-slider-track {
+      position: absolute;
+      left: 0;
+      top: 8px;
+      width: 336px;
+      height: 8px;
+      border-radius: 22px;
+      background: rgba(60, 61, 64, 0.06);
+    }
+
+    .light-slider-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--light-fill-width);
+      height: 8px;
+      border-radius: 22px;
+      background: var(--primary);
+    }
+
+    .light-slider-knob {
+      position: absolute;
+      left: calc(var(--light-fill-width) - 12px);
+      top: -8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow:
+        0 1px 2px rgba(29, 16, 63, 0.08),
+        0 4px 10px rgba(29, 16, 63, 0.16);
+    }
+
+    .light-slider-label {
+      position: absolute;
+      top: 32px;
+      color: var(--ink);
+      font-size: 14px;
+      font-weight: 400;
+      line-height: 16px;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .light-slider-min {
+      left: 0;
+    }
+
+    .light-slider-max {
+      right: 0;
+    }
+
+    img {
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    .interactive {
+      cursor: pointer;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+      transition:
+        transform 160ms ease,
+        opacity 160ms ease,
+        background 180ms ease,
+        border-color 180ms ease,
+        color 180ms ease,
+        box-shadow 180ms ease;
+    }
+
+    .interactive:active {
+      transform: scale(0.96);
+    }
+
+    .tab.interactive:active {
+      transform: none;
+    }
+
+    .phone[data-tab="care"] .tab[data-tab-target="sleep"] {
+      color: rgba(60, 61, 64, 0.62);
+      font-weight: 510;
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .phone[data-tab="care"] .tab[data-tab-target="care"] {
+      color: var(--primary);
+      font-weight: 590;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba(29, 16, 63, 0.04);
+    }
+
+    .main-action {
+      position: absolute;
+      left: 274px;
+      top: 2.5px;
+      width: 64px;
+      height: 64px;
+      border-radius: 1800px;
+      display: grid;
+      place-items: center;
+      background: var(--primary);
+      overflow: hidden;
+    }
+
+    .main-action .pause-svg {
+      width: 32px;
+      height: 32px;
+      display: block;
+    }
+
+    .play-icon {
+      width: 26px;
+      height: 26px;
+      display: none;
+      position: relative;
+    }
+
+    .play-icon::before {
+      content: "";
+      position: absolute;
+      left: 6px;
+      top: 3px;
+      width: 16px;
+      height: 20px;
+      background: #fff;
+      clip-path: polygon(0 0, 100% 50%, 0 100%);
+    }
+
+    .phone[data-mode="off"] .main-action .pause-svg {
+      display: none;
+    }
+
+    .phone[data-mode="off"] .play-icon {
+      display: block;
+    }
+
+    .feature-card.interactive {
+      text-align: left;
+    }
+
+    .feature-card:not(.is-active) {
+      border-color: rgba(200, 189, 255, 0.2);
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .feature-card:not(.is-active) .round-action {
+      background: rgba(85, 44, 149, 0.08);
+    }
+
+    .feature-card:not(.is-active) .round-action img {
+      filter: brightness(0) saturate(100%) invert(24%) sepia(37%) saturate(2042%) hue-rotate(238deg) brightness(83%) contrast(95%);
+    }
+
+    .feature-card.is-active.motion {
+      border-color: #c8bdff;
+      background: linear-gradient(140.581deg, rgba(200, 189, 255, 0.2) 10.1%, rgba(200, 189, 255, 0.1) 56.229%, rgba(200, 189, 255, 0.63) 108.23%);
+    }
+
+    .feature-card.is-active.noise {
+      background: linear-gradient(143.052deg, rgba(200, 189, 255, 0.19) 8.0045%, rgba(212, 203, 254, 0.17) 48.01%, #ddd6fe 106.96%);
+    }
+
+    .feature-card.is-active .marquee-track {
+      animation: subtitleMarquee 3.2s linear infinite;
+    }
+
+    .phone[data-mode="off"] .feature-card {
+      border-color: rgba(200, 189, 255, 0.2);
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .phone[data-mode="off"] .feature-card .round-action {
+      background: rgba(85, 44, 149, 0.08);
+    }
+
+    .phone[data-mode="off"] .feature-card .round-action img {
+      filter: brightness(0) saturate(100%) invert(24%) sepia(37%) saturate(2042%) hue-rotate(238deg) brightness(83%) contrast(95%);
+    }
+
+    .phone[data-mode="off"] .care-shell {
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .phone[data-mode="off"] .timer-pill {
+      color: var(--primary);
+    }
+
+    .phone[data-light="on"] .switch {
+      background: var(--primary);
+    }
+
+    .phone[data-light="on"] .switch::after {
+      left: 22px;
+    }
+
+    .phone[data-light="on"] .light {
+      box-shadow: 0 0 0 1px rgba(200, 189, 255, 0.22) inset;
+    }
+
+    .phone[data-light-expanded="on"] .light {
+      height: 132px;
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .phone[data-light-expanded="on"] .light-inner {
+      top: 20px;
+    }
+
+    .phone[data-light-expanded="on"] .light-slider {
+      display: block;
+    }
+
+    .camera-panel {
+      position: absolute;
+      left: 16px;
+      top: 64px;
+      width: 370px;
+      height: 469px;
+      display: none;
+      overflow: visible;
+    }
+
+    .phone[data-tab="care"] .care-shell,
+    .phone[data-tab="care"] .light {
+      display: none;
+    }
+
+    .phone[data-tab="care"] .camera-panel {
+      display: block;
+    }
+
+    .care-shortcuts {
+      display: flex;
+      gap: 16px;
+      width: 386px;
+      height: 64px;
+      overflow: visible;
+    }
+
+    .care-shortcut {
+      width: 64px;
+      height: 64px;
+      border: 1px solid rgba(200, 189, 255, 0.3);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.72);
+      color: #160038;
+      box-shadow: 0 1px 2px rgba(29, 16, 63, 0.02);
+      flex: none;
+    }
+
+    .care-shortcut.is-muted {
+      color: rgba(117, 108, 132, 0.52);
+    }
+
+    .care-shortcut svg {
+      width: 26px;
+      height: 26px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .care-log-panel {
+      position: absolute;
+      left: 0;
+      top: 80px;
+      width: 370px;
+      height: 268px;
+      border: 1.2px solid rgba(200, 189, 255, 0.2);
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.58);
+      overflow: hidden;
+    }
+
+    .care-log-label {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      color: rgba(60, 61, 64, 0.62);
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 400;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .smart-care {
+      position: absolute;
+      right: 16px;
+      top: 18px;
+      height: 36px;
+      padding: 0 17px;
+      border: 1px solid rgba(200, 189, 255, 0.35);
+      border-radius: 999px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      background: rgba(200, 189, 255, 0.2);
+      color: var(--primary);
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 510;
+      white-space: nowrap;
+    }
+
+    .smart-care svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .event-count {
+      position: absolute;
+      left: 16px;
+      top: 41px;
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      color: var(--ink);
+    }
+
+    .event-count-number {
+      font-size: 40px;
+      line-height: 48px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .event-count-label {
+      margin-bottom: 9px;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+      letter-spacing: 0;
+    }
+
+    .care-events-viewport {
+      position: absolute;
+      left: 16px;
+      top: 103px;
+      width: 354px;
+      height: 149px;
+      overflow: hidden;
+    }
+
+    .care-events {
+      display: flex;
+      gap: 10px;
+      width: max-content;
+    }
+
+    .care-event {
+      width: 141px;
+      flex: none;
+      color: var(--ink);
+    }
+
+    .care-event-image {
+      position: relative;
+      width: 141px;
+      height: 104px;
+      border-radius: 4px;
+      overflow: hidden;
+      background: #ddd6fe;
+    }
+
+    .care-event-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .care-event-title {
+      display: block;
+      margin-top: 5px;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 400;
+      letter-spacing: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .care-event-time {
+      display: block;
+      margin-top: 1px;
+      color: rgba(16, 0, 40, 0.5);
+      font-size: 14px;
+      line-height: 18px;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .care-action-row {
+      position: absolute;
+      left: 0;
+      top: 365px;
+      width: 370px;
+      height: 104px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .care-action-card {
+      position: relative;
+      width: 180px;
+      height: 104px;
+      border: 1.2px solid rgba(200, 189, 255, 0.2);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, 0.58);
+      color: var(--primary);
+      overflow: hidden;
+    }
+
+    .care-action-icon {
+      position: absolute;
+      left: 16px;
+      top: 16px;
+      width: 24px;
+      height: 24px;
+      color: var(--primary);
+    }
+
+    .care-action-icon svg {
+      width: 24px;
+      height: 24px;
+      stroke: currentColor;
+      stroke-width: 1.8;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .care-action-title {
+      position: absolute;
+      left: 16px;
+      top: 64px;
+      font-size: 18px;
+      line-height: 22px;
+      font-weight: 510;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .care-action-chevron {
+      position: absolute;
+      right: 18px;
+      top: 22px;
+      width: 16px;
+      height: 16px;
+      color: rgba(60, 61, 64, 0.62);
+    }
+
+    .care-action-chevron svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .pulse-ring {
+      position: absolute;
+      inset: -6px;
+      border: 1px solid rgba(85, 44, 149, 0);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    .phone[data-mode="on"] .main-action .pulse-ring {
+      animation: pulse 1.8s ease-out infinite;
+    }
+
+    @keyframes pulse {
+      0% {
+        opacity: 0.8;
+        transform: scale(0.92);
+        border-color: rgba(85, 44, 149, 0.35);
+      }
+
+      100% {
+        opacity: 0;
+        transform: scale(1.18);
+        border-color: rgba(85, 44, 149, 0);
+      }
+    }
+
+    @keyframes subtitleMarquee {
+      0% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      58% {
+        opacity: 1;
+        transform: translateX(-64px);
+      }
+
+      72% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+
+      73% {
+        opacity: 0;
+        transform: translateX(116px);
+      }
+
+      86% {
+        opacity: 1;
+        transform: translateX(18px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <main class="phone" data-mode="off" data-music="off" data-motion="off" data-light="off" data-tab="sleep" aria-label="Baby Crib app control prototype">
+    <div class="top-glow-frame">
+      <img class="top-glow" src="figma-baby-crib-assets/top-glow.svg" alt="">
+    </div>
+
+    <section class="status-bar" aria-label="Status bar">
+      <div class="status-time">7:41</div>
+      <div class="status-levels">
+        <img class="cellular" src="figma-baby-crib-assets/cellular.svg" alt="">
+        <img class="wifi" src="figma-baby-crib-assets/wifi.svg" alt="">
+        <img class="battery" src="figma-baby-crib-assets/battery.svg" alt="">
+      </div>
+    </section>
+
+    <nav class="nav" aria-label="Screen header">
+      <div class="nav-inner">
+        <button class="icon-button back-button interactive" type="button" aria-label="Back"><img src="figma-baby-crib-assets/arrow-left.svg" alt=""></button>
+        <div class="title">Baby Crib</div>
+        <button class="icon-button filter-button interactive" type="button" aria-label="Settings"><img src="figma-baby-crib-assets/filter.svg" alt=""></button>
+      </div>
+    </nav>
+
+    <section class="monitor" aria-label="Live monitor">
+      <img class="video" src="figma-baby-crib-assets/live-monitor.png" alt="">
+
+      <div class="watermark">
+        <div class="watermark-logo-wrap">
+          <img class="watermark-logo" src="figma-baby-crib-assets/baby-live-chip.png" alt="">
+        </div>
+        <img class="live-dot" src="figma-baby-crib-assets/watermark-ring.svg" alt="">
+        <span class="watermark-time">2026-05-13 10:56:39</span>
+      </div>
+
+      <div class="camera-controls-left">
+        <button class="glass-circle interactive" type="button" aria-label="Mute camera audio"><img src="figma-baby-crib-assets/volume-off.svg" alt=""></button>
+        <button class="hd-pill interactive" type="button" aria-label="Video quality">
+          <span>HD</span>
+          <img src="figma-baby-crib-assets/arrow-down.svg" alt="">
+        </button>
+      </div>
+
+      <button class="fullscreen interactive" type="button" aria-label="Fullscreen"><img src="figma-baby-crib-assets/fullscreen.svg" alt=""></button>
+    </section>
+
+    <section class="content" aria-label="Sleep and care controls">
+      <div class="tabs">
+        <button class="tab active interactive" data-tab-target="sleep" type="button">Sleep</button>
+        <button class="tab interactive" data-tab-target="care" type="button">Care</button>
+      </div>
+
+      <section class="care-shell" aria-label="Care log">
+        <div class="mode-header">
+          <div class="mode-copy">
+            <p class="mode-title">Sleep-Soothing Mode</p>
+            <div class="timer-pill">
+              <span class="timer-icon">
+                <img class="timer-ring" src="figma-baby-crib-assets/timer-ring.svg" alt="">
+                <img class="timer-hand" src="figma-baby-crib-assets/timer-hand.svg" alt="">
+                <img class="timer-top" src="figma-baby-crib-assets/timer-top.svg" alt="">
+              </span>
+              <span class="timer-value">20:00</span>
+            </div>
+          </div>
+          <button class="main-action interactive" id="smartToggle" type="button" aria-label="Start sleep soothing mode">
+            <span class="pulse-ring"></span>
+            <span class="play-icon" aria-hidden="true"></span>
+            <img class="pause-svg" src="figma-baby-crib-assets/pause.svg" alt="">
+          </button>
+        </div>
+
+        <div class="feature-row">
+          <button class="feature-card motion interactive" id="motionCard" type="button" aria-label="Toggle soothing motion">
+            <div class="feature-top">
+              <div class="round-action"><img src="figma-baby-crib-assets/moon.svg" alt=""></div>
+              <img class="radio" src="figma-baby-crib-assets/radio.svg" alt="">
+            </div>
+            <div class="feature-copy motion-copy">
+              <span class="mini-pill">M</span>
+              <span class="feature-title">Soothing Motion</span>
+              <span class="feature-subtitle"><span class="marquee-track">Motion Curve 3</span></span>
+            </div>
+          </button>
+
+          <button class="feature-card noise interactive" id="musicCard" type="button" aria-label="Toggle white noise">
+            <div class="feature-top">
+              <div class="round-action">
+                <span class="music-icon">
+                  <img class="music-1" src="figma-baby-crib-assets/music-1.svg" alt="">
+                  <img class="music-2" src="figma-baby-crib-assets/music-2.svg" alt="">
+                  <img class="music-3" src="figma-baby-crib-assets/music-3.svg" alt="">
+                  <img class="music-4" src="figma-baby-crib-assets/music-4.svg" alt="">
+                  <img class="music-5" src="figma-baby-crib-assets/music-5.svg" alt="">
+                </span>
+              </div>
+              <img class="radio" src="figma-baby-crib-assets/radio.svg" alt="">
+            </div>
+            <div class="feature-copy noise-copy">
+              <span class="feature-title">White Noise</span>
+              <span class="feature-subtitle"><span class="marquee-track">Ocean Waves</span></span>
+            </div>
+          </button>
+        </div>
+      </section>
+
+      <section class="camera-panel" aria-label="Care controls">
+        <div class="care-shortcuts" aria-label="Care quick controls">
+          <button class="care-shortcut interactive" type="button" aria-label="Photo snapshot">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6.5 7.5 8.2 5h7.6l1.7 2.5H20a2 2 0 0 1 2 2v7.2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5a2 2 0 0 1 2-2h2.5Z" />
+              <circle cx="12" cy="13" r="3.5" />
+            </svg>
+          </button>
+          <button class="care-shortcut interactive" type="button" aria-label="Record video">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="6" width="12" height="12" rx="3" />
+              <path d="m15 10 5-3v10l-5-3" />
+            </svg>
+          </button>
+          <button class="care-shortcut interactive" type="button" aria-label="Microphone">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="9" y="3" width="6" height="11" rx="3" />
+              <path d="M5 11a7 7 0 0 0 14 0" />
+              <path d="M12 18v3" />
+              <path d="M8 21h8" />
+            </svg>
+          </button>
+          <button class="care-shortcut interactive" type="button" aria-label="Movement control">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="5" r="2" />
+              <circle cx="12" cy="19" r="2" />
+              <circle cx="5" cy="12" r="2" />
+              <circle cx="19" cy="12" r="2" />
+              <circle cx="12" cy="12" r="1.5" />
+            </svg>
+          </button>
+          <button class="care-shortcut is-muted interactive" type="button" aria-label="Music">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9 18V5l10-2v13" />
+              <path d="M9 9 19 7" />
+              <circle cx="6" cy="18" r="3" />
+              <circle cx="16" cy="16" r="3" />
+            </svg>
+          </button>
+        </div>
+
+        <section class="care-log-panel" aria-label="Today's Care Log">
+          <div class="care-log-label">Today’s Care Log</div>
+          <button class="smart-care interactive" type="button" aria-label="Smart Care">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="4" y="8" width="16" height="10" rx="3" />
+              <path d="M8 8V6a4 4 0 0 1 8 0v2" />
+              <path d="M9 13h6" />
+              <path d="M12 10v6" />
+            </svg>
+            <span>Smart Care</span>
+          </button>
+          <div class="event-count" aria-label="5 events">
+            <span class="event-count-number">5</span>
+            <span class="event-count-label">events</span>
+          </div>
+          <div class="care-events-viewport">
+            <div class="care-events">
+              <button class="care-event interactive" type="button" aria-label="Prone Sleeping event at 17:00">
+                <span class="care-event-image">
+                  <img src="figma-baby-crib-assets/care-event-prone.png" alt="">
+                </span>
+                <span class="care-event-title">Prone Sleeping</span>
+                <span class="care-event-time">17:00</span>
+              </button>
+              <button class="care-event interactive" type="button" aria-label="Crying event at 17:00">
+                <span class="care-event-image">
+                  <img src="figma-baby-crib-assets/care-event-crying.png" alt="">
+                </span>
+                <span class="care-event-title">Crying</span>
+                <span class="care-event-time">17:00</span>
+              </button>
+              <button class="care-event interactive" type="button" aria-label="Face Covered event at 17:00">
+                <span class="care-event-image">
+                  <img src="figma-baby-crib-assets/care-event-face.png" alt="">
+                </span>
+                <span class="care-event-title">Face Covered</span>
+                <span class="care-event-time">17:00</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <div class="care-action-row">
+          <button class="care-action-card interactive" type="button" aria-label="Playback">
+            <span class="care-action-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="5" width="14" height="12" rx="3" />
+                <path d="m9 9 4 2-4 2V9Z" />
+                <path d="M18 17v4" />
+                <path d="M16 19h4" />
+              </svg>
+            </span>
+            <span class="care-action-chevron">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+            </span>
+            <span class="care-action-title">Playback</span>
+          </button>
+          <button class="care-action-card interactive" type="button" aria-label="Album">
+            <span class="care-action-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <rect x="3" y="7" width="16" height="12" rx="3" />
+                <path d="M7 7V5h8l2 2" />
+                <path d="m7 15 2.2-2.2a1.6 1.6 0 0 1 2.2 0L13 14.4l1-1a1.6 1.6 0 0 1 2.2 0L19 16.2" />
+              </svg>
+            </span>
+            <span class="care-action-chevron">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
+            </span>
+            <span class="care-action-title">Album</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="light" role="button" tabindex="0" aria-label="Night light" aria-expanded="false">
+        <div class="light-inner">
+          <div class="light-copy">
+            <span class="light-name">Night Light</span>
+            <img class="divider" src="figma-baby-crib-assets/divider.svg" alt="">
+            <span class="light-percent">50%</span>
+          </div>
+          <button class="switch interactive" id="lightSwitch" type="button" aria-label="Toggle night light"></button>
+        </div>
+        <div class="light-slider interactive" id="lightSlider" role="slider" tabindex="0" aria-label="Adjust night light brightness" aria-valuemin="1" aria-valuemax="100" aria-valuenow="50">
+          <span class="light-slider-track" aria-hidden="true">
+            <span class="light-slider-fill"></span>
+            <span class="light-slider-knob"></span>
+          </span>
+          <span class="light-slider-label light-slider-min">1%</span>
+          <span class="light-slider-label light-slider-max">100%</span>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script>
+    const phone = document.querySelector(".phone");
+    const smartToggle = document.querySelector("#smartToggle");
+    const timerValue = document.querySelector(".timer-value");
+    const motionCard = document.querySelector("#motionCard");
+    const musicCard = document.querySelector("#musicCard");
+    const lightCard = document.querySelector(".light");
+    const lightSwitch = document.querySelector("#lightSwitch");
+    const lightSlider = document.querySelector("#lightSlider");
+    const lightPercent = document.querySelector(".light-percent");
+    const tabButtons = document.querySelectorAll("[data-tab-target]");
+
+    const DEFAULT_SECONDS = 20 * 60;
+    const ACTIVE_SECONDS = 19 * 60 + 32;
+
+    const state = {
+      mode: "off",
+      motion: false,
+      music: false,
+      light: false,
+      lightExpanded: false,
+      lightLevel: 50,
+      seconds: DEFAULT_SECONDS
+    };
+
+    let ticker;
+
+    function formatTime(totalSeconds) {
+      const minutes = Math.floor(totalSeconds / 60);
+      const seconds = totalSeconds % 60;
+      return `${minutes}:${String(seconds).padStart(2, "0")}`;
+    }
+
+    function clamp(value, min, max) {
+      return Math.min(max, Math.max(min, value));
+    }
+
+    function getLightFillWidth() {
+      return 16 + (336 - 16) * ((state.lightLevel - 1) / 99);
+    }
+
+    function setLightLevel(level) {
+      state.lightLevel = clamp(Math.round(level), 1, 100);
+    }
+
+    function stopTimer() {
+      if (ticker) {
+        clearInterval(ticker);
+        ticker = undefined;
+      }
+    }
+
+    function isRunning() {
+      return state.motion || state.music;
+    }
+
+    function syncModeFromFeatures() {
+      state.mode = isRunning() ? "on" : "off";
+      if (state.mode === "off") state.seconds = DEFAULT_SECONDS;
+    }
+
+    function startTimer() {
+      if (ticker) return;
+      ticker = setInterval(() => {
+        if (!isRunning()) {
+          stopTimer();
+          return;
+        }
+        state.seconds = Math.max(0, state.seconds - 1);
+        timerValue.textContent = formatTime(state.seconds);
+      }, 1000);
+    }
+
+    function render() {
+      syncModeFromFeatures();
+
+      const running = state.mode === "on";
+
+      phone.dataset.mode = running ? "on" : "off";
+      phone.dataset.music = state.music ? "on" : "off";
+      phone.dataset.motion = state.motion ? "on" : "off";
+      phone.dataset.light = state.light ? "on" : "off";
+      phone.dataset.lightExpanded = state.lightExpanded ? "on" : "off";
+      lightCard.style.setProperty("--light-fill-width", `${getLightFillWidth()}px`);
+
+      timerValue.textContent = running ? formatTime(state.seconds) : formatTime(DEFAULT_SECONDS);
+      lightPercent.textContent = `${state.lightLevel}%`;
+      smartToggle.setAttribute("aria-label", running ? "Pause sleep soothing mode" : "Start sleep soothing mode");
+      smartToggle.setAttribute("aria-pressed", String(running));
+      lightSwitch.setAttribute("aria-label", state.light ? "Turn night light off" : "Turn night light on");
+      lightCard.setAttribute("aria-expanded", String(state.lightExpanded));
+      lightSlider.setAttribute("aria-valuenow", String(state.lightLevel));
+
+      motionCard.classList.toggle("is-active", state.motion);
+      musicCard.classList.toggle("is-active", state.music);
+      motionCard.setAttribute("aria-pressed", String(state.motion));
+      musicCard.setAttribute("aria-pressed", String(state.music));
+      motionCard.setAttribute("aria-label", state.motion ? "Turn soothing motion off" : "Turn soothing motion on");
+      musicCard.setAttribute("aria-label", state.music ? "Turn white noise off" : "Turn white noise on");
+      lightSwitch.setAttribute("aria-pressed", String(state.light));
+
+      if (running) startTimer();
+      else stopTimer();
+    }
+
+    smartToggle.addEventListener("click", () => {
+      if (isRunning()) {
+        state.motion = false;
+        state.music = false;
+        state.seconds = DEFAULT_SECONDS;
+      } else {
+        state.motion = true;
+        state.music = true;
+        state.seconds = ACTIVE_SECONDS;
+      }
+      render();
+    });
+
+    motionCard.addEventListener("click", () => {
+      const wasRunning = isRunning();
+      state.motion = !state.motion;
+      if (!wasRunning && state.motion) state.seconds = ACTIVE_SECONDS;
+      render();
+    });
+
+    musicCard.addEventListener("click", () => {
+      const wasRunning = isRunning();
+      state.music = !state.music;
+      if (!wasRunning && state.music) state.seconds = ACTIVE_SECONDS;
+      render();
+    });
+
+    lightCard.addEventListener("click", () => {
+      if (!state.lightExpanded) setLightLevel(1);
+      state.lightExpanded = true;
+      state.light = true;
+      render();
+    });
+
+    lightCard.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      if (!state.lightExpanded) setLightLevel(1);
+      state.lightExpanded = true;
+      state.light = true;
+      render();
+    });
+
+    lightSwitch.addEventListener("click", (event) => {
+      event.stopPropagation();
+      if (!state.lightExpanded && !state.light) setLightLevel(1);
+      state.lightExpanded = true;
+      state.light = !state.light;
+      render();
+    });
+
+    lightSlider.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const rect = lightSlider.getBoundingClientRect();
+      const x = clamp(event.clientX - rect.left, 0, rect.width);
+      setLightLevel((x / rect.width) * 100);
+      state.lightExpanded = true;
+      state.light = true;
+      render();
+    });
+
+    lightSlider.addEventListener("keydown", (event) => {
+      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+      event.preventDefault();
+      setLightLevel(state.lightLevel + (event.key === "ArrowRight" ? 1 : -1));
+      state.lightExpanded = true;
+      state.light = true;
+      render();
+    });
+
+    tabButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        phone.dataset.tab = button.dataset.tabTarget;
+        tabButtons.forEach((tabButton) => {
+          tabButton.classList.toggle("active", tabButton === button);
+        });
+      });
+    });
+
+    render();
+  </script>
+</body>
+</html>
