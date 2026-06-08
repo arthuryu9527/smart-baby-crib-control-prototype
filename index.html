@@ -36,9 +36,34 @@
     }
 
     body {
-      display: grid;
-      place-items: center;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
       padding: 24px;
+    }
+
+    .app-shell {
+      width: min(100%, 1120px);
+      display: grid;
+      grid-template-columns: 402px minmax(360px, 520px);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .prototype-column {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .column-kicker {
+      width: 100%;
+      color: rgba(22, 0, 56, 0.58);
+      font-size: 13px;
+      font-weight: 510;
+      line-height: 18px;
+      letter-spacing: 0;
     }
 
     .phone {
@@ -49,6 +74,179 @@
       background: #fff;
       color: #000;
       box-shadow: 0 24px 70px rgba(40, 38, 59, 0.18);
+    }
+
+    .prd-panel {
+      height: 904px;
+      max-height: calc(100vh - 48px);
+      overflow: auto;
+      padding: 28px;
+      border: 1px solid rgba(22, 0, 56, 0.08);
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: 0 20px 60px rgba(40, 38, 59, 0.12);
+      color: #1c1c20;
+    }
+
+    .prd-eyebrow {
+      margin: 0 0 8px;
+      color: var(--primary);
+      font-size: 13px;
+      font-weight: 590;
+      line-height: 18px;
+      letter-spacing: 0;
+    }
+
+    .prd-title {
+      margin: 0;
+      color: #160038;
+      font-size: 28px;
+      font-weight: 650;
+      line-height: 34px;
+      letter-spacing: 0;
+    }
+
+    .prd-summary {
+      margin: 12px 0 22px;
+      color: rgba(28, 28, 32, 0.68);
+      font-size: 15px;
+      line-height: 22px;
+    }
+
+    .prd-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .prd-meta-item {
+      padding: 12px;
+      border: 1px solid rgba(22, 0, 56, 0.07);
+      border-radius: 12px;
+      background: rgba(248, 247, 251, 0.76);
+    }
+
+    .prd-meta-label {
+      display: block;
+      margin-bottom: 4px;
+      color: rgba(28, 28, 32, 0.48);
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+    .prd-meta-value {
+      color: #1c1c20;
+      font-size: 14px;
+      font-weight: 590;
+      line-height: 18px;
+    }
+
+    .prd-section {
+      padding: 22px 0;
+      border-top: 1px solid rgba(22, 0, 56, 0.08);
+    }
+
+    .prd-section h2 {
+      margin: 0 0 12px;
+      color: #160038;
+      font-size: 17px;
+      font-weight: 650;
+      line-height: 22px;
+      letter-spacing: 0;
+    }
+
+    .prd-list {
+      margin: 0;
+      padding-left: 18px;
+      color: rgba(28, 28, 32, 0.78);
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    .prd-list li + li {
+      margin-top: 8px;
+    }
+
+    .prd-flow {
+      display: grid;
+      gap: 10px;
+    }
+
+    .prd-flow-item {
+      display: grid;
+      grid-template-columns: 92px 1fr;
+      gap: 12px;
+      align-items: start;
+      padding: 12px 0;
+      border-top: 1px solid rgba(22, 0, 56, 0.06);
+    }
+
+    .prd-flow-item:first-child {
+      border-top: 0;
+    }
+
+    .prd-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 24px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      background: rgba(85, 44, 149, 0.1);
+      color: var(--primary);
+      font-size: 12px;
+      font-weight: 590;
+      line-height: 16px;
+      white-space: nowrap;
+    }
+
+    .prd-flow-copy {
+      margin: 0;
+      color: rgba(28, 28, 32, 0.76);
+      font-size: 14px;
+      line-height: 21px;
+    }
+
+    .prd-table {
+      width: 100%;
+      border-collapse: collapse;
+      color: rgba(28, 28, 32, 0.76);
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .prd-table th,
+    .prd-table td {
+      padding: 10px 0;
+      border-top: 1px solid rgba(22, 0, 56, 0.08);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .prd-table th {
+      color: rgba(28, 28, 32, 0.5);
+      font-weight: 590;
+    }
+
+    @media (max-width: 820px) {
+      body {
+        padding: 16px;
+      }
+
+      .app-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .prototype-column {
+        align-items: flex-start;
+      }
+
+      .prd-panel {
+        height: auto;
+        min-height: auto;
+        max-height: none;
+      }
     }
 
     .top-glow-frame {
@@ -1264,7 +1462,10 @@
   </style>
 </head>
 <body>
-  <main class="phone" data-mode="off" data-music="off" data-motion="off" data-light="off" data-tab="sleep" aria-label="Baby Crib app control prototype">
+  <div class="app-shell">
+    <section class="prototype-column" aria-label="Interactive prototype preview">
+      <div class="column-kicker">交互原型</div>
+      <main class="phone" data-mode="off" data-music="off" data-motion="off" data-light="off" data-tab="sleep" aria-label="Baby Crib app control prototype">
     <div class="top-glow-frame">
       <img class="top-glow" src="figma-baby-crib-assets/top-glow.svg" alt="">
     </div>
@@ -1501,7 +1702,113 @@
         </div>
       </section>
     </section>
-  </main>
+      </main>
+    </section>
+
+    <aside class="prd-panel" aria-label="Product requirements document">
+      <p class="prd-eyebrow">需求 PRD</p>
+      <h1 class="prd-title">智能婴儿床 App 控制页</h1>
+      <p class="prd-summary">面向看护人远程查看婴儿床状态、启动睡眠安抚、调整白噪音/摇摆/夜灯，并快速进入看护记录的单页控制体验。</p>
+
+      <div class="prd-meta" aria-label="PRD metadata">
+        <div class="prd-meta-item">
+          <span class="prd-meta-label">版本</span>
+          <span class="prd-meta-value">V1.0 原型验证</span>
+        </div>
+        <div class="prd-meta-item">
+          <span class="prd-meta-label">核心场景</span>
+          <span class="prd-meta-value">睡眠安抚 / 远程看护</span>
+        </div>
+        <div class="prd-meta-item">
+          <span class="prd-meta-label">目标用户</span>
+          <span class="prd-meta-value">夜间照护人与新手父母</span>
+        </div>
+        <div class="prd-meta-item">
+          <span class="prd-meta-label">页面状态</span>
+          <span class="prd-meta-value">Sleep / Care 双 Tab</span>
+        </div>
+      </div>
+
+      <section class="prd-section">
+        <h2>一、用户目标</h2>
+        <ol class="prd-list">
+          <li>快速确认婴儿当前画面，并保留静音、清晰度和全屏观看入口。</li>
+          <li>一键启动睡眠安抚，同时运行摇摆和白噪音，减少夜间操作成本。</li>
+          <li>允许用户单独开关摇摆、白噪音和夜灯，满足不同安抚策略。</li>
+          <li>在 Care 页查看今日看护事件，并快速进入拍照、录像、麦克风、方向控制和音乐入口。</li>
+        </ol>
+      </section>
+
+      <section class="prd-section">
+        <h2>二、页面模块</h2>
+        <div class="prd-flow">
+          <div class="prd-flow-item">
+            <span class="prd-tag">Live</span>
+            <p class="prd-flow-copy">顶部展示实时摄像头画面，叠加品牌水印、时间、音频静音、HD 清晰度和全屏按钮。</p>
+          </div>
+          <div class="prd-flow-item">
+            <span class="prd-tag">Sleep</span>
+            <p class="prd-flow-copy">默认展示 Sleep-Soothing Mode，包含倒计时、总控播放键、Soothing Motion、White Noise 和 Night Light。</p>
+          </div>
+          <div class="prd-flow-item">
+            <span class="prd-tag">Care</span>
+            <p class="prd-flow-copy">切换 Care Tab 后展示快捷控制、今日事件数量、事件列表以及 Playback / Album 操作入口。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="prd-section">
+        <h2>三、核心交互规则</h2>
+        <table class="prd-table">
+          <thead>
+            <tr>
+              <th>对象</th>
+              <th>触发</th>
+              <th>结果</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>总控播放键</td>
+              <td>点击播放</td>
+              <td>Soothing Motion 与 White Noise 同时点亮，倒计时进入 19:32 并继续递减。</td>
+            </tr>
+            <tr>
+              <td>子功能卡片</td>
+              <td>单独点击</td>
+              <td>对应功能独立开启或关闭；只要任一功能运行，总控保持播放态。</td>
+            </tr>
+            <tr>
+              <td>停止态</td>
+              <td>两个子功能均关闭</td>
+              <td>总控自动回到停止态，倒计时恢复 20:00。</td>
+            </tr>
+            <tr>
+              <td>播放文案</td>
+              <td>功能运行中</td>
+              <td>Motion Curve 3 与 Ocean Waves 从右向左循环滚动，模拟音乐播放动效。</td>
+            </tr>
+            <tr>
+              <td>Night Light</td>
+              <td>点击整行</td>
+              <td>展开 1%-100% 亮度滑杆，默认打开并显示 1%，开关和滑杆可独立操作。</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="prd-section">
+        <h2>四、验收标准</h2>
+        <ol class="prd-list">
+          <li>默认进入页面时 Sleep Tab 选中，主控为停止态，摇摆、白噪音、夜灯均不运行。</li>
+          <li>点击主控后，两个安抚子功能同步激活，卡片视觉高亮，倒计时开始。</li>
+          <li>用户关闭任一子功能后，另一项仍可保持运行；两项全部关闭后主控自动停止。</li>
+          <li>点击 Night Light 后出现与设计一致的亮度控制卡片，滑杆可更新百分比。</li>
+          <li>Care Tab 内容与看护信息页一致，事件列表和快捷操作在 402px 手机宽度内不重叠。</li>
+        </ol>
+      </section>
+    </aside>
+  </div>
   <script>
     const phone = document.querySelector(".phone");
     const smartToggle = document.querySelector("#smartToggle");
