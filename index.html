@@ -1,38 +1,21 @@
 <!doctype html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Smart Baby Crib Control Prototype</title>
+  <title>Figma Baby Crib Interactive Prototype</title>
   <style>
-    :root {
-      --primary: #552c95;
-      --ink: #160038;
-      --soft-purple: #c8bdff;
-      --asset-path: "figma-baby-crib-assets/";
-    }
-
     * {
       box-sizing: border-box;
-    }
-
-    button {
-      appearance: none;
-      border: 0;
-      margin: 0;
-      padding: 0;
-      background: transparent;
-      color: inherit;
-      font: inherit;
     }
 
     html,
     body {
       margin: 0;
       min-height: 100%;
-      background: #edf0f5;
-      font-family: "SF Pro Display", "SF Pro Text", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      font-variant-numeric: tabular-nums;
+      background: #eef0f6;
+      color: #1b1523;
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
     body {
@@ -42,1958 +25,3392 @@
       padding: 24px;
     }
 
-    .app-shell {
-      width: min(100%, 1120px);
+    .stage {
       display: grid;
-      grid-template-columns: 402px minmax(360px, 520px);
-      gap: 24px;
-      align-items: start;
-    }
-
-    .prototype-column {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       gap: 12px;
-    }
-
-    .column-kicker {
-      width: 100%;
-      color: rgba(22, 0, 56, 0.58);
-      font-size: 13px;
-      font-weight: 510;
-      line-height: 18px;
-      letter-spacing: 0;
+      justify-items: center;
     }
 
     .phone {
       position: relative;
-      width: 402px;
-      height: 904px;
+      width: var(--screen-w);
+      height: var(--screen-h);
       overflow: hidden;
       background: #fff;
-      color: #000;
-      box-shadow: 0 24px 70px rgba(40, 38, 59, 0.18);
+      box-shadow: 0 24px 80px rgba(31, 28, 46, 0.18);
+      transition: width 320ms cubic-bezier(0.22, 1, 0.36, 1), height 320ms cubic-bezier(0.22, 1, 0.36, 1);
+      contain: layout paint;
     }
 
-    .prd-panel {
-      height: 904px;
-      max-height: calc(100vh - 48px);
-      overflow: auto;
-      padding: 28px;
-      border: 1px solid rgba(22, 0, 56, 0.08);
-      border-radius: 18px;
-      background: rgba(255, 255, 255, 0.82);
-      box-shadow: 0 20px 60px rgba(40, 38, 59, 0.12);
-      color: #1c1c20;
-    }
-
-    .prd-eyebrow {
-      margin: 0 0 8px;
-      color: var(--primary);
-      font-size: 13px;
-      font-weight: 590;
-      line-height: 18px;
-      letter-spacing: 0;
-    }
-
-    .prd-title {
-      margin: 0;
-      color: #160038;
-      font-size: 28px;
-      font-weight: 650;
-      line-height: 34px;
-      letter-spacing: 0;
-    }
-
-    .prd-summary {
-      margin: 12px 0 22px;
-      color: rgba(28, 28, 32, 0.68);
-      font-size: 15px;
-      line-height: 22px;
-    }
-
-    .prd-meta {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .prd-meta-item {
-      padding: 12px;
-      border: 1px solid rgba(22, 0, 56, 0.07);
-      border-radius: 12px;
-      background: rgba(248, 247, 251, 0.76);
-    }
-
-    .prd-meta-label {
-      display: block;
-      margin-bottom: 4px;
-      color: rgba(28, 28, 32, 0.48);
-      font-size: 12px;
-      line-height: 16px;
-    }
-
-    .prd-meta-value {
-      color: #1c1c20;
-      font-size: 14px;
-      font-weight: 590;
-      line-height: 18px;
-    }
-
-    .prd-section {
-      padding: 22px 0;
-      border-top: 1px solid rgba(22, 0, 56, 0.08);
-    }
-
-    .prd-section h2 {
-      margin: 0 0 12px;
-      color: #160038;
-      font-size: 17px;
-      font-weight: 650;
-      line-height: 22px;
-      letter-spacing: 0;
-    }
-
-    .prd-list {
-      margin: 0;
-      padding-left: 18px;
-      color: rgba(28, 28, 32, 0.78);
-      font-size: 14px;
-      line-height: 21px;
-    }
-
-    .prd-list li + li {
-      margin-top: 8px;
-    }
-
-    .prd-flow {
-      display: grid;
-      gap: 10px;
-    }
-
-    .prd-flow-item {
-      display: grid;
-      grid-template-columns: 92px 1fr;
-      gap: 12px;
-      align-items: start;
-      padding: 12px 0;
-      border-top: 1px solid rgba(22, 0, 56, 0.06);
-    }
-
-    .prd-flow-item:first-child {
-      border-top: 0;
-    }
-
-    .prd-tag {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 24px;
-      padding: 3px 9px;
-      border-radius: 999px;
-      background: rgba(85, 44, 149, 0.1);
-      color: var(--primary);
-      font-size: 12px;
-      font-weight: 590;
-      line-height: 16px;
-      white-space: nowrap;
-    }
-
-    .prd-flow-copy {
-      margin: 0;
-      color: rgba(28, 28, 32, 0.76);
-      font-size: 14px;
-      line-height: 21px;
-    }
-
-    .prd-table {
-      width: 100%;
-      border-collapse: collapse;
-      color: rgba(28, 28, 32, 0.76);
-      font-size: 13px;
-      line-height: 18px;
-    }
-
-    .prd-table th,
-    .prd-table td {
-      padding: 10px 0;
-      border-top: 1px solid rgba(22, 0, 56, 0.08);
-      text-align: left;
-      vertical-align: top;
-    }
-
-    .prd-table th {
-      color: rgba(28, 28, 32, 0.5);
-      font-weight: 590;
-    }
-
-    @media (max-width: 820px) {
-      body {
-        padding: 16px;
-      }
-
-      .app-shell {
-        grid-template-columns: 1fr;
-      }
-
-      .prototype-column {
-        align-items: flex-start;
-      }
-
-      .prd-panel {
-        height: auto;
-        min-height: auto;
-        max-height: none;
-      }
-    }
-
-    .top-glow-frame {
-      position: absolute;
-      left: -21.125px;
-      top: -214.13px;
-      width: 444px;
-      height: 444px;
-      pointer-events: none;
-    }
-
-    .top-glow {
-      position: absolute;
-      left: -200px;
-      top: -200px;
-      width: 844px;
-      height: 844px;
-      display: block;
-      max-width: none;
-    }
-
-    .status-bar {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 402px;
-      height: 62px;
-    }
-
-    .status-time {
-      position: absolute;
-      left: 52px;
-      top: 21px;
-      width: 33px;
-      height: 22px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #000;
-      font-size: 17px;
-      font-weight: 590;
-      line-height: 22px;
-      letter-spacing: 0;
-    }
-
-    .status-levels {
-      position: absolute;
-      left: 287px;
-      top: 26px;
-      height: 13px;
-      display: flex;
-      align-items: center;
-      gap: 7px;
-    }
-
-    .cellular {
-      width: 19.2px;
-      height: 12.226px;
-    }
-
-    .wifi {
-      width: 17.142px;
-      height: 12.328px;
-    }
-
-    .battery {
-      width: 27.328px;
-      height: 13px;
-    }
-
-    .nav {
-      position: absolute;
-      left: 0;
-      top: 62px;
-      width: 402px;
-      height: 64px;
-      padding: 16px;
-    }
-
-    .nav-inner {
-      position: relative;
-      width: 370px;
-      height: 32px;
-    }
-
-    .icon-button {
-      position: absolute;
-      top: 0;
-      width: 32px;
-      height: 32px;
-      border-radius: 800px;
-      display: grid;
-      place-items: center;
-      overflow: hidden;
-    }
-
-    .icon-button img {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    .back-button {
-      left: 0;
-    }
-
-    .filter-button {
-      right: 0;
-    }
-
-    .title {
-      position: absolute;
-      left: 98px;
-      top: 7px;
-      width: 174px;
-      height: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #1c1c20;
-      font-size: 16px;
-      font-weight: 510;
-      line-height: 18px;
-      text-align: center;
-    }
-
-    .monitor {
-      position: absolute;
-      left: 0;
-      top: 126px;
-      width: 402px;
-      height: 217px;
-      overflow: hidden;
-      background: #140a23;
-    }
-
-    .monitor > .video {
+    .screen-stack,
+    .screen-layer {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .watermark {
-      position: absolute;
-      left: 82.5px;
-      top: 8px;
-      height: 20px;
-      padding: 2px;
-      border-radius: 1000px;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      color: #fff;
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
-    }
-
-    .watermark-logo-wrap {
-      width: 16px;
-      height: 16px;
-      display: grid;
-      place-items: center;
-    }
-
-    .watermark-logo {
-      width: 12px;
-      height: 10.132px;
-      object-fit: cover;
-      display: block;
-    }
-
-    .live-dot {
-      width: 8px;
-      height: 8px;
-      display: block;
-    }
-
-    .watermark-time {
-      font-size: 11px;
-      line-height: 13px;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-
-    .camera-controls-left {
-      position: absolute;
-      left: 16px;
-      top: 167px;
-      height: 40px;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }
-
-    .glass-circle {
-      width: 40px;
-      height: 40px;
-      border-radius: 833.333px;
-      display: grid;
-      place-items: center;
-      background: rgba(21, 8, 43, 0.15);
-      backdrop-filter: blur(3.333px);
-      -webkit-backdrop-filter: blur(3.333px);
       overflow: hidden;
     }
 
-    .glass-circle img {
-      width: 16px;
-      height: 16px;
-      display: block;
-    }
-
-    .hd-pill {
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 2px;
-      padding: 13.333px 10px;
-      border-radius: 1333.333px;
-      background: rgba(21, 8, 43, 0.15);
-      color: #fff;
-      backdrop-filter: blur(5.333px);
-      -webkit-backdrop-filter: blur(5.333px);
-      font-size: 12px;
-      line-height: 24px;
-      font-weight: 400;
-    }
-
-    .hd-pill img {
-      width: 16px;
-      height: 16px;
-      display: block;
-    }
-
-    .fullscreen {
-      position: absolute;
-      left: 366px;
-      top: 167px;
-      width: 40px;
-      height: 40px;
-      transform: translateX(-50%);
-    }
-
-    .fullscreen img {
-      width: 40px;
-      height: 40px;
-      display: block;
-    }
-
-    .content {
-      position: absolute;
-      left: 0;
-      top: 359px;
-      width: 402px;
-      height: 419px;
-    }
-
-    .tabs {
-      position: absolute;
-      left: 16px;
-      top: 0;
-      width: 370px;
-      height: 48px;
-      padding: 4px;
-      border: 1px solid rgba(200, 189, 255, 0.24);
-      border-radius: 16px;
-      display: flex;
-      align-items: center;
-      gap: 0;
-      background: rgba(249, 248, 247, 0.92);
-      overflow: hidden;
-    }
-
-    .tab {
-      width: 181px;
-      height: 40px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(60, 61, 64, 0.62);
-      font-size: 14px;
-      font-weight: 510;
-      line-height: 20px;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .tab.active {
-      color: var(--primary);
-      font-weight: 590;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba(29, 16, 63, 0.04);
-    }
-
-    .care-shell {
-      position: absolute;
-      left: 16px;
-      top: 64px;
-      width: 370px;
-      height: 275px;
-      padding: 16px;
-      border: 1.2px solid rgba(200, 189, 255, 0.2);
-      border-radius: 20px;
-      overflow: hidden;
-      background: rgba(255, 255, 255, 0.56);
-    }
-
-    .mode-header {
-      position: absolute;
-      left: 16px;
-      top: 16px;
-      width: 338px;
-      height: 69px;
-    }
-
-    .mode-copy {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 184px;
-      height: 69px;
-    }
-
-    .mode-title {
-      position: absolute;
-      left: 0;
-      top: 0;
-      height: 21px;
-      margin: 0;
-      color: #000;
-      font-size: 18px;
-      font-weight: 400;
-      line-height: normal;
-      white-space: nowrap;
-    }
-
-    .timer-pill {
-      position: absolute;
-      left: 0;
-      top: 33px;
-      width: 84px;
-      height: 36px;
-      padding: 8px;
-      border: 1px solid rgba(200, 189, 255, 0.35);
-      border-radius: 32px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-      background: rgba(200, 189, 255, 0.2);
-      overflow: hidden;
-      color: var(--primary);
-      font-size: 16px;
-      font-weight: 510;
-      line-height: normal;
-      white-space: nowrap;
-    }
-
-    .timer-icon {
-      position: relative;
-      width: 20px;
-      height: 20px;
-      overflow: hidden;
-      flex: none;
-    }
-
-    .timer-ring {
-      position: absolute;
-      left: 2.5px;
-      top: 3.33px;
-      width: 15px;
-      height: 15px;
-    }
-
-    .timer-hand {
-      position: absolute;
-      left: 7.08px;
-      top: 7.08px;
-      width: 2.917px;
-      height: 5.417px;
-    }
-
-    .timer-top {
-      position: absolute;
-      left: 2.315px;
-      top: 3.15px;
-      width: 15.369px;
-      height: 2.684px;
-    }
-
-    .pause-button {
-      position: absolute;
-      left: 274px;
-      top: 2.5px;
-      width: 64px;
-      height: 64px;
-      border-radius: 1800px;
-      display: grid;
-      place-items: center;
-      background: var(--primary);
-      overflow: hidden;
-    }
-
-    .pause-button img {
-      width: 32px;
-      height: 32px;
-      display: block;
-    }
-
-    .feature-row {
-      position: absolute;
-      left: 16px;
-      top: 109px;
-      width: 338px;
-      height: 150px;
-      display: flex;
-      gap: 8px;
-    }
-
-    .feature-card {
-      position: relative;
-      width: 165px;
-      height: 150px;
-      padding: 16px;
-      border-radius: 20px;
-      border: 1px solid rgba(200, 189, 255, 0.2);
-      overflow: hidden;
-    }
-
-    .feature-card.motion {
-      border-color: #c8bdff;
-      background: linear-gradient(140.581deg, rgba(200, 189, 255, 0.2) 10.1%, rgba(200, 189, 255, 0.1) 56.229%, rgba(200, 189, 255, 0.63) 108.23%);
-    }
-
-    .feature-card.noise {
-      background: linear-gradient(143.052deg, rgba(200, 189, 255, 0.19) 8.0045%, rgba(212, 203, 254, 0.17) 48.01%, #ddd6fe 106.96%);
-    }
-
-    .feature-top {
-      position: absolute;
-      left: 16px;
-      top: 16px;
-      width: 133px;
-      height: 42px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .round-action {
-      width: 42px;
-      height: 42px;
-      border-radius: 933.333px;
-      display: grid;
-      place-items: center;
-      background: var(--primary);
-      overflow: hidden;
-    }
-
-    .round-action img {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    .radio {
-      width: 24px;
-      height: 24px;
-      display: block;
-    }
-
-    .feature-copy {
-      position: absolute;
-      left: 16px;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 4px;
-    }
-
-    .feature-copy.motion-copy {
-      top: 72px;
-    }
-
-    .feature-copy.noise-copy {
-      top: 94px;
-    }
-
-    .mini-pill {
-      display: inline-flex;
-      align-items: flex-end;
-      height: 18px;
-      padding: 2px 8px;
-      border: 1px solid rgba(200, 189, 255, 0.35);
-      border-radius: 32px;
-      background: rgba(200, 189, 255, 0.2);
-      color: var(--primary);
-      font-size: 12px;
-      line-height: normal;
-      font-weight: 510;
-    }
-
-    .feature-title {
-      color: var(--primary);
-      font-size: 16px;
-      font-weight: 510;
-      line-height: normal;
-      letter-spacing: 0.32px;
-      white-space: nowrap;
-    }
-
-    .feature-subtitle {
-      display: block;
-      width: 116px;
-      overflow: hidden;
-      color: rgba(16, 0, 40, 0.5);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: normal;
-      letter-spacing: 0.28px;
-      white-space: nowrap;
-    }
-
-    .marquee-track {
-      display: inline-block;
-      min-width: max-content;
-      will-change: transform, opacity;
-    }
-
-    .music-icon {
-      position: relative;
-      width: 24px;
-      height: 24px;
-      overflow: hidden;
-    }
-
-    .music-icon img {
-      position: absolute;
-      display: block;
-    }
-
-    .music-1 {
-      left: 2px;
-      top: 2px;
-      width: 8px;
-      height: 10px;
-    }
-
-    .music-2 {
-      left: 8px;
-      top: 17px;
-      width: 5px;
-      height: 5px;
-    }
-
-    .music-3 {
-      left: 18px;
-      top: 16px;
-      width: 4px;
-      height: 4px;
-    }
-
-    .music-4 {
-      left: 13px;
-      top: 6.19px;
-      width: 9px;
-      height: 13.33px;
-    }
-
-    .music-5 {
-      left: 13px;
-      top: 10px;
-      width: 9px;
-      height: 3px;
-    }
-
-    .light {
-      --light-fill-width: 170.747px;
-      position: absolute;
-      left: 16px;
-      top: 355px;
-      width: 370px;
-      height: 64px;
-      padding: 0;
-      border: 1px solid rgba(200, 189, 255, 0.2);
-      border-radius: 20px;
-      display: block;
-      background: rgba(255, 255, 255, 0.48);
-      cursor: pointer;
-      overflow: hidden;
+    .screen-layer {
+      z-index: 1;
+      transform: translate3d(0, 0, 0);
+      opacity: 1;
+      filter: none;
+      will-change: transform, opacity, filter;
       transition:
-        height 220ms ease,
-        background 180ms ease,
-        box-shadow 180ms ease;
+        transform var(--motion-duration, 360ms) cubic-bezier(0.22, 1, 0.36, 1),
+        opacity var(--motion-duration, 360ms) ease,
+        filter var(--motion-duration, 360ms) ease;
     }
 
-    .light-inner {
-      position: absolute;
-      left: 16px;
-      top: 17px;
-      width: 338px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      transition: top 220ms ease;
+    .screen-layer.no-motion {
+      transition: none;
     }
 
-    .light-copy {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      height: 18px;
+    .screen-layer.from-right {
+      transform: translate3d(100%, 0, 0);
+      opacity: 0.98;
     }
 
-    .light-name {
-      color: #3c3d40;
-      font-size: 18px;
-      line-height: 18px;
-      font-weight: 400;
-      white-space: nowrap;
+    .screen-layer.from-left {
+      transform: translate3d(-32%, 0, 0);
+      opacity: 0.72;
+      filter: brightness(0.96);
     }
 
-    .divider {
-      width: 1px;
-      height: 14px;
-      display: block;
+    .screen-layer.from-right-soft {
+      transform: translate3d(42%, 0, 0);
+      opacity: 0.84;
     }
 
-    .light-percent {
-      color: rgba(60, 61, 64, 0.5);
-      font-size: 16px;
-      line-height: 16px;
-      font-weight: 400;
-      white-space: nowrap;
+    .screen-layer.from-left-soft {
+      transform: translate3d(-42%, 0, 0);
+      opacity: 0.84;
     }
 
-    .switch {
-      position: relative;
-      width: 50px;
-      height: 30px;
-      border-radius: 96.774px;
-      background: rgba(120, 120, 128, 0.16);
-      overflow: hidden;
-      flex: none;
+    .screen-layer.from-bottom {
+      transform: translate3d(0, 100%, 0);
+      opacity: 0.98;
+      filter: drop-shadow(0 -18px 40px rgba(30, 20, 48, 0.16));
     }
 
-    .switch::after {
-      content: "";
-      position: absolute;
-      left: 2px;
-      top: 2px;
-      width: 26px;
-      height: 26px;
-      border-radius: 96.296px;
-      background: #fff;
-      box-shadow:
-        0 0 0 0 rgba(0, 0, 0, 0.04),
-        0 2.889px 7.704px rgba(0, 0, 0, 0.15),
-        0 2.889px 0.963px rgba(0, 0, 0, 0.06);
+    .screen-layer.fade-in {
+      transform: scale(0.985);
+      opacity: 0;
     }
 
-    .light-slider {
-      position: absolute;
-      left: 16px;
-      top: 66px;
-      width: 336px;
-      height: 46px;
-      display: none;
-      overflow: visible;
-      cursor: pointer;
+    .screen-layer.to-left {
+      transform: translate3d(-32%, 0, 0);
+      opacity: 0.72;
+      filter: brightness(0.96);
     }
 
-    .light-slider-track {
-      position: absolute;
-      left: 0;
-      top: 8px;
-      width: 336px;
-      height: 8px;
-      border-radius: 22px;
-      background: rgba(60, 61, 64, 0.06);
+    .screen-layer.to-right {
+      transform: translate3d(100%, 0, 0);
+      opacity: 0.92;
     }
 
-    .light-slider-fill {
+    .screen-layer.to-left-soft {
+      transform: translate3d(-42%, 0, 0);
+      opacity: 0.78;
+    }
+
+    .screen-layer.to-right-soft {
+      transform: translate3d(42%, 0, 0);
+      opacity: 0.78;
+    }
+
+    .screen-layer.to-bottom {
+      transform: translate3d(0, 100%, 0);
+      opacity: 0.98;
+      filter: drop-shadow(0 -18px 40px rgba(30, 20, 48, 0.14));
+    }
+
+    .screen-layer.fade-out {
+      transform: scale(1.012);
+      opacity: 0;
+    }
+
+    .screen-layer.dim-back {
+      filter: brightness(0.88);
+    }
+
+    .screen-layer.content-fade-in,
+    .screen-layer.content-fade-out {
+      opacity: 0;
+    }
+
+    .screen-layer.clip-content {
+      clip-path: inset(var(--clip-top, 408px) 0 0 0);
+    }
+
+    .screen-layer.clip-stable-top {
+      clip-path: inset(0 0 calc(100% - var(--clip-top, 408px)) 0);
+    }
+
+    .screen-image {
       position: absolute;
       left: 0;
       top: 0;
-      width: var(--light-fill-width);
-      height: 8px;
-      border-radius: 22px;
-      background: var(--primary);
-    }
-
-    .light-slider-knob {
-      position: absolute;
-      left: calc(var(--light-fill-width) - 12px);
-      top: -8px;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: #fff;
-      box-shadow:
-        0 1px 2px rgba(29, 16, 63, 0.08),
-        0 4px 10px rgba(29, 16, 63, 0.16);
-    }
-
-    .light-slider-label {
-      position: absolute;
-      top: 32px;
-      color: var(--ink);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 16px;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .light-slider-min {
-      left: 0;
-    }
-
-    .light-slider-max {
-      right: 0;
-    }
-
-    img {
+      width: 100%;
+      height: auto;
+      display: block;
       user-select: none;
       -webkit-user-drag: none;
     }
 
-    .interactive {
-      cursor: pointer;
-      -webkit-tap-highlight-color: transparent;
-      touch-action: manipulation;
-      transition:
-        transform 160ms ease,
-        opacity 160ms ease,
-        background 180ms ease,
-        border-color 180ms ease,
-        color 180ms ease,
-        box-shadow 180ms ease;
+    .hotspots {
+      position: absolute;
+      inset: 0;
+      z-index: 2;
     }
 
-    .interactive:active {
-      transform: scale(0.96);
-    }
-
-    .tab.interactive:active {
-      transform: none;
-    }
-
-    .phone[data-tab="care"] .tab[data-tab-target="sleep"] {
-      color: rgba(60, 61, 64, 0.62);
-      font-weight: 510;
+    .hotspot {
+      position: absolute;
+      border: 0;
+      padding: 0;
       background: transparent;
-      box-shadow: none;
+      color: transparent;
+      cursor: pointer;
+      touch-action: manipulation;
+      border-radius: 16px;
     }
 
-    .phone[data-tab="care"] .tab[data-tab-target="care"] {
-      color: var(--primary);
-      font-weight: 590;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba(29, 16, 63, 0.04);
-    }
-
-    .main-action {
-      position: absolute;
-      left: 274px;
-      top: 2.5px;
-      width: 64px;
-      height: 64px;
-      border-radius: 1800px;
-      display: grid;
-      place-items: center;
-      background: var(--primary);
-      overflow: hidden;
-    }
-
-    .main-action .pause-svg {
-      width: 32px;
-      height: 32px;
-      display: block;
-    }
-
-    .play-icon {
-      width: 26px;
-      height: 26px;
-      display: none;
-      position: relative;
-    }
-
-    .play-icon::before {
-      content: "";
-      position: absolute;
-      left: 6px;
-      top: 3px;
-      width: 16px;
-      height: 20px;
-      background: #fff;
-      clip-path: polygon(0 0, 100% 50%, 0 100%);
-    }
-
-    .phone[data-mode="off"] .main-action .pause-svg {
-      display: none;
-    }
-
-    .phone[data-mode="off"] .play-icon {
-      display: block;
-    }
-
-    .feature-card.interactive {
-      text-align: left;
-    }
-
-    .feature-card:not(.is-active) {
-      border-color: rgba(200, 189, 255, 0.2);
-      background: rgba(255, 255, 255, 0.62);
-    }
-
-    .feature-card:not(.is-active) .round-action {
-      background: rgba(85, 44, 149, 0.08);
-    }
-
-    .feature-card:not(.is-active) .round-action img {
-      filter: brightness(0) saturate(100%) invert(24%) sepia(37%) saturate(2042%) hue-rotate(238deg) brightness(83%) contrast(95%);
-    }
-
-    .feature-card.is-active.motion {
-      border-color: #c8bdff;
-      background: linear-gradient(140.581deg, rgba(200, 189, 255, 0.2) 10.1%, rgba(200, 189, 255, 0.1) 56.229%, rgba(200, 189, 255, 0.63) 108.23%);
-    }
-
-    .feature-card.is-active.noise {
-      background: linear-gradient(143.052deg, rgba(200, 189, 255, 0.19) 8.0045%, rgba(212, 203, 254, 0.17) 48.01%, #ddd6fe 106.96%);
-    }
-
-    .feature-card.is-active .marquee-track {
-      animation: subtitleMarquee 3.2s linear infinite;
-    }
-
-    .phone[data-mode="off"] .feature-card {
-      border-color: rgba(200, 189, 255, 0.2);
-      background: rgba(255, 255, 255, 0.62);
-    }
-
-    .phone[data-mode="off"] .feature-card .round-action {
-      background: rgba(85, 44, 149, 0.08);
-    }
-
-    .phone[data-mode="off"] .feature-card .round-action img {
-      filter: brightness(0) saturate(100%) invert(24%) sepia(37%) saturate(2042%) hue-rotate(238deg) brightness(83%) contrast(95%);
-    }
-
-    .phone[data-mode="off"] .care-shell {
-      background: rgba(255, 255, 255, 0.58);
-    }
-
-    .phone[data-mode="off"] .timer-pill {
-      color: var(--primary);
-    }
-
-    .phone[data-light="on"] .switch {
-      background: var(--primary);
-    }
-
-    .phone[data-light="on"] .switch::after {
-      left: 22px;
-    }
-
-    .phone[data-light="on"] .light {
-      box-shadow: 0 0 0 1px rgba(200, 189, 255, 0.22) inset;
-    }
-
-    .phone[data-light-expanded="on"] .light {
-      height: 132px;
-      background: rgba(255, 255, 255, 0.58);
-    }
-
-    .phone[data-light-expanded="on"] .light-inner {
-      top: 20px;
-    }
-
-    .phone[data-light-expanded="on"] .light-slider {
-      display: block;
-    }
-
-    .camera-panel {
-      position: absolute;
-      left: 16px;
-      top: 64px;
-      width: 370px;
-      height: 469px;
-      display: none;
-      overflow: visible;
-    }
-
-    .phone[data-tab="care"] .care-shell,
-    .phone[data-tab="care"] .light {
-      display: none;
-    }
-
-    .phone[data-tab="care"] .camera-panel {
-      display: block;
-    }
-
-    .care-shortcuts {
-      display: flex;
-      gap: 16px;
-      width: 386px;
-      height: 64px;
-      overflow: visible;
-    }
-
-    .care-shortcut {
-      width: 64px;
-      height: 64px;
-      border: 1px solid rgba(200, 189, 255, 0.3);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255, 255, 255, 0.72);
-      color: #160038;
-      box-shadow: 0 1px 2px rgba(29, 16, 63, 0.02);
-      flex: none;
-    }
-
-    .care-shortcut.is-muted {
-      color: rgba(117, 108, 132, 0.52);
-    }
-
-    .care-shortcut svg {
-      width: 26px;
-      height: 26px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .care-log-panel {
-      position: absolute;
-      left: 0;
-      top: 80px;
-      width: 370px;
-      height: 268px;
-      border: 1.2px solid rgba(200, 189, 255, 0.2);
-      border-radius: 20px;
-      background: rgba(255, 255, 255, 0.58);
-      overflow: hidden;
-    }
-
-    .care-log-label {
-      position: absolute;
-      left: 16px;
-      top: 18px;
-      color: rgba(60, 61, 64, 0.62);
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 400;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .smart-care {
-      position: absolute;
-      right: 16px;
-      top: 18px;
-      height: 36px;
-      padding: 0 17px;
-      border: 1px solid rgba(200, 189, 255, 0.35);
-      border-radius: 999px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      background: rgba(200, 189, 255, 0.2);
-      color: var(--primary);
-      font-size: 12px;
-      line-height: 16px;
-      font-weight: 510;
-      white-space: nowrap;
-    }
-
-    .smart-care svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .event-count {
-      position: absolute;
-      left: 16px;
-      top: 41px;
-      display: flex;
-      align-items: flex-end;
-      gap: 6px;
-      color: var(--ink);
-    }
-
-    .event-count-number {
-      font-size: 40px;
-      line-height: 48px;
-      font-weight: 400;
-      letter-spacing: 0;
-    }
-
-    .event-count-label {
-      margin-bottom: 9px;
-      font-size: 14px;
-      line-height: 18px;
-      font-weight: 400;
-      letter-spacing: 0;
-    }
-
-    .care-events-viewport {
-      position: absolute;
-      left: 16px;
-      top: 103px;
-      width: 354px;
-      height: 149px;
-      overflow: hidden;
-    }
-
-    .care-events {
-      display: flex;
-      gap: 10px;
-      width: max-content;
-    }
-
-    .care-event {
-      width: 141px;
-      flex: none;
-      color: var(--ink);
-    }
-
-    .care-event-image {
-      position: relative;
-      width: 141px;
-      height: 104px;
-      border-radius: 4px;
-      overflow: hidden;
-      background: #ddd6fe;
-    }
-
-    .care-event-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-
-    .care-event-title {
-      display: block;
-      margin-top: 5px;
-      font-size: 14px;
-      line-height: 18px;
-      font-weight: 400;
-      letter-spacing: 0;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-    }
-
-    .care-event-time {
-      display: block;
-      margin-top: 1px;
-      color: rgba(16, 0, 40, 0.5);
-      font-size: 14px;
-      line-height: 18px;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .care-action-row {
-      position: absolute;
-      left: 0;
-      top: 365px;
-      width: 370px;
-      height: 104px;
-      display: flex;
-      gap: 10px;
-    }
-
-    .care-action-card {
-      position: relative;
-      width: 180px;
-      height: 104px;
-      border: 1.2px solid rgba(200, 189, 255, 0.2);
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.58);
-      color: var(--primary);
-      overflow: hidden;
-    }
-
-    .care-action-icon {
-      position: absolute;
-      left: 16px;
-      top: 16px;
-      width: 24px;
-      height: 24px;
-      color: var(--primary);
-    }
-
-    .care-action-icon svg {
-      width: 24px;
-      height: 24px;
-      stroke: currentColor;
-      stroke-width: 1.8;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .care-action-title {
-      position: absolute;
-      left: 16px;
-      top: 64px;
-      font-size: 18px;
-      line-height: 22px;
-      font-weight: 510;
-      letter-spacing: 0;
-      white-space: nowrap;
-    }
-
-    .care-action-chevron {
-      position: absolute;
-      right: 18px;
-      top: 22px;
-      width: 16px;
-      height: 16px;
-      color: rgba(60, 61, 64, 0.62);
-    }
-
-    .care-action-chevron svg {
-      width: 16px;
-      height: 16px;
-      stroke: currentColor;
-      stroke-width: 2;
-      fill: none;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .pulse-ring {
-      position: absolute;
-      inset: -6px;
-      border: 1px solid rgba(85, 44, 149, 0);
-      border-radius: inherit;
+    .phone.is-transitioning .hotspot {
       pointer-events: none;
     }
 
-    .phone[data-mode="on"] .main-action .pulse-ring {
-      animation: pulse 1.8s ease-out infinite;
+    .phone.is-transitioning .motion-curve-grid,
+    .phone.is-transitioning .motion-level-control,
+    .phone.is-transitioning .scene-card,
+    .phone.is-transitioning .night-light-switch,
+    .phone.is-transitioning .night-light-slider-control,
+    .phone.is-transitioning .monitoring-action-button {
+      pointer-events: none;
     }
 
-    @keyframes pulse {
-      0% {
-        opacity: 0.8;
-        transform: scale(0.92);
-        border-color: rgba(85, 44, 149, 0.35);
+    .hotspot::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(95, 49, 168, 0.08);
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+
+    .hotspot:active::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .hotspot:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+      background: rgba(95, 49, 168, 0.08);
+    }
+
+    .timer-control {
+      position: absolute;
+      z-index: 4;
+      left: 28px;
+      top: 467px;
+      width: 100px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 0 11px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--timer-bg);
+      color: var(--timer-color);
+      font: 510 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      box-shadow: inset 0 0 0 1px var(--timer-border);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 180ms ease, color 180ms ease, box-shadow 180ms ease;
+    }
+
+    .timer-control.is-on {
+      --timer-bg: #efeaff;
+      --timer-border: #d8ccff;
+      --timer-color: #562b96;
+    }
+
+    .timer-control.is-off {
+      --timer-bg: #f5f4f6;
+      --timer-border: #e6e1e8;
+      --timer-color: #8a8290;
+    }
+
+    .timer-control::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(95, 49, 168, 0.1);
+      opacity: 0;
+      transform: scale(0.98);
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+
+    .timer-control:active::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .timer-control:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .timer-clock {
+      position: relative;
+      z-index: 1;
+      flex: 0 0 auto;
+      width: 20px;
+      height: 20px;
+      border: 1.25px solid currentColor;
+      border-radius: 50%;
+    }
+
+    .timer-clock::before,
+    .timer-clock::after {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 5px;
+      width: 1.25px;
+      height: 6px;
+      border-radius: 999px;
+      background: currentColor;
+      transform-origin: 1px 6px;
+    }
+
+    .timer-clock::after {
+      top: 9px;
+      height: 5px;
+      transform: rotate(48deg);
+    }
+
+    .timer-value {
+      position: relative;
+      z-index: 1;
+      min-width: 45px;
+      text-align: left;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .timer-options {
+      position: absolute;
+      left: 16px;
+      top: 648px;
+      z-index: 4;
+      width: 370px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px 11px;
+    }
+
+    .timer-option {
+      height: 48px;
+      border: 0;
+      border-radius: 24px;
+      background: #f4f4f5;
+      color: #251227;
+      font: 510 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      box-shadow: inset 0 0 0 1px rgba(30, 20, 48, 0.03), 0 1px 2px rgba(30, 20, 48, 0.04);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 160ms ease, color 160ms ease, transform 120ms ease;
+    }
+
+    .timer-option:active {
+      transform: scale(0.97);
+    }
+
+    .timer-option.is-selected {
+      background: #5d2fa2;
+      color: #fff;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.12), 0 6px 16px rgba(93, 47, 162, 0.18);
+    }
+
+    .timer-option:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .motion-controls {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .motion-curve-grid {
+      position: absolute;
+      left: 16px;
+      top: 414px;
+      width: 370px;
+      display: grid;
+      grid-template-columns: repeat(3, 120px);
+      gap: 16px 5px;
+      pointer-events: auto;
+    }
+
+    .motion-curve-button {
+      width: 120px;
+      height: 94px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 15px 16px 14px;
+      border: 1px solid #ecebed;
+      border-radius: 16px;
+      background: #fff;
+      color: #28121f;
+      font: 510 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 120ms ease;
+    }
+
+    .motion-curve-button:active {
+      transform: scale(0.97);
+    }
+
+    .motion-curve-button.is-selected {
+      border-color: #e3d8ff;
+      background: #f4efff;
+      color: #5d2fa2;
+    }
+
+    .motion-curve-button:focus-visible,
+    .motion-level-control:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .motion-curve-wave {
+      width: 47px;
+      height: 32px;
+      color: inherit;
+    }
+
+    .motion-level-control {
+      position: absolute;
+      left: 16px;
+      top: 702px;
+      width: 370px;
+      height: 38px;
+      display: grid;
+      grid-template-columns: repeat(5, 74px);
+      padding: 0;
+      border: 0;
+      border-radius: 48px;
+      background: #f5f1fb;
+      color: #28121f;
+      pointer-events: auto;
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .motion-level-thumb {
+      position: absolute;
+      left: var(--motion-level-left, 222px);
+      top: 0;
+      width: 74px;
+      height: 38px;
+      border-radius: 48px;
+      background: #5d2fa2;
+      box-shadow: 0 6px 14px rgba(93, 47, 162, 0.18);
+      transition: left 160ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .motion-level-segment {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      border: 0;
+      padding: 0;
+      border-radius: 48px;
+      background: transparent;
+      color: inherit;
+      font: 510 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: color 160ms ease;
+    }
+
+    .motion-level-segment.is-selected {
+      color: #fff;
+    }
+
+    .sleep-mode-dynamic {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      color: #5d2fa2;
+      pointer-events: none;
+    }
+
+    .sleep-mode-dynamic.is-off {
+      color: #a98ed5;
+    }
+
+    .sleep-mode-tile-card {
+      position: absolute;
+      top: 540px;
+      width: 165px;
+      height: 91px;
+      border: 1px solid #eee7ff;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #f9f7ff 0%, #eee8ff 100%);
+      color: currentColor;
+      pointer-events: none;
+    }
+
+    .sleep-mode-dynamic.is-off .sleep-mode-tile-card {
+      background: #fff;
+    }
+
+    .sleep-mode-tile-card.is-motion {
+      left: 32px;
+    }
+
+    .sleep-mode-tile-card.is-noise {
+      left: 205px;
+    }
+
+    .sleep-mode-tile-icon {
+      position: absolute;
+      left: 24px;
+      top: 20px;
+      width: 24px;
+      height: 24px;
+      color: currentColor;
+    }
+
+    .sleep-mode-tile-arrow {
+      position: absolute;
+      right: 19px;
+      top: 20px;
+      color: currentColor;
+      font: 400 36px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .sleep-mode-tile-value {
+      position: absolute;
+      left: 24px;
+      right: 16px;
+      bottom: 17px;
+      overflow: hidden;
+      color: currentColor;
+      font: 500 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .scene-controls {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .scene-section-mask {
+      position: absolute;
+      left: 0;
+      top: 648px;
+      z-index: 1;
+      width: 402px;
+      height: 226px;
+      background: #fff;
+    }
+
+    .scene-strip {
+      position: absolute;
+      left: 32px;
+      top: 656px;
+      z-index: 2;
+      width: 338px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      pointer-events: auto;
+    }
+
+    .scene-card {
+      min-width: 0;
+      height: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 4px;
+      padding: 0 12px;
+      border: 1px solid #eee7ff;
+      border-radius: 16px;
+      background: #fff;
+      color: #3f3545;
+      box-shadow: 0 1px 2px rgba(35, 26, 58, 0.03);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+    }
+
+    .scene-card:active {
+      transform: scale(0.97);
+    }
+
+    .scene-card.is-selected {
+      border-color: #ded2ff;
+      background: #f4efff;
+      color: #5d2fa2;
+      box-shadow: 0 7px 16px rgba(93, 47, 162, 0.1);
+    }
+
+    .scene-card:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .scene-card-title {
+      max-width: 100%;
+      overflow: hidden;
+      font: 650 15px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .scene-card-meta {
+      max-width: 100%;
+      overflow: hidden;
+      color: #918898;
+      font: 500 10px/14px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .scene-card.is-selected .scene-card-meta {
+      color: #7650ac;
+    }
+
+    .onboarding-screen {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      background:
+        radial-gradient(circle at top right, rgba(208, 232, 255, 0.85), transparent 32%),
+        linear-gradient(180deg, #fdfcff 0%, #f7f8ff 42%, #f8fbff 100%);
+      color: #1e1a2a;
+      overflow: hidden;
+    }
+
+    .onboarding-screen::before {
+      content: "";
+      position: absolute;
+      inset: auto -80px -140px auto;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: rgba(255, 226, 198, 0.34);
+      filter: blur(6px);
+      pointer-events: none;
+    }
+
+    .onboarding-head {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      top: 72px;
+      z-index: 2;
+    }
+
+    .onboarding-kicker {
+      color: #6f7da1;
+      font: 600 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-progress {
+      margin-top: 18px;
+      display: grid;
+      gap: 8px;
+    }
+
+    .onboarding-progress-label {
+      color: #7e88a3;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .onboarding-progress-track {
+      width: 100%;
+      height: 6px;
+      border-radius: 999px;
+      background: rgba(203, 214, 237, 0.7);
+      overflow: hidden;
+    }
+
+    .onboarding-progress-fill {
+      display: block;
+      width: 33.333%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(135deg, #6d7ef5 0%, #6ca9ff 100%);
+      transition: width 220ms ease;
+    }
+
+    .onboarding-title {
+      margin-top: 14px;
+      color: #1e1a2a;
+      font: 650 31px/37px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-copy {
+      margin-top: 12px;
+      max-width: 334px;
+      color: #645f74;
+      font: 400 15px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-step-stack {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      top: 286px;
+      bottom: 22px;
+      z-index: 2;
+    }
+
+    .onboarding-step {
+      display: none;
+      flex-direction: column;
+      gap: 14px;
+      height: 100%;
+    }
+
+    .onboarding-step.is-active {
+      display: flex;
+    }
+
+    .onboarding-card {
+      position: relative;
+      border: 1px solid rgba(192, 202, 228, 0.6);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.92);
+      box-shadow: 0 18px 36px rgba(41, 38, 64, 0.08);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 18px;
+    }
+
+    .onboarding-section-title {
+      color: #7f7690;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .onboarding-choice-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .onboarding-choice-card {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      width: 100%;
+      min-height: 96px;
+      padding: 16px;
+      border: 1px solid #e7edf8;
+      border-radius: 22px;
+      background: #fbfcff;
+      color: #241e35;
+      text-align: left;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease, transform 120ms ease;
+    }
+
+    .onboarding-choice-card:active {
+      transform: scale(0.985);
+    }
+
+    .onboarding-choice-card.is-selected {
+      border-color: #bdd1ff;
+      background: #f1f6ff;
+      box-shadow: 0 10px 24px rgba(76, 122, 214, 0.12);
+    }
+
+    .onboarding-choice-card:focus-visible,
+    .onboarding-age-button:focus-visible,
+    .onboarding-cta:focus-visible,
+    .onboarding-secondary:focus-visible,
+    .onboarding-scene-toggle:focus-visible {
+      outline: 3px solid rgba(58, 120, 214, 0.38);
+      outline-offset: 2px;
+    }
+
+    .onboarding-baby-avatar {
+      width: 56px;
+      height: 56px;
+      border-radius: 20px;
+      background: linear-gradient(145deg, #ffd5c8 0%, #ffe9dd 100%);
+      color: #8f5260;
+      font: 650 22px/56px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      text-align: center;
+      flex: 0 0 auto;
+    }
+
+    .onboarding-choice-body,
+    .onboarding-baby-profile {
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .onboarding-baby-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .onboarding-choice-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+
+    .onboarding-baby-name {
+      color: #21192b;
+      font: 650 22px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-baby-pill {
+      display: inline-flex;
+      align-items: center;
+      height: 24px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: #f2f4fb;
+      color: #69748f;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      flex: 0 0 auto;
+    }
+
+    .onboarding-choice-card.is-selected .onboarding-baby-pill {
+      background: #dfeaff;
+      color: #3561b9;
+    }
+
+    .onboarding-baby-note {
+      margin-top: 6px;
+      color: #7c7389;
+      font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-choice-check {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid #d6deef;
+      background: #fff;
+      color: transparent;
+      font: 700 15px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      text-align: center;
+      flex: 0 0 auto;
+      transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .onboarding-choice-card.is-selected .onboarding-choice-check {
+      border-color: #5f87dc;
+      background: #5f87dc;
+      color: #fff;
+    }
+
+    .onboarding-summary-card {
+      padding: 18px;
+    }
+
+    .onboarding-summary-copy {
+      margin-top: 10px;
+      color: #6f697d;
+      font: 400 14px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-divider {
+      height: 1px;
+      margin: 16px 0 14px;
+      background: rgba(218, 225, 240, 0.9);
+    }
+
+    .onboarding-age-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .onboarding-age-caption {
+      color: #7f7690;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .onboarding-age-hint {
+      margin-top: 5px;
+      color: #7b748d;
+      font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-age-button {
+      min-width: 112px;
+      height: 56px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 0 18px;
+      border: 1px solid #dfe4f4;
+      border-radius: 18px;
+      background: #f7f9ff;
+      color: #2a2340;
+      font: 600 18px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
+    }
+
+    .onboarding-age-button:active {
+      transform: scale(0.98);
+    }
+
+    .onboarding-age-button .unit {
+      color: #7d7590;
+      font: 500 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-recommend-head {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .onboarding-recommend-title {
+      color: #21192b;
+      font: 650 22px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-recommend-copy {
+      margin-top: 8px;
+      color: #6d667b;
+      font: 400 14px/21px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-scene-toggle {
+      width: 40px;
+      height: 40px;
+      border: 0;
+      border-radius: 14px;
+      background: #eef4ff;
+      color: #4f69a1;
+      font: 500 24px/40px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      text-align: center;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 160ms ease, transform 120ms ease;
+    }
+
+    .onboarding-scene-toggle:active {
+      transform: scale(0.96);
+    }
+
+    .onboarding-scene-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: #f6f2ff;
+      color: #5b4d86;
+      font: 600 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-scene-note {
+      margin-top: 12px;
+      color: #7a7288;
+      font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-scene-panel {
+      margin-top: 0;
+      padding: 0 14px;
+      border-radius: 18px;
+      background: linear-gradient(145deg, #fcfbff 0%, #f6f0ff 100%);
+      border: 1px solid transparent;
+      opacity: 0;
+      max-height: 0;
+      overflow: hidden;
+      transform: translateY(-4px);
+      transition: opacity 180ms ease, max-height 220ms ease, transform 180ms ease, padding 180ms ease, margin-top 180ms ease;
+    }
+
+    .onboarding-scene-panel.is-open {
+      margin-top: 14px;
+      padding: 14px 14px 12px;
+      border-color: #ebe3ff;
+      opacity: 1;
+      max-height: 240px;
+      transform: translateY(0);
+    }
+
+    .onboarding-scene-meta {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px 16px;
+    }
+
+    .onboarding-scene-label {
+      color: #7f7690;
+      font: 500 11px/15px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .onboarding-scene-value {
+      margin-top: 4px;
+      color: #261f35;
+      font: 600 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-step-actions {
+      margin-top: auto;
+      display: grid;
+      gap: 10px;
+    }
+
+    .onboarding-cta,
+    .onboarding-secondary {
+      height: 54px;
+      border-radius: 18px;
+      font: 600 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 120ms ease, opacity 160ms ease, background 160ms ease;
+    }
+
+    .onboarding-cta {
+      border: 0;
+      background: linear-gradient(135deg, #6d7ef5 0%, #6ca9ff 100%);
+      color: #fff;
+      box-shadow: 0 14px 28px rgba(85, 126, 228, 0.24);
+    }
+
+    .onboarding-secondary {
+      border: 1px solid rgba(203, 210, 226, 0.9);
+      background: rgba(255, 255, 255, 0.72);
+      color: #5b5668;
+    }
+
+    .onboarding-cta:active,
+    .onboarding-secondary:active {
+      transform: scale(0.985);
+    }
+
+    .age-sheet-options {
+      position: absolute;
+      left: 20px;
+      right: 20px;
+      bottom: 108px;
+      z-index: 6;
+      display: grid;
+      gap: 10px;
+    }
+
+    .onboarding-scrim {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      background: rgba(28, 24, 41, 0.18);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .age-sheet-card {
+      padding: 18px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(205, 213, 231, 0.94);
+      box-shadow: 0 18px 36px rgba(41, 38, 64, 0.12);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .age-sheet-title {
+      color: #1f192d;
+      font: 650 20px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .age-sheet-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .age-sheet-option {
+      height: 48px;
+      border: 1px solid #e6ebfb;
+      border-radius: 16px;
+      background: #f7f9ff;
+      color: #312947;
+      font: 600 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 160ms ease, border-color 160ms ease, transform 120ms ease;
+    }
+
+    .age-sheet-option:active {
+      transform: scale(0.97);
+    }
+
+    .age-sheet-option.is-selected {
+      border-color: #b8c9ff;
+      background: #edf3ff;
+      color: #3860b0;
+    }
+
+    .age-sheet-note {
+      margin-top: 14px;
+      color: #7b748d;
+      font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .night-light-controls {
+      position: absolute;
+      inset: 0;
+      z-index: 5;
+      pointer-events: none;
+    }
+
+    .night-light-title {
+      position: absolute;
+      left: 32px;
+      top: 740px;
+      z-index: 3;
+      width: 220px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: #fff;
+      color: #3f3943;
+      font: 400 20px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .night-light-expanded-card {
+      position: absolute;
+      left: 16px;
+      top: 724px;
+      z-index: 1;
+      width: 370px;
+      height: 162px;
+      border: 1px solid #eee7ff;
+      border-radius: 16px;
+      background: #fff;
+      opacity: 1;
+      transition: opacity 180ms ease;
+    }
+
+    .night-light-title-divider,
+    .night-light-title-value {
+      color: #9b929d;
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    .night-light-switch {
+      position: absolute;
+      left: 320px;
+      top: 738px;
+      z-index: 4;
+      width: 50px;
+      height: 32px;
+      border: 0;
+      border-radius: 999px;
+      background: #5d2fa2;
+      box-shadow: inset 0 0 0 1px rgba(28, 15, 43, 0.04);
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+      transition: background 180ms ease, transform 120ms ease;
+    }
+
+    .night-light-switch::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: var(--night-light-knob-left, 20px);
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(30, 20, 48, 0.18);
+      transition: left 180ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .night-light-switch:active {
+      transform: scale(0.96);
+    }
+
+    .night-light-switch.is-off {
+      background: #e7e7ea;
+      --night-light-knob-left: 2px;
+    }
+
+    .night-light-switch:focus-visible,
+    .night-light-slider-control:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .night-light-parameter-mask {
+      position: absolute;
+      left: 32px;
+      top: 772px;
+      z-index: 2;
+      width: 338px;
+      height: 114px;
+      background: #fff;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .night-light-slider-control {
+      position: absolute;
+      left: 32px;
+      top: var(--night-light-slider-top, 716px);
+      z-index: 3;
+      width: 338px;
+      height: 42px;
+      border: 0;
+      padding: 0;
+      background: transparent;
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .night-light-slider-label,
+    .night-light-slider-value {
+      position: absolute;
+      top: 0;
+      color: #4c4350;
+      font: 500 11px/14px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .night-light-slider-label {
+      left: 0;
+    }
+
+    .night-light-slider-value {
+      right: 0;
+      color: #8d8491;
+      font-weight: 400;
+    }
+
+    .night-light-slider-track {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 25px;
+      height: 5px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: #f0eef3;
+    }
+
+    .night-light-slider-fill {
+      width: var(--night-light-fill-width, 154px);
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #b2a5fb 0%, #9c8df0 100%);
+    }
+
+    .night-light-slider-control.is-temperature .night-light-slider-fill {
+      background: linear-gradient(90deg, #ffb55f 0%, #f4eadf 48%, #abcfff 100%);
+    }
+
+    .night-light-slider-thumb {
+      position: absolute;
+      left: var(--night-light-thumb-left, 140px);
+      top: 8px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 2px 8px rgba(30, 20, 48, 0.18);
+    }
+
+    .night-light-slider-hint {
+      position: absolute;
+      top: 27px;
+      color: #140a2e;
+      font: 500 11px/14px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .night-light-slider-hint.is-min {
+      left: 0;
+    }
+
+    .night-light-slider-hint.is-max {
+      right: 0;
+    }
+
+    .night-light-collapsed-mask {
+      position: absolute;
+      left: 0;
+      top: 800px;
+      z-index: 1;
+      width: 402px;
+      height: 74px;
+      background: #fff;
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .night-light-collapsed-card {
+      position: absolute;
+      left: 16px;
+      top: 724px;
+      z-index: 2;
+      width: 370px;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      border: 1px solid #eee7ff;
+      border-radius: 16px;
+      background: #fff;
+      color: #3f3943;
+      font: 400 20px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .night-light-collapsed-card .night-light-switch {
+      position: absolute;
+      left: auto;
+      top: 18px;
+      right: 16px;
+      flex: 0 0 auto;
+    }
+
+    .night-light-collapsed-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .night-light-collapsed-title .night-light-title-divider,
+    .night-light-collapsed-title .night-light-title-value {
+      font-size: 16px;
+      line-height: 22px;
+    }
+
+    .night-light-controls.is-off .night-light-expanded-card,
+    .night-light-controls.is-off .night-light-title,
+    .night-light-controls.is-off > .night-light-switch,
+    .night-light-controls.is-off .night-light-parameter-mask,
+    .night-light-controls.is-off .night-light-slider-control {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(-6px);
+    }
+
+    .night-light-controls.is-off .night-light-collapsed-mask,
+    .night-light-controls.is-off .night-light-collapsed-card {
+      opacity: 1;
+    }
+
+    .night-light-controls:not(.is-off) .night-light-collapsed-card .night-light-switch {
+      pointer-events: none;
+    }
+
+    .monitoring-controls {
+      position: absolute;
+      inset: 0;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .monitoring-action-button {
+      position: absolute;
+      width: 64px;
+      height: 64px;
+      border: 0;
+      border-radius: 50%;
+      background: transparent;
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+    }
+
+    .monitoring-action-button:focus-visible {
+      outline: 3px solid rgba(45, 129, 248, 0.58);
+      outline-offset: 2px;
+    }
+
+    .monitoring-action-button::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      background: rgba(45, 129, 248, 0.1);
+      opacity: 0;
+      transform: scale(0.94);
+      transition: opacity 120ms ease, transform 120ms ease;
+    }
+
+    .monitoring-action-button:active::after {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .monitoring-action-button.is-recording::before {
+      content: "";
+      position: absolute;
+      right: 8px;
+      top: 8px;
+      z-index: 1;
+      width: 12px;
+      height: 12px;
+      border: 2px solid #fff;
+      border-radius: 50%;
+      background: #ee2f3f;
+      box-shadow: 0 2px 8px rgba(238, 47, 63, 0.42);
+    }
+
+    .monitoring-recording-badge {
+      position: absolute;
+      right: 16px;
+      top: 142px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 24px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(22, 15, 31, 0.54);
+      color: #fff;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .monitoring-recording-badge::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #ee2f3f;
+      box-shadow: 0 0 0 4px rgba(238, 47, 63, 0.18);
+    }
+
+    .monitoring-recording-badge.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .monitoring-snapshot-preview {
+      position: absolute;
+      left: 0;
+      top: 126px;
+      z-index: 5;
+      width: 402px;
+      height: 218px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.76);
+      border-radius: 0;
+      background-image: url("assets/monitoring.png");
+      background-size: 402px auto;
+      background-position: 0 -126px;
+      box-shadow: 0 14px 28px rgba(23, 16, 35, 0.16);
+      opacity: 0.98;
+      transform-origin: right top;
+      transition:
+        left 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        top 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        width 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        height 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        border-radius 520ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 260ms ease,
+        transform 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .monitoring-snapshot-preview.is-minimized {
+      left: 276px;
+      top: 142px;
+      width: 108px;
+      height: 66px;
+      border-radius: 12px;
+      background-size: 402px auto;
+      opacity: 1;
+    }
+
+    .monitoring-snapshot-preview.is-dismissed {
+      opacity: 0;
+      transform: translate3d(12px, -8px, 0) scale(0.82);
+    }
+
+    .hud {
+      display: none;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 6px 10px;
+      border: 1px solid rgba(86, 62, 116, 0.12);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.78);
+      box-shadow: 0 12px 34px rgba(31, 28, 46, 0.09);
+      color: rgba(27, 21, 35, 0.68);
+      font-size: 13px;
+      line-height: 18px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .hud strong {
+      color: #563098;
+      font-weight: 650;
+    }
+
+    .toast {
+      position: absolute;
+      left: 50%;
+      bottom: 18px;
+      z-index: 5;
+      max-width: calc(100% - 32px);
+      padding: 9px 13px;
+      border-radius: 999px;
+      background: rgba(32, 21, 48, 0.88);
+      color: #fff;
+      font-size: 13px;
+      line-height: 18px;
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, 8px);
+      transition: opacity 180ms ease, transform 180ms ease;
+      white-space: nowrap;
+    }
+
+    .toast.is-visible {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+
+    @media (max-width: 460px) {
+      body {
+        padding: 0;
+        background: #fff;
       }
 
-      100% {
-        opacity: 0;
-        transform: scale(1.18);
-        border-color: rgba(85, 44, 149, 0);
+      .stage {
+        width: 100%;
+        gap: 0;
+      }
+
+      .phone {
+        width: min(var(--screen-w), 100vw);
+        height: calc(min(var(--screen-w), 100vw) * var(--screen-ratio));
+        box-shadow: none;
+      }
+
+      .hud {
+        display: none;
       }
     }
 
-    @keyframes subtitleMarquee {
-      0% {
-        opacity: 1;
-        transform: translateX(0);
-      }
-
-      58% {
-        opacity: 1;
-        transform: translateX(-64px);
-      }
-
-      72% {
-        opacity: 0;
-        transform: translateX(-100%);
-      }
-
-      73% {
-        opacity: 0;
-        transform: translateX(116px);
-      }
-
-      86% {
-        opacity: 1;
-        transform: translateX(18px);
-      }
-
-      100% {
-        opacity: 1;
-        transform: translateX(0);
+    @media (prefers-reduced-motion: reduce) {
+      .phone,
+      .screen-layer,
+      .hotspot::after,
+      .motion-curve-button,
+      .motion-level-thumb,
+      .night-light-title,
+      .night-light-switch,
+      .night-light-switch::after,
+      .night-light-parameter-mask,
+      .night-light-slider-control,
+      .night-light-collapsed-mask,
+      .night-light-collapsed-card,
+      .monitoring-action-button::after,
+      .monitoring-recording-badge,
+      .monitoring-snapshot-preview,
+      .toast {
+        transition-duration: 1ms !important;
       }
     }
-
   </style>
 </head>
 <body>
-  <div class="app-shell">
-    <section class="prototype-column" aria-label="Interactive prototype preview">
-      <div class="column-kicker">交互原型</div>
-      <main class="phone" data-mode="off" data-music="off" data-motion="off" data-light="off" data-tab="sleep" aria-label="Baby Crib app control prototype">
-    <div class="top-glow-frame">
-      <img class="top-glow" src="figma-baby-crib-assets/top-glow.svg" alt="">
-    </div>
-
-    <section class="status-bar" aria-label="Status bar">
-      <div class="status-time">7:41</div>
-      <div class="status-levels">
-        <img class="cellular" src="figma-baby-crib-assets/cellular.svg" alt="">
-        <img class="wifi" src="figma-baby-crib-assets/wifi.svg" alt="">
-        <img class="battery" src="figma-baby-crib-assets/battery.svg" alt="">
-      </div>
+  <main class="stage" aria-label="婴儿床交互原型">
+    <section class="phone" id="phone">
+      <div class="screen-stack" id="screenStack"></div>
+      <div class="toast" id="toast" role="status" aria-live="polite"></div>
     </section>
+    <div class="hud" id="hud"></div>
+  </main>
 
-    <nav class="nav" aria-label="Screen header">
-      <div class="nav-inner">
-        <button class="icon-button back-button interactive" type="button" aria-label="Back"><img src="figma-baby-crib-assets/arrow-left.svg" alt=""></button>
-        <div class="title">Baby Crib</div>
-        <button class="icon-button filter-button interactive" type="button" aria-label="Settings"><img src="figma-baby-crib-assets/filter.svg" alt=""></button>
-      </div>
-    </nav>
-
-    <section class="monitor" aria-label="Live monitor">
-      <img class="video" src="figma-baby-crib-assets/live-monitor.png" alt="">
-
-      <div class="watermark">
-        <div class="watermark-logo-wrap">
-          <img class="watermark-logo" src="figma-baby-crib-assets/baby-live-chip.png" alt="">
-        </div>
-        <img class="live-dot" src="figma-baby-crib-assets/watermark-ring.svg" alt="">
-        <span class="watermark-time">2026-05-13 10:56:39</span>
-      </div>
-
-      <div class="camera-controls-left">
-        <button class="glass-circle interactive" type="button" aria-label="Mute camera audio"><img src="figma-baby-crib-assets/volume-off.svg" alt=""></button>
-        <button class="hd-pill interactive" type="button" aria-label="Video quality">
-          <span>HD</span>
-          <img src="figma-baby-crib-assets/arrow-down.svg" alt="">
-        </button>
-      </div>
-
-      <button class="fullscreen interactive" type="button" aria-label="Fullscreen"><img src="figma-baby-crib-assets/fullscreen.svg" alt=""></button>
-    </section>
-
-    <section class="content" aria-label="Sleep and care controls">
-      <div class="tabs">
-        <button class="tab active interactive" data-tab-target="sleep" type="button">Sleep</button>
-        <button class="tab interactive" data-tab-target="care" type="button">Care</button>
-      </div>
-
-      <section class="care-shell" aria-label="Care log">
-        <div class="mode-header">
-          <div class="mode-copy">
-            <p class="mode-title">Sleep-Soothing Mode</p>
-            <div class="timer-pill">
-              <span class="timer-icon">
-                <img class="timer-ring" src="figma-baby-crib-assets/timer-ring.svg" alt="">
-                <img class="timer-hand" src="figma-baby-crib-assets/timer-hand.svg" alt="">
-                <img class="timer-top" src="figma-baby-crib-assets/timer-top.svg" alt="">
-              </span>
-              <span class="timer-value">20:00</span>
-            </div>
-          </div>
-          <button class="main-action interactive" id="smartToggle" type="button" aria-label="Start sleep soothing mode">
-            <span class="pulse-ring"></span>
-            <span class="play-icon" aria-hidden="true"></span>
-            <img class="pause-svg" src="figma-baby-crib-assets/pause.svg" alt="">
-          </button>
-        </div>
-
-        <div class="feature-row">
-          <button class="feature-card motion interactive" id="motionCard" type="button" aria-label="Toggle soothing motion">
-            <div class="feature-top">
-              <div class="round-action"><img src="figma-baby-crib-assets/moon.svg" alt=""></div>
-              <img class="radio" src="figma-baby-crib-assets/radio.svg" alt="">
-            </div>
-            <div class="feature-copy motion-copy">
-              <span class="mini-pill">M</span>
-              <span class="feature-title">Soothing Motion</span>
-              <span class="feature-subtitle"><span class="marquee-track">Motion Curve 3</span></span>
-            </div>
-          </button>
-
-          <button class="feature-card noise interactive" id="musicCard" type="button" aria-label="Toggle white noise">
-            <div class="feature-top">
-              <div class="round-action">
-                <span class="music-icon">
-                  <img class="music-1" src="figma-baby-crib-assets/music-1.svg" alt="">
-                  <img class="music-2" src="figma-baby-crib-assets/music-2.svg" alt="">
-                  <img class="music-3" src="figma-baby-crib-assets/music-3.svg" alt="">
-                  <img class="music-4" src="figma-baby-crib-assets/music-4.svg" alt="">
-                  <img class="music-5" src="figma-baby-crib-assets/music-5.svg" alt="">
-                </span>
-              </div>
-              <img class="radio" src="figma-baby-crib-assets/radio.svg" alt="">
-            </div>
-            <div class="feature-copy noise-copy">
-              <span class="feature-title">White Noise</span>
-              <span class="feature-subtitle"><span class="marquee-track">Ocean Waves</span></span>
-            </div>
-          </button>
-        </div>
-      </section>
-
-      <section class="camera-panel" aria-label="Care controls">
-        <div class="care-shortcuts" aria-label="Care quick controls">
-          <button class="care-shortcut interactive" type="button" aria-label="Photo snapshot">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M6.5 7.5 8.2 5h7.6l1.7 2.5H20a2 2 0 0 1 2 2v7.2a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9.5a2 2 0 0 1 2-2h2.5Z" />
-              <circle cx="12" cy="13" r="3.5" />
-            </svg>
-          </button>
-          <button class="care-shortcut interactive" type="button" aria-label="Record video">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="3" y="6" width="12" height="12" rx="3" />
-              <path d="m15 10 5-3v10l-5-3" />
-            </svg>
-          </button>
-          <button class="care-shortcut interactive" type="button" aria-label="Microphone">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="9" y="3" width="6" height="11" rx="3" />
-              <path d="M5 11a7 7 0 0 0 14 0" />
-              <path d="M12 18v3" />
-              <path d="M8 21h8" />
-            </svg>
-          </button>
-          <button class="care-shortcut interactive" type="button" aria-label="Movement control">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="5" r="2" />
-              <circle cx="12" cy="19" r="2" />
-              <circle cx="5" cy="12" r="2" />
-              <circle cx="19" cy="12" r="2" />
-              <circle cx="12" cy="12" r="1.5" />
-            </svg>
-          </button>
-          <button class="care-shortcut is-muted interactive" type="button" aria-label="Music">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 18V5l10-2v13" />
-              <path d="M9 9 19 7" />
-              <circle cx="6" cy="18" r="3" />
-              <circle cx="16" cy="16" r="3" />
-            </svg>
-          </button>
-        </div>
-
-        <section class="care-log-panel" aria-label="Today's Care Log">
-          <div class="care-log-label">Today’s Care Log</div>
-          <button class="smart-care interactive" type="button" aria-label="Smart Care">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <rect x="4" y="8" width="16" height="10" rx="3" />
-              <path d="M8 8V6a4 4 0 0 1 8 0v2" />
-              <path d="M9 13h6" />
-              <path d="M12 10v6" />
-            </svg>
-            <span>Smart Care</span>
-          </button>
-          <div class="event-count" aria-label="5 events">
-            <span class="event-count-number">5</span>
-            <span class="event-count-label">events</span>
-          </div>
-          <div class="care-events-viewport">
-            <div class="care-events">
-              <button class="care-event interactive" type="button" aria-label="Prone Sleeping event at 17:00">
-                <span class="care-event-image">
-                  <img src="figma-baby-crib-assets/care-event-prone.png" alt="">
-                </span>
-                <span class="care-event-title">Prone Sleeping</span>
-                <span class="care-event-time">17:00</span>
-              </button>
-              <button class="care-event interactive" type="button" aria-label="Crying event at 17:00">
-                <span class="care-event-image">
-                  <img src="figma-baby-crib-assets/care-event-crying.png" alt="">
-                </span>
-                <span class="care-event-title">Crying</span>
-                <span class="care-event-time">17:00</span>
-              </button>
-              <button class="care-event interactive" type="button" aria-label="Face Covered event at 17:00">
-                <span class="care-event-image">
-                  <img src="figma-baby-crib-assets/care-event-face.png" alt="">
-                </span>
-                <span class="care-event-title">Face Covered</span>
-                <span class="care-event-time">17:00</span>
-              </button>
-            </div>
-          </div>
-        </section>
-
-        <div class="care-action-row">
-          <button class="care-action-card interactive" type="button" aria-label="Playback">
-            <span class="care-action-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="5" width="14" height="12" rx="3" />
-                <path d="m9 9 4 2-4 2V9Z" />
-                <path d="M18 17v4" />
-                <path d="M16 19h4" />
-              </svg>
-            </span>
-            <span class="care-action-chevron">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
-            </span>
-            <span class="care-action-title">Playback</span>
-          </button>
-          <button class="care-action-card interactive" type="button" aria-label="Album">
-            <span class="care-action-icon">
-              <svg viewBox="0 0 24 24" aria-hidden="true">
-                <rect x="3" y="7" width="16" height="12" rx="3" />
-                <path d="M7 7V5h8l2 2" />
-                <path d="m7 15 2.2-2.2a1.6 1.6 0 0 1 2.2 0L13 14.4l1-1a1.6 1.6 0 0 1 2.2 0L19 16.2" />
-              </svg>
-            </span>
-            <span class="care-action-chevron">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 6 6 6-6 6" /></svg>
-            </span>
-            <span class="care-action-title">Album</span>
-          </button>
-        </div>
-      </section>
-
-      <section class="light" role="button" tabindex="0" aria-label="Night light" aria-expanded="false">
-        <div class="light-inner">
-          <div class="light-copy">
-            <span class="light-name">Night Light</span>
-            <img class="divider" src="figma-baby-crib-assets/divider.svg" alt="">
-            <span class="light-percent">50%</span>
-          </div>
-          <button class="switch interactive" id="lightSwitch" type="button" aria-label="Toggle night light"></button>
-        </div>
-        <div class="light-slider interactive" id="lightSlider" role="slider" tabindex="0" aria-label="Adjust night light brightness" aria-valuemin="1" aria-valuemax="100" aria-valuenow="50">
-          <span class="light-slider-track" aria-hidden="true">
-            <span class="light-slider-fill"></span>
-            <span class="light-slider-knob"></span>
-          </span>
-          <span class="light-slider-label light-slider-min">1%</span>
-          <span class="light-slider-label light-slider-max">100%</span>
-        </div>
-      </section>
-    </section>
-      </main>
-    </section>
-
-    <aside class="prd-panel" aria-label="Product requirements document">
-      <p class="prd-eyebrow">需求 PRD</p>
-      <h1 class="prd-title">智能婴儿床 App 控制页</h1>
-      <p class="prd-summary">面向看护人远程查看婴儿床状态、启动睡眠安抚、调整白噪音/摇摆/夜灯，并快速进入看护记录的单页控制体验。</p>
-
-      <div class="prd-meta" aria-label="PRD metadata">
-        <div class="prd-meta-item">
-          <span class="prd-meta-label">版本</span>
-          <span class="prd-meta-value">V1.0 原型验证</span>
-        </div>
-        <div class="prd-meta-item">
-          <span class="prd-meta-label">核心场景</span>
-          <span class="prd-meta-value">睡眠安抚 / 远程看护</span>
-        </div>
-        <div class="prd-meta-item">
-          <span class="prd-meta-label">目标用户</span>
-          <span class="prd-meta-value">夜间照护人与新手父母</span>
-        </div>
-        <div class="prd-meta-item">
-          <span class="prd-meta-label">页面状态</span>
-          <span class="prd-meta-value">Sleep / Care 双 Tab</span>
-        </div>
-      </div>
-
-      <section class="prd-section">
-        <h2>一、用户目标</h2>
-        <ol class="prd-list">
-          <li>快速确认婴儿当前画面，并保留静音、清晰度和全屏观看入口。</li>
-          <li>一键启动睡眠安抚，同时运行摇摆和白噪音，减少夜间操作成本。</li>
-          <li>允许用户单独开关摇摆、白噪音和夜灯，满足不同安抚策略。</li>
-          <li>在 Care 页查看今日看护事件，并快速进入拍照、录像、麦克风、方向控制和音乐入口。</li>
-        </ol>
-      </section>
-
-      <section class="prd-section">
-        <h2>二、页面模块</h2>
-        <div class="prd-flow">
-          <div class="prd-flow-item">
-            <span class="prd-tag">Live</span>
-            <p class="prd-flow-copy">顶部展示实时摄像头画面，叠加品牌水印、时间、音频静音、HD 清晰度和全屏按钮。</p>
-          </div>
-          <div class="prd-flow-item">
-            <span class="prd-tag">Sleep</span>
-            <p class="prd-flow-copy">默认展示 Sleep-Soothing Mode，包含倒计时、总控播放键、Soothing Motion、White Noise 和 Night Light。</p>
-          </div>
-          <div class="prd-flow-item">
-            <span class="prd-tag">Care</span>
-            <p class="prd-flow-copy">切换 Care Tab 后展示快捷控制、今日事件数量、事件列表以及 Playback / Album 操作入口。</p>
-          </div>
-        </div>
-      </section>
-
-      <section class="prd-section">
-        <h2>三、核心交互规则</h2>
-        <table class="prd-table">
-          <thead>
-            <tr>
-              <th>对象</th>
-              <th>触发</th>
-              <th>结果</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>总控播放键</td>
-              <td>点击播放</td>
-              <td>Soothing Motion 与 White Noise 同时点亮，倒计时进入 19:32 并继续递减。</td>
-            </tr>
-            <tr>
-              <td>子功能卡片</td>
-              <td>单独点击</td>
-              <td>对应功能独立开启或关闭；只要任一功能运行，总控保持播放态。</td>
-            </tr>
-            <tr>
-              <td>停止态</td>
-              <td>两个子功能均关闭</td>
-              <td>总控自动回到停止态，倒计时恢复 20:00。</td>
-            </tr>
-            <tr>
-              <td>播放文案</td>
-              <td>功能运行中</td>
-              <td>Motion Curve 3 与 Ocean Waves 从右向左循环滚动，模拟音乐播放动效。</td>
-            </tr>
-            <tr>
-              <td>Night Light</td>
-              <td>点击整行</td>
-              <td>展开 1%-100% 亮度滑杆，默认打开并显示 1%，开关和滑杆可独立操作。</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section class="prd-section">
-        <h2>四、验收标准</h2>
-        <ol class="prd-list">
-          <li>默认进入页面时 Sleep Tab 选中，主控为停止态，摇摆、白噪音、夜灯均不运行。</li>
-          <li>点击主控后，两个安抚子功能同步激活，卡片视觉高亮，倒计时开始。</li>
-          <li>用户关闭任一子功能后，另一项仍可保持运行；两项全部关闭后主控自动停止。</li>
-          <li>点击 Night Light 后出现与设计一致的亮度控制卡片，滑杆可更新百分比。</li>
-          <li>Care Tab 内容与看护信息页一致，事件列表和快捷操作在 402px 手机宽度内不重叠。</li>
-        </ol>
-      </section>
-    </aside>
-  </div>
   <script>
-    const phone = document.querySelector(".phone");
-    const smartToggle = document.querySelector("#smartToggle");
-    const timerValue = document.querySelector(".timer-value");
-    const motionCard = document.querySelector("#motionCard");
-    const musicCard = document.querySelector("#musicCard");
-    const lightCard = document.querySelector(".light");
-    const lightSwitch = document.querySelector("#lightSwitch");
-    const lightSlider = document.querySelector("#lightSlider");
-    const lightPercent = document.querySelector(".light-percent");
-    const tabButtons = document.querySelectorAll("[data-tab-target]");
-
-    const DEFAULT_SECONDS = 20 * 60;
-    const ACTIVE_SECONDS = 19 * 60 + 32;
-
-    const state = {
-      mode: "off",
-      motion: false,
-      music: false,
-      light: false,
-      lightExpanded: false,
-      lightLevel: 50,
-      seconds: DEFAULT_SECONDS
+    const screens = {
+      devices: {
+        label: "设备页",
+        image: "assets/devices.png",
+        width: 393,
+        height: 852,
+        alt: "设备页，顶部为 Clara's Family，首张设备卡片为 Clara's Baby Crib。",
+        hotspots: [
+          {
+            label: "进入 Clara's Baby Crib 控制页",
+            x: 16,
+            y: 149,
+            w: 361,
+            h: 279,
+            action: () => enterCribFlow()
+          }
+        ]
+      },
+      onboarding: {
+        label: "首次进入引导",
+        width: 402,
+        height: 874,
+        overlays: ["onboardingFlow"],
+        alt: "首次进入婴儿床前的绑定与推荐引导。",
+        hotspots: []
+      },
+      soothing: {
+        label: "婴儿床首页 / Soothing",
+        image: "assets/soothing-on.png",
+        width: 402,
+        height: 874,
+        stableTop: 408,
+        overlays: ["countdown", "sleepModeDynamic", "sceneControls", "nightLightControls"],
+        alt: "婴儿床控制页，默认停留在 Soothing 页面，包含总开关、计时、运动、白噪音和夜灯控制。",
+        hotspots: [
+          {
+            label: "返回设备页",
+            x: 16,
+            y: 78,
+            w: 56,
+            h: 48,
+            action: () => showScreen("devices", "pop")
+          },
+          {
+            label: "切换到 Monitoring",
+            x: 201,
+            y: 360,
+            w: 185,
+            h: 48,
+            action: () => showScreen("monitoring", "content-tab-forward")
+          },
+          {
+            label: "打开哄睡设置页",
+            x: 32,
+            y: 540,
+            w: 165,
+            h: 91,
+            action: () => showScreen("motion", "sheet-open")
+          },
+          {
+            label: "打开白噪音设置页",
+            x: 205,
+            y: 540,
+            w: 165,
+            h: 91,
+            action: () => showScreen("noise", "sheet-open")
+          },
+          {
+            label: "开启夜灯",
+            x: 16,
+            y: 724,
+            w: 370,
+            h: 72,
+            action: () => setNightLightPower(true)
+          },
+          {
+            label: "切换总开关",
+            x: 306,
+            y: 437,
+            w: 74,
+            h: 74,
+            action: () => {
+              setSleepPower(!powerOn);
+              showScreen(powerOn ? "soothing" : "soothingOff", "content-fade");
+            }
+          }
+        ]
+      },
+      soothingOff: {
+        label: "婴儿床首页 / Soothing 关闭",
+        image: "assets/soothing-off.png",
+        width: 402,
+        height: 874,
+        stableTop: 408,
+        overlays: ["countdown", "sleepModeDynamic", "sceneControls", "nightLightControls"],
+        alt: "婴儿床 Soothing 页面关闭状态。",
+        hotspots: [
+          {
+            label: "返回设备页",
+            x: 16,
+            y: 78,
+            w: 56,
+            h: 48,
+            action: () => showScreen("devices", "pop")
+          },
+          {
+            label: "切换到 Monitoring",
+            x: 201,
+            y: 360,
+            w: 185,
+            h: 48,
+            action: () => showScreen("monitoring", "content-tab-forward")
+          },
+          {
+            label: "开启夜灯",
+            x: 16,
+            y: 724,
+            w: 370,
+            h: 72,
+            action: () => setNightLightPower(true)
+          },
+          {
+            label: "打开总开关",
+            x: 306,
+            y: 437,
+            w: 74,
+            h: 74,
+            action: () => {
+              setSleepPower(true);
+              showScreen("soothing", "content-fade");
+            }
+          }
+        ]
+      },
+      monitoring: {
+        label: "婴儿床首页 / Monitoring",
+        image: "assets/monitoring.png",
+        width: 402,
+        height: 874,
+        stableTop: 408,
+        overlays: ["monitoringControls"],
+        alt: "婴儿床 Monitoring 页面，展示摄像头和监控相关内容。",
+        hotspots: [
+          {
+            label: "返回设备页",
+            x: 16,
+            y: 78,
+            w: 56,
+            h: 48,
+            action: () => showScreen("devices", "pop")
+          },
+          {
+            label: "切换回 Soothing",
+            x: 16,
+            y: 360,
+            w: 185,
+            h: 48,
+            action: () => showScreen(powerOn ? "soothing" : "soothingOff", "content-tab-back")
+          }
+        ]
+      },
+      motion: {
+        label: "哄睡设置页",
+        image: "assets/motion-settings.png",
+        width: 402,
+        height: 874,
+        overlays: ["motionControls"],
+        alt: "哄睡设置页，包含 Manual、Auto、运动路径、Motion Level 和实时监测。",
+        hotspots: [
+          {
+            label: "关闭哄睡设置页",
+            x: 352,
+            y: 205,
+            w: 34,
+            h: 50,
+            action: () => showScreen("soothing", "sheet-close")
+          },
+          {
+            label: "选择 Manual 模式",
+            x: 16,
+            y: 314,
+            w: 120,
+            h: 48,
+            action: () => {
+              getActiveScene().mode = "Manual";
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast("Manual selected");
+            }
+          },
+          {
+            label: "选择 Auto 模式",
+            x: 152,
+            y: 314,
+            w: 120,
+            h: 48,
+            action: () => {
+              getActiveScene().mode = "Auto";
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast("Auto selected");
+            }
+          },
+          {
+            label: "切换实时监测",
+            x: 336,
+            y: 792,
+            w: 50,
+            h: 44,
+            action: () => {
+              realtimeMonitoring = !realtimeMonitoring;
+              getActiveScene().realtimeMonitoring = realtimeMonitoring;
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast(`Real-time Monitoring ${realtimeMonitoring ? "On" : "Off"}`);
+            }
+          }
+        ]
+      },
+      noise: {
+        label: "白噪音设置页",
+        image: "assets/white-noise-settings.png",
+        width: 402,
+        height: 874,
+        alt: "白噪音设置页，包含上一曲、播放暂停、下一曲、循环模式、音量、音乐分类和曲目列表。",
+        hotspots: [
+          {
+            label: "关闭白噪音设置页",
+            x: 352,
+            y: 194,
+            w: 34,
+            h: 50,
+            action: () => showScreen("soothing", "sheet-close")
+          },
+          {
+            label: "切换循环模式",
+            x: 302,
+            y: 194,
+            w: 40,
+            h: 44,
+            action: () => {
+              loopMode = loopMode === "whole" ? "single" : "whole";
+              toast(loopMode === "whole" ? "Whole playlist loop" : "Single song loop");
+            }
+          },
+          {
+            label: "上一曲",
+            x: 90,
+            y: 260,
+            w: 58,
+            h: 58,
+            action: () => {
+              activeTrack = "Moon Lullaby";
+              getActiveScene().track = activeTrack;
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast("Previous track");
+            }
+          },
+          {
+            label: "播放或暂停白噪音",
+            x: 176,
+            y: 258,
+            w: 50,
+            h: 58,
+            action: () => {
+              noisePlaying = !noisePlaying;
+              toast(noisePlaying ? "White noise playing" : "White noise paused");
+            }
+          },
+          {
+            label: "下一曲",
+            x: 254,
+            y: 260,
+            w: 58,
+            h: 58,
+            action: () => {
+              activeTrack = "Cotton Cloud";
+              getActiveScene().track = activeTrack;
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast("Next track");
+            }
+          },
+          {
+            label: "调整音量",
+            x: 16,
+            y: 344,
+            w: 370,
+            h: 24,
+            action: () => {
+              noiseVolume = noiseVolume >= 70 ? 30 : noiseVolume + 10;
+              getActiveScene().volume = noiseVolume;
+              updateSleepModeDynamic();
+              renderHud(screens[currentScreen]);
+              persistPrototypeState();
+              toast(`Volume ${noiseVolume}%`);
+            }
+          },
+          {
+            label: "选择 Nature Sounds",
+            x: 16,
+            y: 426,
+            w: 120,
+            h: 48,
+            action: () => toast("Nature Sounds")
+          },
+          {
+            label: "选择 Mom's Lullaby",
+            x: 141,
+            y: 426,
+            w: 120,
+            h: 48,
+            action: () => toast("Mom's Lullaby")
+          },
+          {
+            label: "选择 Common White Noise",
+            x: 266,
+            y: 426,
+            w: 120,
+            h: 48,
+            action: () => toast("Common White Noise")
+          },
+          {
+            label: "选择 Moon Lullaby",
+            x: 16,
+            y: 570,
+            w: 356,
+            h: 44,
+            action: () => {
+              activeTrack = "Moon Lullaby";
+              getActiveScene().track = activeTrack;
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast("Moon Lullaby selected");
+            }
+          },
+          {
+            label: "选择 Cotton Cloud",
+            x: 16,
+            y: 626,
+            w: 356,
+            h: 44,
+            action: () => {
+              activeTrack = "Cotton Cloud";
+              getActiveScene().track = activeTrack;
+              updateSleepModeDynamic();
+              persistPrototypeState();
+              toast("Cotton Cloud selected");
+            }
+          }
+        ]
+      },
+      timerSettings: {
+        label: "倒计时选择页",
+        image: "assets/timer-settings-full.png",
+        width: 402,
+        height: 874,
+        overlays: ["timerOptions"],
+        alt: "倒计时选择页，包含 10、20、30、40、50、60 分钟六个选项。",
+        hotspots: [
+          {
+            label: "关闭倒计时选择页",
+            x: 352,
+            y: 588,
+            w: 34,
+            h: 58,
+            action: () => {
+              pendingDurationMinutes = selectedDurationMinutes;
+              showScreen(powerOn ? "soothing" : "soothingOff", "sheet-close");
+            }
+          },
+          {
+            label: "完成倒计时选择",
+            x: 16,
+            y: 784,
+            w: 370,
+            h: 64,
+            action: () => {
+              selectedDurationMinutes = pendingDurationMinutes;
+              if (powerOn) {
+                resetCountdown(selectedDurationMinutes);
+              } else {
+                remainingSeconds = selectedDurationMinutes * 60;
+                updateTimerDisplays();
+                persistPrototypeState();
+              }
+              showScreen(powerOn ? "soothing" : "soothingOff", "sheet-close");
+            }
+          }
+        ]
+      }
     };
 
-    let ticker;
+    let currentScreen = "devices";
+    let powerOn = false;
+    let noisePlaying = true;
+    let loopMode = "whole";
+    let selectedDurationMinutes = 20;
+    let pendingDurationMinutes = 20;
+    let remainingSeconds = 20 * 60;
+    let selectedCurve = 3;
+    let motionLevel = 3;
+    let realtimeMonitoring = true;
+    let activeTrack = "Ocean Waves";
+    let noiseVolume = 45;
+    let selectedSceneId = "general";
+    let nightLightOn = false;
+    let nightLightBrightness = 50;
+    let nightLightTemperature = 4000;
+    let cribOnboardingCompleted = false;
+    let completedOnboardingVersion = 0;
+    let selectedBabyId = "tony";
+    let selectedBabyAgeMonths = 6;
+    let onboardingStep = 1;
+    let onboardingSceneExpanded = false;
+    let monitoringRecording = false;
+    let countdownInterval = null;
+    let toastTimer = null;
+    let activeLayer = null;
+    let transitionLocked = false;
 
-    function formatTime(totalSeconds) {
-      const minutes = Math.floor(totalSeconds / 60);
-      const seconds = totalSeconds % 60;
-      return `${minutes}:${String(seconds).padStart(2, "0")}`;
+    const ONBOARDING_FLOW_VERSION = 2;
+    const defaultBabyAgeById = {
+      tony: 6,
+      ammy: 3
+    };
+    let babyAgeById = { ...defaultBabyAgeById };
+
+    const phone = document.getElementById("phone");
+    const screenStack = document.getElementById("screenStack");
+    const hud = document.getElementById("hud");
+    const toastEl = document.getElementById("toast");
+
+    const scenes = [
+      {
+        id: "general",
+        title: "通用",
+        meta: "Curve 3 · Ocean",
+        mode: "Manual",
+        curve: 3,
+        movementPath: "Curve 3",
+        motionLevel: 3,
+        realtimeMonitoring: true,
+        track: "Ocean Waves",
+        volume: 45,
+        loopMode: "whole"
+      },
+      {
+        id: "night",
+        title: "夜眠",
+        meta: "Curve 2 · Lullaby",
+        mode: "Auto",
+        curve: 2,
+        movementPath: "Curve 2",
+        motionLevel: 2,
+        realtimeMonitoring: true,
+        track: "Moon Lullaby",
+        volume: 28,
+        loopMode: "single"
+      },
+      {
+        id: "nap",
+        title: "午憩",
+        meta: "Curve 4 · Cloud",
+        mode: "Auto",
+        curve: 4,
+        movementPath: "Curve 4",
+        motionLevel: 1,
+        realtimeMonitoring: false,
+        track: "Cotton Cloud",
+        volume: 34,
+        loopMode: "whole"
+      }
+    ];
+
+    const babies = [
+      {
+        id: "tony",
+        name: "Tony",
+        note: "夜间整段睡眠开始变长，入睡前更适合平稳、连续的节奏。",
+        avatar: "T"
+      },
+      {
+        id: "ammy",
+        name: "Ammy",
+        note: "白天小睡更频繁，通常需要更轻柔的过渡来慢慢放松。",
+        avatar: "A"
+      }
+    ];
+
+    const ageRecommendations = [
+      {
+        min: 0,
+        max: 3,
+        sceneId: "night",
+        title: "这个阶段更需要稳定包裹感",
+        copy: "0-3 个月的宝宝还在适应昼夜节律，容易被突然的动作和声音惊扰。先用节奏更柔和、循环更稳定的夜眠卡，会更接近他们熟悉的被抱哄状态。"
+      },
+      {
+        min: 4,
+        max: 6,
+        sceneId: "general",
+        title: "这个阶段开始建立自己的安抚偏好",
+        copy: "4-6 个月的宝宝通常已经能区分熟悉的安抚方式，但状态波动还是比较明显。先从通用卡开始，既保留安抚节奏，也方便后续再细调。"
+      },
+      {
+        min: 7,
+        max: 12,
+        sceneId: "nap",
+        title: "这个阶段白天小睡更容易被打断",
+        copy: "7-12 个月的宝宝白天活动量增加，白天哄睡更容易受情绪和环境影响。先用午憩卡，让节奏更轻、更短，也更利于白天过渡。"
+      }
+    ];
+
+    const transitions = {
+      none: {
+        duration: 0,
+        nextFrom: "no-motion",
+        prevTo: ""
+      },
+      push: {
+        duration: 380,
+        nextFrom: "from-right",
+        prevTo: "to-left"
+      },
+      pop: {
+        duration: 380,
+        nextFrom: "from-left",
+        prevTo: "to-right"
+      },
+      "tab-forward": {
+        duration: 320,
+        nextFrom: "from-right-soft",
+        prevTo: "to-left-soft"
+      },
+      "tab-back": {
+        duration: 320,
+        nextFrom: "from-left-soft",
+        prevTo: "to-right-soft"
+      },
+      "content-tab-forward": {
+        duration: 320,
+        nextFrom: "from-right-soft",
+        prevTo: "to-left-soft",
+        contentOnly: true
+      },
+      "content-tab-back": {
+        duration: 320,
+        nextFrom: "from-left-soft",
+        prevTo: "to-right-soft",
+        contentOnly: true
+      },
+      "content-fade": {
+        duration: 220,
+        nextFrom: "content-fade-in",
+        prevTo: "content-fade-out",
+        contentOnly: true
+      },
+      "sheet-open": {
+        duration: 420,
+        nextFrom: "from-bottom",
+        prevTo: "dim-back"
+      },
+      "sheet-close": {
+        duration: 360,
+        nextFrom: "",
+        prevTo: "to-bottom",
+        placeNextBelow: true
+      },
+      fade: {
+        duration: 260,
+        nextFrom: "fade-in",
+        prevTo: "fade-out"
+      }
+    };
+
+    function showScreen(name, transitionName = "fade") {
+      const screen = screens[name];
+      if (!screen || transitionLocked) return;
+      if (name === currentScreen && activeLayer) {
+        renderHud(screen);
+        return;
+      }
+
+      const transition = activeLayer ? transitions[transitionName] || transitions.fade : transitions.none;
+      const previousScreen = screens[currentScreen];
+      if (activeLayer && transition.contentOnly && previousScreen?.stableTop && screen.stableTop) {
+        showContentTabScreen(name, screen, previousScreen, transition);
+        return;
+      }
+
+      const previousLayer = activeLayer;
+      const nextLayer = createLayer(screen);
+      const hasMotion = transition.duration > 0;
+
+      currentScreen = name;
+      phone.style.setProperty("--screen-w", `${screen.width}px`);
+      phone.style.setProperty("--screen-h", `${screen.height}px`);
+      phone.style.setProperty("--screen-ratio", screen.height / screen.width);
+      renderHud(screen);
+
+      nextLayer.style.setProperty("--motion-duration", `${transition.duration}ms`);
+      if (previousLayer) {
+        previousLayer.style.setProperty("--motion-duration", `${transition.duration}ms`);
+      }
+
+      if (transition.nextFrom) {
+        nextLayer.classList.add(transition.nextFrom);
+      }
+
+      if (!previousLayer || !hasMotion) {
+        screenStack.replaceChildren(nextLayer);
+        nextLayer.classList.remove("no-motion");
+        activeLayer = nextLayer;
+        updateTimerDisplays();
+        return;
+      }
+
+      transitionLocked = true;
+      phone.classList.add("is-transitioning");
+
+      if (transition.placeNextBelow) {
+        nextLayer.style.zIndex = "1";
+        previousLayer.style.zIndex = "2";
+        screenStack.insertBefore(nextLayer, previousLayer);
+      } else {
+        previousLayer.style.zIndex = "1";
+        nextLayer.style.zIndex = "2";
+        screenStack.appendChild(nextLayer);
+      }
+
+      nextLayer.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        nextLayer.classList.remove(transition.nextFrom);
+        if (transition.prevTo) {
+          previousLayer.classList.add(transition.prevTo);
+        }
+      });
+
+      window.setTimeout(() => {
+        screenStack.replaceChildren(nextLayer);
+        nextLayer.className = "screen-layer";
+        nextLayer.style.zIndex = "";
+        activeLayer = nextLayer;
+        transitionLocked = false;
+        phone.classList.remove("is-transitioning");
+        updateTimerDisplays();
+      }, transition.duration + 40);
+    }
+
+    function showContentTabScreen(name, screen, previousScreen, transition) {
+      const previousLayer = activeLayer;
+      const nextLayer = createLayer(screen);
+      const stableTopLayer = createLayer(previousScreen, { hotspots: false, overlays: false });
+      const clipTop = screen.stableTop || previousScreen.stableTop;
+
+      currentScreen = name;
+      phone.style.setProperty("--screen-w", `${screen.width}px`);
+      phone.style.setProperty("--screen-h", `${screen.height}px`);
+      phone.style.setProperty("--screen-ratio", screen.height / screen.width);
+      renderHud(screen);
+
+      transitionLocked = true;
+      phone.classList.add("is-transitioning");
+
+      for (const layer of [previousLayer, nextLayer, stableTopLayer]) {
+        layer.style.setProperty("--motion-duration", `${transition.duration}ms`);
+        layer.style.setProperty("--clip-top", `${clipTop}px`);
+      }
+
+      previousLayer.classList.add("clip-content");
+      previousLayer.style.zIndex = "1";
+      nextLayer.classList.add("clip-content", transition.nextFrom);
+      nextLayer.style.zIndex = "2";
+      stableTopLayer.classList.add("clip-stable-top");
+      stableTopLayer.style.zIndex = "3";
+
+      screenStack.appendChild(nextLayer);
+      screenStack.appendChild(stableTopLayer);
+
+      nextLayer.getBoundingClientRect();
+      requestAnimationFrame(() => {
+        nextLayer.classList.remove(transition.nextFrom);
+        previousLayer.classList.add(transition.prevTo);
+      });
+
+      window.setTimeout(() => {
+        nextLayer.className = "screen-layer";
+        nextLayer.style.zIndex = "";
+        screenStack.replaceChildren(nextLayer);
+        activeLayer = nextLayer;
+        transitionLocked = false;
+        phone.classList.remove("is-transitioning");
+        updateTimerDisplays();
+      }, transition.duration + 40);
+    }
+
+    function createLayer(screen, options = {}) {
+      const withHotspots = options.hotspots !== false;
+      const withOverlays = options.overlays !== false;
+      const layer = document.createElement("div");
+      layer.className = "screen-layer";
+
+      if (screen.image) {
+        const image = document.createElement("img");
+        image.className = "screen-image";
+        image.src = screen.image;
+        image.alt = screen.alt;
+        layer.appendChild(image);
+      }
+
+      if (withOverlays) {
+        renderOverlays(screen, layer);
+      }
+
+      if (withHotspots) {
+        const hotspotLayer = document.createElement("div");
+        hotspotLayer.className = "hotspots";
+        for (const spot of screen.hotspots) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "hotspot";
+          button.setAttribute("aria-label", spot.label);
+          button.title = spot.label;
+          button.style.left = `${(spot.x / screen.width) * 100}%`;
+          button.style.top = `${(spot.y / screen.height) * 100}%`;
+          button.style.width = `${(spot.w / screen.width) * 100}%`;
+          button.style.height = `${(spot.h / screen.height) * 100}%`;
+          button.addEventListener("click", spot.action);
+          hotspotLayer.appendChild(button);
+        }
+        layer.appendChild(hotspotLayer);
+      }
+      return layer;
+    }
+
+    function renderOverlays(screen, layer) {
+      if (screen.overlays?.includes("countdown")) {
+        const timerButton = document.createElement("button");
+        timerButton.type = "button";
+        timerButton.className = `timer-control ${powerOn ? "is-on" : "is-off"}`;
+        timerButton.setAttribute("aria-label", "打开倒计时选择页");
+        timerButton.title = "打开倒计时选择页";
+        timerButton.innerHTML = '<span class="timer-clock" aria-hidden="true"></span><span class="timer-value"></span>';
+        timerButton.querySelector(".timer-value").textContent = formatCountdown(getCountdownDisplaySeconds());
+        timerButton.addEventListener("click", () => {
+          pendingDurationMinutes = selectedDurationMinutes;
+          showScreen("timerSettings", "sheet-open");
+        });
+        layer.appendChild(timerButton);
+      }
+
+      if (screen.overlays?.includes("timerOptions")) {
+        const optionGrid = document.createElement("div");
+        optionGrid.className = "timer-options";
+        for (const minutes of [10, 20, 30, 40, 50, 60]) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "timer-option";
+          button.textContent = `${minutes}min`;
+          button.setAttribute("aria-label", `选择 ${minutes} 分钟`);
+          button.dataset.minutes = String(minutes);
+          button.addEventListener("click", () => {
+            pendingDurationMinutes = minutes;
+            updateTimerOptionButtons();
+          });
+          optionGrid.appendChild(button);
+        }
+        layer.appendChild(optionGrid);
+        updateTimerOptionButtons(optionGrid);
+      }
+
+      if (screen.overlays?.includes("sleepModeDynamic")) {
+        const dynamic = document.createElement("div");
+        dynamic.className = `sleep-mode-dynamic ${powerOn ? "is-on" : "is-off"}`;
+        dynamic.innerHTML = `
+          <div class="sleep-mode-tile-card is-motion">
+            <span class="sleep-mode-tile-icon" aria-hidden="true">${cribIcon()}</span>
+            <span class="sleep-mode-tile-arrow" aria-hidden="true">›</span>
+            <span class="sleep-mode-tile-value"></span>
+          </div>
+          <div class="sleep-mode-tile-card is-noise">
+            <span class="sleep-mode-tile-icon" aria-hidden="true">${musicIcon()}</span>
+            <span class="sleep-mode-tile-arrow" aria-hidden="true">›</span>
+            <span class="sleep-mode-tile-value"></span>
+          </div>`;
+        layer.appendChild(dynamic);
+        updateSleepModeDynamic(dynamic);
+      }
+
+      if (screen.overlays?.includes("sceneControls")) {
+        const controls = document.createElement("div");
+        controls.className = "scene-controls";
+
+        const mask = document.createElement("div");
+        mask.className = "scene-section-mask";
+        controls.appendChild(mask);
+
+        const strip = document.createElement("div");
+        strip.className = "scene-strip";
+        for (const scene of scenes) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "scene-card";
+          button.dataset.sceneId = scene.id;
+          button.setAttribute("aria-label", `选择${scene.title}场景`);
+          button.innerHTML = `<span class="scene-card-title">${scene.title}</span><span class="scene-card-meta">${scene.meta}</span>`;
+          button.addEventListener("click", () => selectScene(scene.id));
+          strip.appendChild(button);
+        }
+        controls.appendChild(strip);
+        layer.appendChild(controls);
+        updateSceneControls(controls);
+      }
+
+      if (screen.overlays?.includes("monitoringControls")) {
+        const controls = document.createElement("div");
+        controls.className = "monitoring-controls";
+
+        const snapshotButton = document.createElement("button");
+        snapshotButton.type = "button";
+        snapshotButton.className = "monitoring-action-button monitoring-snapshot-button";
+        snapshotButton.setAttribute("aria-label", "截图");
+        snapshotButton.title = "截图";
+        snapshotButton.style.left = "17px";
+        snapshotButton.style.top = "423px";
+        snapshotButton.addEventListener("click", takeMonitoringSnapshot);
+        controls.appendChild(snapshotButton);
+
+        const recordButton = document.createElement("button");
+        recordButton.type = "button";
+        recordButton.className = "monitoring-action-button monitoring-record-button";
+        recordButton.setAttribute("aria-label", "开始录屏");
+        recordButton.title = "开始录屏";
+        recordButton.style.left = "96px";
+        recordButton.style.top = "423px";
+        recordButton.addEventListener("click", toggleMonitoringRecording);
+        controls.appendChild(recordButton);
+
+        const recordingBadge = document.createElement("div");
+        recordingBadge.className = "monitoring-recording-badge";
+        recordingBadge.textContent = "REC";
+        controls.appendChild(recordingBadge);
+
+        layer.appendChild(controls);
+        updateMonitoringControls(controls);
+      }
+
+      if (screen.overlays?.includes("onboardingFlow")) {
+        const babyChoiceMarkup = babies.map((baby) => `
+          <button type="button" class="onboarding-choice-card" data-baby-id="${baby.id}">
+            <div class="onboarding-baby-avatar">${baby.avatar}</div>
+            <div class="onboarding-choice-body">
+              <div class="onboarding-choice-top">
+                <div class="onboarding-baby-name">${baby.name}</div>
+                <div class="onboarding-baby-pill" data-baby-age="${baby.id}"></div>
+              </div>
+              <div class="onboarding-baby-note">${baby.note}</div>
+            </div>
+            <div class="onboarding-choice-check">✓</div>
+          </button>`).join("");
+
+        const flow = document.createElement("div");
+        flow.className = "onboarding-screen";
+        flow.innerHTML = `
+          <div class="onboarding-head">
+            <div class="onboarding-kicker">Clara's Baby Crib</div>
+            <div class="onboarding-progress">
+              <div class="onboarding-progress-label" id="onboardingProgressLabel"></div>
+              <div class="onboarding-progress-track"><span class="onboarding-progress-fill" id="onboardingProgressFill"></span></div>
+            </div>
+            <div class="onboarding-title" id="onboardingTitle">先帮宝宝确认一套更合适的初始方案</div>
+            <div class="onboarding-copy" id="onboardingCopy"></div>
+          </div>
+          <div class="onboarding-step-stack">
+            <section class="onboarding-step" data-step="1">
+              <div class="onboarding-card">
+                <div class="onboarding-section-title">已绑定宝宝</div>
+                <div class="onboarding-choice-list">
+                  ${babyChoiceMarkup}
+                </div>
+              </div>
+              <div class="onboarding-step-actions">
+                <button type="button" class="onboarding-cta" id="onboardingStep1Next">确认宝宝并继续</button>
+              </div>
+            </section>
+            <section class="onboarding-step" data-step="2">
+              <div class="onboarding-card onboarding-summary-card">
+                <div class="onboarding-section-title">当前绑定信息</div>
+                <div class="onboarding-baby-row" style="margin-top: 14px;">
+                  <div class="onboarding-baby-avatar" id="onboardingBabyAvatar"></div>
+                  <div class="onboarding-baby-profile">
+                    <div class="onboarding-choice-top">
+                      <div class="onboarding-baby-name" id="onboardingBabyName"></div>
+                      <div class="onboarding-baby-pill" id="onboardingBabyAgePill"></div>
+                    </div>
+                    <div class="onboarding-baby-note" id="onboardingBabyNote"></div>
+                  </div>
+                </div>
+                <div class="onboarding-divider"></div>
+                <div class="onboarding-age-row">
+                  <div>
+                    <div class="onboarding-age-caption">月龄确认</div>
+                    <div class="onboarding-age-hint">如果月龄不准确，先修改再继续推荐。</div>
+                  </div>
+                  <button type="button" class="onboarding-age-button" id="onboardingAgeButton"><span id="onboardingAgeValue"></span><span class="unit">个月</span></button>
+                </div>
+                <div class="onboarding-summary-copy">我们会按这个月龄推荐更适合当前阶段的运动节奏、音乐和默认音量。</div>
+              </div>
+              <div class="onboarding-step-actions">
+                <button type="button" class="onboarding-cta" id="onboardingAgeConfirmButton">月龄正确，继续推荐</button>
+                <button type="button" class="onboarding-secondary" id="onboardingAgeEditButton">月龄不对，去修改</button>
+                <button type="button" class="onboarding-secondary" id="onboardingBackToBabyButton">返回重新选择宝宝</button>
+              </div>
+            </section>
+            <section class="onboarding-step" data-step="3">
+              <div class="onboarding-card onboarding-recommend-card">
+                <div class="onboarding-recommend-head">
+                  <div>
+                    <div class="onboarding-recommend-title" id="onboardingRecommendTitle"></div>
+                    <div class="onboarding-recommend-copy" id="onboardingRecommendCopy"></div>
+                  </div>
+                  <button type="button" class="onboarding-scene-toggle" id="onboardingSceneToggle">+</button>
+                </div>
+                <div class="onboarding-scene-chip" id="onboardingSceneChip"></div>
+                <div class="onboarding-scene-note">默认保持收起，避免第一次进入时就被一串参数打断。展开后可以看到这次会写入通用卡的具体配置。</div>
+                <div class="onboarding-scene-panel" id="onboardingScenePanel">
+                  <div class="onboarding-scene-meta">
+                    <div><div class="onboarding-scene-label">推荐卡片</div><div class="onboarding-scene-value" id="onboardingSceneName"></div></div>
+                    <div><div class="onboarding-scene-label">Mode</div><div class="onboarding-scene-value" id="onboardingSceneMode"></div></div>
+                    <div><div class="onboarding-scene-label">Movement Path</div><div class="onboarding-scene-value" id="onboardingSceneCurve"></div></div>
+                    <div><div class="onboarding-scene-label">Motion Level</div><div class="onboarding-scene-value" id="onboardingSceneLevel"></div></div>
+                    <div><div class="onboarding-scene-label">Music</div><div class="onboarding-scene-value" id="onboardingSceneTrack"></div></div>
+                    <div><div class="onboarding-scene-label">Volume</div><div class="onboarding-scene-value" id="onboardingSceneVolume"></div></div>
+                  </div>
+                </div>
+              </div>
+              <div class="onboarding-step-actions">
+                <button type="button" class="onboarding-cta" id="onboardingApplyButton">应用建议并进入控制页</button>
+                <button type="button" class="onboarding-secondary" id="onboardingBackToAgeButton">返回上一步</button>
+              </div>
+            </section>
+          </div>`;
+
+        const ageSheet = document.createElement("div");
+        ageSheet.className = "age-sheet-options";
+        ageSheet.innerHTML = `
+          <div class="onboarding-scrim"></div>
+          <div class="age-sheet-card">
+            <div class="age-sheet-title">确认当前月龄</div>
+            <div class="age-sheet-grid" id="ageSheetGrid"></div>
+            <div class="age-sheet-note">我们会根据月龄推荐更贴近当下睡眠节律的场景卡。</div>
+          </div>`;
+
+        layer.appendChild(flow);
+        layer.appendChild(ageSheet);
+        setupOnboardingFlow(layer);
+      }
+
+      if (screen.overlays?.includes("motionControls")) {
+        const controls = document.createElement("div");
+        controls.className = "motion-controls";
+
+        const curveGrid = document.createElement("div");
+        curveGrid.className = "motion-curve-grid";
+        const curveLabels = ["Curve 1", "Curve 2", "Curve 3", "Curve 4", "Curve 5", "Custom"];
+        curveLabels.forEach((label, index) => {
+          const curve = index + 1;
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "motion-curve-button";
+          button.dataset.curve = String(curve);
+          button.setAttribute("aria-label", `选择 ${label}`);
+          button.innerHTML = `<span>${label}</span>${waveIcon()}`;
+          button.addEventListener("click", () => {
+            selectedCurve = curve;
+            getActiveScene().curve = curve;
+            getActiveScene().movementPath = label;
+            updateMotionControlDisplays();
+            updateSleepModeDynamic();
+          });
+          curveGrid.appendChild(button);
+        });
+        controls.appendChild(curveGrid);
+
+        const levelControl = document.createElement("div");
+        levelControl.className = "motion-level-control";
+        levelControl.tabIndex = 0;
+        levelControl.setAttribute("role", "slider");
+        levelControl.setAttribute("aria-label", "调整 Motion Level");
+        levelControl.setAttribute("aria-valuemin", "0");
+        levelControl.setAttribute("aria-valuemax", "4");
+        levelControl.innerHTML = '<div class="motion-level-thumb" aria-hidden="true"></div>';
+        ["Off", "1", "2", "3", "4"].forEach((label, level) => {
+          const segment = document.createElement("span");
+          segment.className = "motion-level-segment";
+          segment.dataset.level = String(level);
+          segment.textContent = label;
+          levelControl.appendChild(segment);
+        });
+
+        let isDraggingLevel = false;
+        const setLevelFromPointer = (event) => {
+          const rect = levelControl.getBoundingClientRect();
+          const segmentWidth = rect.width / 5;
+          const level = clamp(Math.floor((event.clientX - rect.left) / segmentWidth), 0, 4);
+          setMotionLevel(level);
+        };
+
+        levelControl.addEventListener("pointerdown", (event) => {
+          isDraggingLevel = true;
+          levelControl.setPointerCapture?.(event.pointerId);
+          setLevelFromPointer(event);
+        });
+        levelControl.addEventListener("pointermove", (event) => {
+          if (isDraggingLevel) setLevelFromPointer(event);
+        });
+        levelControl.addEventListener("pointerup", (event) => {
+          isDraggingLevel = false;
+          levelControl.releasePointerCapture?.(event.pointerId);
+        });
+        levelControl.addEventListener("pointercancel", () => {
+          isDraggingLevel = false;
+        });
+        levelControl.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+            event.preventDefault();
+            setMotionLevel(motionLevel - 1);
+          }
+          if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+            event.preventDefault();
+            setMotionLevel(motionLevel + 1);
+          }
+        });
+        controls.appendChild(levelControl);
+
+        layer.appendChild(controls);
+        updateMotionControlDisplays(controls);
+      }
+
+      if (screen.overlays?.includes("nightLightControls")) {
+        const controls = document.createElement("div");
+        controls.className = "night-light-controls";
+
+        const expandedCard = document.createElement("div");
+        expandedCard.className = "night-light-expanded-card";
+        controls.appendChild(expandedCard);
+
+        const title = document.createElement("div");
+        title.className = "night-light-title";
+        title.innerHTML = '<span>Night Light</span><span class="night-light-title-divider">|</span><span class="night-light-title-value"></span>';
+        controls.appendChild(title);
+
+        const switchButton = createNightLightSwitch();
+        controls.appendChild(switchButton);
+
+        const parameterMask = document.createElement("div");
+        parameterMask.className = "night-light-parameter-mask";
+        controls.appendChild(parameterMask);
+
+        controls.appendChild(createNightLightSlider({
+          type: "brightness",
+          label: "Brightness",
+          top: 770,
+          min: 0,
+          max: 100,
+          minLabel: "0%",
+          maxLabel: "100%",
+          getValue: () => nightLightBrightness,
+          setValue: setNightLightBrightness,
+          formatValue: (value) => `${value}%`,
+          step: 1
+        }));
+
+        controls.appendChild(createNightLightSlider({
+          type: "temperature",
+          label: "Color Temperature",
+          top: 836,
+          min: 2700,
+          max: 5500,
+          minLabel: "2700K",
+          maxLabel: "5500K",
+          getValue: () => nightLightTemperature,
+          setValue: setNightLightTemperature,
+          formatValue: (value) => `${value}K`,
+          step: 100
+        }));
+
+        const collapsedMask = document.createElement("div");
+        collapsedMask.className = "night-light-collapsed-mask";
+        controls.appendChild(collapsedMask);
+
+        const collapsedCard = document.createElement("div");
+        collapsedCard.className = "night-light-collapsed-card";
+        collapsedCard.innerHTML = '<span class="night-light-collapsed-title"><span>Night Light</span><span class="night-light-title-divider">|</span><span class="night-light-title-value"></span></span>';
+        collapsedCard.appendChild(createNightLightSwitch());
+        controls.appendChild(collapsedCard);
+
+        layer.appendChild(controls);
+        updateNightLightControls(controls);
+      }
+    }
+
+    function takeMonitoringSnapshot() {
+      const layer = activeLayer;
+      if (!layer || currentScreen !== "monitoring") return;
+
+      for (const preview of layer.querySelectorAll(".monitoring-snapshot-preview")) {
+        preview.remove();
+      }
+
+      const preview = document.createElement("div");
+      preview.className = "monitoring-snapshot-preview";
+      layer.appendChild(preview);
+      preview.getBoundingClientRect();
+
+      requestAnimationFrame(() => {
+        preview.classList.add("is-minimized");
+      });
+
+      window.setTimeout(() => {
+        preview.classList.add("is-dismissed");
+      }, 780);
+
+      window.setTimeout(() => {
+        preview.remove();
+      }, 1120);
+    }
+
+    function toggleMonitoringRecording() {
+      monitoringRecording = !monitoringRecording;
+      updateMonitoringControls();
+    }
+
+    function updateMonitoringControls(root = document) {
+      for (const button of root.querySelectorAll(".monitoring-record-button")) {
+        button.classList.toggle("is-recording", monitoringRecording);
+        button.setAttribute("aria-label", monitoringRecording ? "结束录屏" : "开始录屏");
+        button.title = monitoringRecording ? "结束录屏" : "开始录屏";
+        button.setAttribute("aria-pressed", String(monitoringRecording));
+      }
+
+      for (const badge of root.querySelectorAll(".monitoring-recording-badge")) {
+        badge.classList.toggle("is-visible", monitoringRecording);
+      }
+    }
+
+    function setSleepPower(nextPower) {
+      if (powerOn === nextPower) return;
+      powerOn = nextPower;
+      if (powerOn) {
+        resetCountdown(selectedDurationMinutes);
+      } else {
+        stopCountdown();
+      }
+      updateSleepModeDynamic();
+      renderHud(screens[currentScreen]);
+      persistPrototypeState();
+    }
+
+    function createNightLightSwitch() {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "night-light-switch";
+      button.setAttribute("aria-label", "切换夜灯");
+      button.addEventListener("click", () => {
+        setNightLightPower(!nightLightOn);
+      });
+      return button;
+    }
+
+    function createNightLightSlider(config) {
+      const slider = document.createElement("div");
+      slider.className = `night-light-slider-control${config.type === "temperature" ? " is-temperature" : ""}`;
+      slider.tabIndex = 0;
+      slider.dataset.type = config.type;
+      slider.dataset.min = String(config.min);
+      slider.dataset.max = String(config.max);
+      slider.dataset.step = String(config.step);
+      slider.style.setProperty("--night-light-slider-top", `${config.top}px`);
+      slider.setAttribute("role", "slider");
+      slider.setAttribute("aria-label", config.label);
+      slider.setAttribute("aria-valuemin", String(config.min));
+      slider.setAttribute("aria-valuemax", String(config.max));
+      slider.innerHTML = `
+        <span class="night-light-slider-label">${config.label}</span>
+        <span class="night-light-slider-value"></span>
+        <div class="night-light-slider-track"><div class="night-light-slider-fill"></div></div>
+        <div class="night-light-slider-thumb"></div>
+        <span class="night-light-slider-hint is-min">${config.minLabel}</span>
+        <span class="night-light-slider-hint is-max">${config.maxLabel}</span>`;
+
+      let isDragging = false;
+      const setFromPointer = (event) => {
+        const rect = slider.getBoundingClientRect();
+        const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+        const rawValue = config.min + ratio * (config.max - config.min);
+        config.setValue(roundToStep(rawValue, config.step));
+      };
+
+      slider.addEventListener("pointerdown", (event) => {
+        if (!nightLightOn) return;
+        isDragging = true;
+        slider.setPointerCapture?.(event.pointerId);
+        setFromPointer(event);
+      });
+      slider.addEventListener("pointermove", (event) => {
+        if (isDragging) setFromPointer(event);
+      });
+      slider.addEventListener("pointerup", (event) => {
+        isDragging = false;
+        slider.releasePointerCapture?.(event.pointerId);
+      });
+      slider.addEventListener("pointercancel", () => {
+        isDragging = false;
+      });
+      slider.addEventListener("keydown", (event) => {
+        if (!nightLightOn) return;
+        const currentValue = config.getValue();
+        if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+          event.preventDefault();
+          config.setValue(currentValue - config.step);
+        }
+        if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+          event.preventDefault();
+          config.setValue(currentValue + config.step);
+        }
+      });
+
+      return slider;
+    }
+
+    function waveIcon() {
+      return `
+        <svg class="motion-curve-wave" viewBox="0 0 47 32" aria-hidden="true" focusable="false">
+          <path d="M3 26C3 9.5 11.5 3.7 17.3 20C20.9 30.2 29.4 30.2 33.6 17.3C36.9 7 41.8 8.8 44 18.2" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+    }
+
+    function cribIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7v12M20 7v12M3 11h18M5 15h14M7 11v4M11 11v4M15 11v4M19 11v4M6 7l2 4M18 7l-2 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+    }
+
+    function musicIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M9 17.5a3 2.5 0 1 1-2-2.36V5.5l11-2v11a3 2.5 0 1 1-2-2.36V8.1L9 9.4v8.1Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>`;
+    }
+
+    function getDefaultBabyAge(babyId) {
+      return defaultBabyAgeById[babyId] || defaultBabyAgeById[babies[0].id] || 6;
+    }
+
+    function getBabyAgeForId(babyId) {
+      return babyAgeById[babyId] ?? getDefaultBabyAge(babyId);
+    }
+
+    function getSelectedBaby() {
+      return babies.find((baby) => baby.id === selectedBabyId) || babies[0];
+    }
+
+    function getRecommendedProfile() {
+      return ageRecommendations.find((item) => selectedBabyAgeMonths >= item.min && selectedBabyAgeMonths <= item.max) || ageRecommendations[1];
+    }
+
+    function enterCribFlow() {
+      if (cribOnboardingCompleted) {
+        showScreen(powerOn ? "soothing" : "soothingOff", "push");
+        return;
+      }
+      if (!babies.some((baby) => baby.id === selectedBabyId)) {
+        selectedBabyId = babies[0].id;
+      }
+      selectedBabyAgeMonths = getBabyAgeForId(selectedBabyId);
+      onboardingStep = 1;
+      onboardingSceneExpanded = false;
+      showScreen("onboarding", "push");
+    }
+
+    function selectBabyProfile(babyId) {
+      if (!babies.some((baby) => baby.id === babyId)) return;
+      selectedBabyId = babyId;
+      selectedBabyAgeMonths = getBabyAgeForId(babyId);
+      updateOnboardingDisplays();
+      persistPrototypeState();
+    }
+
+    function setBabyAge(months) {
+      selectedBabyAgeMonths = months;
+      babyAgeById[selectedBabyId] = months;
+      updateOnboardingDisplays();
+      const root = activeLayer || document;
+      const ageSheet = root.querySelector(".age-sheet-options");
+      if (ageSheet) {
+        ageSheet.style.display = "none";
+      }
+      persistPrototypeState();
+      toast(`已更新为 ${months} 个月`);
+    }
+
+    function toggleAgeSheet(force) {
+      const root = activeLayer || document;
+      const ageSheet = root.querySelector(".age-sheet-options");
+      if (!ageSheet) return;
+      const nextVisible = typeof force === "boolean" ? force : ageSheet.style.display === "none";
+      ageSheet.style.display = nextVisible ? "grid" : "none";
+    }
+
+    function goToOnboardingStep(step) {
+      onboardingStep = clamp(Math.round(step), 1, 3);
+      toggleAgeSheet(false);
+      updateOnboardingDisplays();
+    }
+
+    function toggleOnboardingSceneDetails() {
+      onboardingSceneExpanded = !onboardingSceneExpanded;
+      updateOnboardingDisplays();
+    }
+
+    function applySceneToGeneral(sceneId, { setActive = true } = {}) {
+      const source = scenes.find((scene) => scene.id === sceneId);
+      const general = scenes.find((scene) => scene.id === "general");
+      if (!source || !general) return;
+      general.mode = source.mode;
+      general.curve = source.curve;
+      general.movementPath = source.movementPath;
+      general.motionLevel = source.motionLevel;
+      general.realtimeMonitoring = source.realtimeMonitoring;
+      general.track = source.track;
+      general.volume = source.volume;
+      general.loopMode = source.loopMode;
+      general.meta = `${source.movementPath.replace("Curve ", "C")} · ${source.track.replace("Ocean Waves", "Ocean").replace("Moon Lullaby", "Lullaby").replace("Cotton Cloud", "Cloud")}`;
+      if (setActive) {
+        selectScene("general");
+      } else {
+        updateSceneControls();
+        updateSleepModeDynamic();
+      }
+    }
+
+    function applyRecommendedOnboarding() {
+      const recommendation = getRecommendedProfile();
+      applySceneToGeneral(recommendation.sceneId, { setActive: true });
+      completedOnboardingVersion = ONBOARDING_FLOW_VERSION;
+      cribOnboardingCompleted = true;
+      persistPrototypeState();
+      showScreen(powerOn ? "soothing" : "soothingOff", "push");
+    }
+
+    function updateOnboardingDisplays(root = document) {
+      const baby = getSelectedBaby();
+      const recommendation = getRecommendedProfile();
+      const scene = scenes.find((item) => item.id === recommendation.sceneId) || scenes[0];
+      const stepMeta = {
+        1: {
+          progress: "步骤 1 / 3",
+          title: "先确认这张婴儿床现在绑定的是哪位宝宝",
+          copy: "第一次进入前，先把宝宝确认下来，后面才好按这个宝宝当前月龄去推荐更合适的起步方案。"
+        },
+        2: {
+          progress: "步骤 2 / 3",
+          title: `确认 ${baby.name} 的月龄`,
+          copy: `当前系统记录为 ${selectedBabyAgeMonths} 个月。月龄不准确的话，先改掉，再继续往下推荐。`
+        },
+        3: {
+          progress: "步骤 3 / 3",
+          title: `先给 ${baby.name} 一套更适合的哄睡起步方案`,
+          copy: "我们会先推荐一张更贴合当前月龄睡眠特点的场景卡，并直接写入通用卡，进入控制页后就能马上用。"
+        }
+      };
+      const currentStep = stepMeta[onboardingStep] || stepMeta[1];
+
+      for (const value of root.querySelectorAll("#onboardingProgressLabel")) {
+        value.textContent = currentStep.progress;
+      }
+      for (const value of root.querySelectorAll("#onboardingProgressFill")) {
+        value.style.width = `${(onboardingStep / 3) * 100}%`;
+      }
+      for (const value of root.querySelectorAll("#onboardingTitle")) {
+        value.textContent = currentStep.title;
+      }
+      for (const value of root.querySelectorAll("#onboardingCopy")) {
+        value.textContent = currentStep.copy;
+      }
+      for (const step of root.querySelectorAll(".onboarding-step")) {
+        step.classList.toggle("is-active", Number(step.dataset.step) === onboardingStep);
+      }
+      for (const card of root.querySelectorAll(".onboarding-choice-card")) {
+        const babyId = card.dataset.babyId;
+        const isSelected = babyId === selectedBabyId;
+        card.classList.toggle("is-selected", isSelected);
+        card.setAttribute("aria-pressed", String(isSelected));
+      }
+      for (const value of root.querySelectorAll("[data-baby-age]")) {
+        const babyId = value.getAttribute("data-baby-age");
+        if (babyId) {
+          value.textContent = `${getBabyAgeForId(babyId)}个月`;
+        }
+      }
+      for (const value of root.querySelectorAll("#onboardingBabyAvatar")) {
+        value.textContent = baby.avatar;
+      }
+      for (const value of root.querySelectorAll("#onboardingBabyName")) {
+        value.textContent = baby.name;
+      }
+      for (const value of root.querySelectorAll("#onboardingBabyNote")) {
+        value.textContent = baby.note;
+      }
+      for (const value of root.querySelectorAll("#onboardingBabyAgePill")) {
+        value.textContent = `${selectedBabyAgeMonths}个月`;
+      }
+      for (const value of root.querySelectorAll("#onboardingAgeValue")) {
+        value.textContent = String(selectedBabyAgeMonths);
+      }
+      for (const value of root.querySelectorAll("#onboardingRecommendTitle")) {
+        value.textContent = recommendation.title;
+      }
+      for (const value of root.querySelectorAll("#onboardingRecommendCopy")) {
+        value.textContent = recommendation.copy;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneChip")) {
+        value.textContent = `建议先使用「${scene.title}」卡`;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneName")) {
+        value.textContent = scene.title;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneMode")) {
+        value.textContent = scene.mode;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneCurve")) {
+        value.textContent = scene.movementPath;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneLevel")) {
+        value.textContent = `Level ${scene.motionLevel}`;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneTrack")) {
+        value.textContent = scene.track;
+      }
+      for (const value of root.querySelectorAll("#onboardingSceneVolume")) {
+        value.textContent = `${scene.volume}%`;
+      }
+      for (const panel of root.querySelectorAll("#onboardingScenePanel")) {
+        panel.classList.toggle("is-open", onboardingSceneExpanded);
+      }
+      for (const toggle of root.querySelectorAll("#onboardingSceneToggle")) {
+        toggle.textContent = onboardingSceneExpanded ? "−" : "+";
+        toggle.setAttribute("aria-expanded", String(onboardingSceneExpanded));
+      }
+      for (const sheet of root.querySelectorAll(".age-sheet-options")) {
+        if (!sheet.style.display) {
+          sheet.style.display = "none";
+        }
+      }
+      for (const option of root.querySelectorAll(".age-sheet-option")) {
+        option.classList.toggle("is-selected", Number(option.dataset.months) === selectedBabyAgeMonths);
+      }
+    }
+
+    function setupOnboardingFlow(layer) {
+      const babyChoiceButtons = layer.querySelectorAll(".onboarding-choice-card");
+      const step1NextButton = layer.querySelector("#onboardingStep1Next");
+      const ageButton = layer.querySelector("#onboardingAgeButton");
+      const ageConfirmButton = layer.querySelector("#onboardingAgeConfirmButton");
+      const ageEditButton = layer.querySelector("#onboardingAgeEditButton");
+      const backToBabyButton = layer.querySelector("#onboardingBackToBabyButton");
+      const sceneToggle = layer.querySelector("#onboardingSceneToggle");
+      const applyButton = layer.querySelector("#onboardingApplyButton");
+      const backToAgeButton = layer.querySelector("#onboardingBackToAgeButton");
+      const ageSheet = layer.querySelector(".age-sheet-options");
+      const ageGrid = layer.querySelector("#ageSheetGrid");
+      const scrim = layer.querySelector(".onboarding-scrim");
+
+      for (const button of babyChoiceButtons) {
+        button.addEventListener("click", () => selectBabyProfile(button.dataset.babyId || babies[0].id));
+      }
+      if (step1NextButton) step1NextButton.addEventListener("click", () => goToOnboardingStep(2));
+      if (ageButton) ageButton.addEventListener("click", () => toggleAgeSheet());
+      if (ageConfirmButton) ageConfirmButton.addEventListener("click", () => goToOnboardingStep(3));
+      if (ageEditButton) ageEditButton.addEventListener("click", () => toggleAgeSheet(true));
+      if (backToBabyButton) backToBabyButton.addEventListener("click", () => goToOnboardingStep(1));
+      if (sceneToggle) sceneToggle.addEventListener("click", toggleOnboardingSceneDetails);
+      if (applyButton) applyButton.addEventListener("click", applyRecommendedOnboarding);
+      if (backToAgeButton) backToAgeButton.addEventListener("click", () => goToOnboardingStep(2));
+      if (scrim) scrim.addEventListener("click", () => toggleAgeSheet(false));
+
+      if (ageGrid) {
+        for (const months of [1, 2, 3, 4, 5, 6, 9, 12]) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "age-sheet-option";
+          button.dataset.months = String(months);
+          button.textContent = String(months);
+          button.addEventListener("click", () => setBabyAge(months));
+          ageGrid.appendChild(button);
+        }
+      }
+
+      if (ageSheet && !ageSheet.style.display) {
+        ageSheet.style.display = "none";
+      }
+
+      updateOnboardingDisplays(layer);
+    }
+
+    function persistPrototypeState() {
+      try {
+        localStorage.setItem("cribPrototypeState", JSON.stringify({
+          powerOn,
+          selectedDurationMinutes,
+          remainingSeconds,
+          selectedCurve,
+          motionLevel,
+          realtimeMonitoring,
+          activeTrack,
+          noiseVolume,
+          loopMode,
+          selectedSceneId,
+          nightLightOn,
+          nightLightBrightness,
+          nightLightTemperature,
+          cribOnboardingCompleted,
+          completedOnboardingVersion,
+          selectedBabyId,
+          selectedBabyAgeMonths,
+          babyAgeById,
+          onboardingSceneExpanded,
+          scenes
+        }));
+      } catch {}
+    }
+
+    function loadPrototypeState() {
+      try {
+        const saved = JSON.parse(localStorage.getItem("cribPrototypeState") || "null");
+        if (!saved || typeof saved !== "object") return;
+        if (typeof saved.powerOn === "boolean") powerOn = saved.powerOn;
+        if (typeof saved.selectedDurationMinutes === "number") selectedDurationMinutes = saved.selectedDurationMinutes;
+        if (typeof saved.remainingSeconds === "number") remainingSeconds = saved.remainingSeconds;
+        if (typeof saved.selectedCurve === "number") selectedCurve = saved.selectedCurve;
+        if (typeof saved.motionLevel === "number") motionLevel = saved.motionLevel;
+        if (typeof saved.realtimeMonitoring === "boolean") realtimeMonitoring = saved.realtimeMonitoring;
+        if (typeof saved.activeTrack === "string") activeTrack = saved.activeTrack;
+        if (typeof saved.noiseVolume === "number") noiseVolume = saved.noiseVolume;
+        if (typeof saved.loopMode === "string") loopMode = saved.loopMode;
+        if (typeof saved.selectedSceneId === "string") selectedSceneId = saved.selectedSceneId;
+        if (typeof saved.nightLightOn === "boolean") nightLightOn = saved.nightLightOn;
+        if (typeof saved.nightLightBrightness === "number") nightLightBrightness = saved.nightLightBrightness;
+        if (typeof saved.nightLightTemperature === "number") nightLightTemperature = saved.nightLightTemperature;
+        if (saved.babyAgeById && typeof saved.babyAgeById === "object") {
+          for (const baby of babies) {
+            if (typeof saved.babyAgeById[baby.id] === "number") {
+              babyAgeById[baby.id] = saved.babyAgeById[baby.id];
+            }
+          }
+        }
+        if (typeof saved.completedOnboardingVersion === "number") completedOnboardingVersion = saved.completedOnboardingVersion;
+        if (typeof saved.selectedBabyId === "string" && babies.some((baby) => baby.id === saved.selectedBabyId)) {
+          selectedBabyId = saved.selectedBabyId;
+        }
+        if (!saved.babyAgeById && typeof saved.selectedBabyAgeMonths === "number") {
+          babyAgeById[selectedBabyId] = saved.selectedBabyAgeMonths;
+        }
+        selectedBabyAgeMonths = getBabyAgeForId(selectedBabyId);
+        if (typeof saved.cribOnboardingCompleted === "boolean") {
+          cribOnboardingCompleted = saved.cribOnboardingCompleted && completedOnboardingVersion >= ONBOARDING_FLOW_VERSION;
+        }
+        if (typeof saved.onboardingSceneExpanded === "boolean") onboardingSceneExpanded = saved.onboardingSceneExpanded;
+        if (Array.isArray(saved.scenes)) {
+          for (const persisted of saved.scenes) {
+            const localScene = scenes.find((scene) => scene.id === persisted.id);
+            if (!localScene) continue;
+            Object.assign(localScene, persisted);
+          }
+        }
+      } catch {}
     }
 
     function clamp(value, min, max) {
-      return Math.min(max, Math.max(min, value));
+      return Math.max(min, Math.min(max, value));
     }
 
-    function getLightFillWidth() {
-      return 16 + (336 - 16) * ((state.lightLevel - 1) / 99);
+    function roundToStep(value, step) {
+      return Math.round(value / step) * step;
     }
 
-    function setLightLevel(level) {
-      state.lightLevel = clamp(Math.round(level), 1, 100);
+    function setMotionLevel(level) {
+      motionLevel = clamp(level, 0, 4);
+      getActiveScene().motionLevel = motionLevel;
+      updateMotionControlDisplays();
+      updateSleepModeDynamic();
+      persistPrototypeState();
     }
 
-    function stopTimer() {
-      if (ticker) {
-        clearInterval(ticker);
-        ticker = undefined;
+    function getActiveScene() {
+      return scenes.find((scene) => scene.id === selectedSceneId) || scenes[0];
+    }
+
+    function selectScene(sceneId) {
+      const scene = scenes.find((item) => item.id === sceneId);
+      if (!scene) return;
+      selectedSceneId = scene.id;
+      selectedCurve = scene.curve;
+      motionLevel = scene.motionLevel;
+      realtimeMonitoring = scene.realtimeMonitoring;
+      activeTrack = scene.track;
+      noiseVolume = scene.volume;
+      loopMode = scene.loopMode;
+      noisePlaying = true;
+      updateSceneControls();
+      updateSleepModeDynamic();
+      updateMotionControlDisplays();
+      renderHud(screens[currentScreen]);
+      persistPrototypeState();
+    }
+
+    function setNightLightBrightness(value) {
+      nightLightBrightness = clamp(Math.round(value), 0, 100);
+      updateNightLightControls();
+      persistPrototypeState();
+    }
+
+    function setNightLightTemperature(value) {
+      nightLightTemperature = clamp(roundToStep(value, 100), 2700, 5500);
+      updateNightLightControls();
+      persistPrototypeState();
+    }
+
+    function setNightLightPower(nextPower) {
+      if (nightLightOn === nextPower) return;
+      nightLightOn = nextPower;
+      updateNightLightControls();
+      persistPrototypeState();
+    }
+
+    function updateMotionControlDisplays(root = document) {
+      for (const button of root.querySelectorAll(".motion-curve-button")) {
+        const isSelected = Number(button.dataset.curve) === selectedCurve;
+        button.classList.toggle("is-selected", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
+      }
+
+      for (const control of root.querySelectorAll(".motion-level-control")) {
+        control.style.setProperty("--motion-level-left", `${motionLevel * 74}px`);
+        control.setAttribute("aria-valuenow", String(motionLevel));
+        control.setAttribute("aria-valuetext", motionLevel === 0 ? "Off" : `Level ${motionLevel}`);
+        for (const segment of control.querySelectorAll(".motion-level-segment")) {
+          segment.classList.toggle("is-selected", Number(segment.dataset.level) === motionLevel);
+        }
       }
     }
 
-    function isRunning() {
-      return state.motion || state.music;
+    function updateSceneControls(root = document) {
+      for (const button of root.querySelectorAll(".scene-card")) {
+        const scene = scenes.find((item) => item.id === button.dataset.sceneId);
+        const isSelected = button.dataset.sceneId === selectedSceneId;
+        button.classList.toggle("is-selected", isSelected);
+        button.setAttribute("aria-pressed", String(isSelected));
+        if (scene) {
+          const meta = button.querySelector(".scene-card-meta");
+          if (meta) {
+            meta.textContent = `${scene.movementPath.replace("Curve ", "C")} · ${scene.track.replace("Ocean Waves", "Ocean").replace("Moon Lullaby", "Lullaby").replace("Cotton Cloud", "Cloud")}`;
+          }
+        }
+      }
     }
 
-    function syncModeFromFeatures() {
-      state.mode = isRunning() ? "on" : "off";
-      if (state.mode === "off") state.seconds = DEFAULT_SECONDS;
+    function updateSleepModeDynamic(root = document) {
+      const scene = getActiveScene();
+      for (const dynamic of root.querySelectorAll(".sleep-mode-dynamic")) {
+        dynamic.classList.toggle("is-on", powerOn);
+        dynamic.classList.toggle("is-off", !powerOn);
+      }
+
+      for (const value of root.querySelectorAll(".sleep-mode-tile-card.is-motion .sleep-mode-tile-value")) {
+        value.textContent = scene.movementPath;
+      }
+
+      for (const value of root.querySelectorAll(".sleep-mode-tile-card.is-noise .sleep-mode-tile-value")) {
+        value.textContent = activeTrack;
+      }
     }
 
-    function startTimer() {
-      if (ticker) return;
-      ticker = setInterval(() => {
-        if (!isRunning()) {
-          stopTimer();
+    function updateNightLightControls(root = document) {
+      const controlRoots = root.matches?.(".night-light-controls")
+        ? [root, ...root.querySelectorAll(".night-light-controls")]
+        : [...root.querySelectorAll(".night-light-controls")];
+
+      for (const controls of controlRoots) {
+        controls.classList.toggle("is-off", !nightLightOn);
+      }
+
+      for (const value of root.querySelectorAll(".night-light-title-value")) {
+        value.textContent = `${nightLightBrightness}%`;
+      }
+
+      for (const button of root.querySelectorAll(".night-light-switch")) {
+        button.classList.toggle("is-off", !nightLightOn);
+        button.setAttribute("aria-pressed", String(nightLightOn));
+      }
+
+      for (const slider of root.querySelectorAll(".night-light-slider-control")) {
+        const isTemperature = slider.dataset.type === "temperature";
+        const min = Number(slider.dataset.min);
+        const max = Number(slider.dataset.max);
+        const value = isTemperature ? nightLightTemperature : nightLightBrightness;
+        const displayValue = isTemperature ? `${value}K` : `${value}%`;
+        const ratio = clamp((value - min) / (max - min), 0, 1);
+        const trackWidth = 338;
+        const fillWidth = ratio * trackWidth;
+        slider.style.setProperty("--night-light-fill-width", `${fillWidth}px`);
+        slider.style.setProperty("--night-light-thumb-left", `${fillWidth - 14}px`);
+        slider.setAttribute("aria-valuenow", String(value));
+        slider.setAttribute("aria-valuetext", displayValue);
+        const valueLabel = slider.querySelector(".night-light-slider-value");
+        if (valueLabel) {
+          valueLabel.textContent = displayValue;
+        }
+      }
+    }
+
+    function renderHud(screen) {
+      const mode = powerOn ? "On" : "Off";
+      const loop = loopMode === "whole" ? "Whole Playlist" : "One Song";
+      hud.innerHTML = `<strong>${screen.label}</strong><span>Power ${mode}</span><span>Noise ${noisePlaying ? "Playing" : "Paused"}</span><span>${loop}</span>`;
+    }
+
+    function toast(message) {
+      toastEl.textContent = message;
+      toastEl.classList.add("is-visible");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        toastEl.classList.remove("is-visible");
+      }, 1200);
+      renderHud(screens[currentScreen]);
+    }
+
+    function formatCountdown(seconds) {
+      const safeSeconds = Math.max(0, seconds);
+      const minutes = Math.floor(safeSeconds / 60);
+      const remainder = safeSeconds % 60;
+      return `${String(minutes).padStart(2, "0")}:${String(remainder).padStart(2, "0")}`;
+    }
+
+    function getCountdownDisplaySeconds() {
+      return powerOn ? remainingSeconds : selectedDurationMinutes * 60;
+    }
+
+    function updateTimerDisplays() {
+      for (const button of document.querySelectorAll(".timer-control")) {
+        button.classList.toggle("is-on", powerOn);
+        button.classList.toggle("is-off", !powerOn);
+      }
+      for (const value of document.querySelectorAll(".timer-value")) {
+        value.textContent = formatCountdown(getCountdownDisplaySeconds());
+      }
+      updateTimerOptionButtons();
+    }
+
+    function updateTimerOptionButtons(root = document) {
+      for (const button of root.querySelectorAll(".timer-option")) {
+        button.classList.toggle("is-selected", Number(button.dataset.minutes) === pendingDurationMinutes);
+      }
+    }
+
+    function stopCountdown() {
+      window.clearInterval(countdownInterval);
+      countdownInterval = null;
+    }
+
+    function startCountdown() {
+      stopCountdown();
+      if (!powerOn) return;
+      countdownInterval = window.setInterval(() => {
+        if (!powerOn) {
+          stopCountdown();
           return;
         }
-        state.seconds = Math.max(0, state.seconds - 1);
-        timerValue.textContent = formatTime(state.seconds);
+        if (remainingSeconds > 0) {
+          remainingSeconds -= 1;
+          updateTimerDisplays();
+        } else {
+          stopCountdown();
+        }
       }, 1000);
     }
 
-    function render() {
-      syncModeFromFeatures();
-
-      const running = state.mode === "on";
-
-      phone.dataset.mode = running ? "on" : "off";
-      phone.dataset.music = state.music ? "on" : "off";
-      phone.dataset.motion = state.motion ? "on" : "off";
-      phone.dataset.light = state.light ? "on" : "off";
-      phone.dataset.lightExpanded = state.lightExpanded ? "on" : "off";
-      lightCard.style.setProperty("--light-fill-width", `${getLightFillWidth()}px`);
-
-      timerValue.textContent = running ? formatTime(state.seconds) : formatTime(DEFAULT_SECONDS);
-      lightPercent.textContent = `${state.lightLevel}%`;
-      smartToggle.setAttribute("aria-label", running ? "Pause sleep soothing mode" : "Start sleep soothing mode");
-      smartToggle.setAttribute("aria-pressed", String(running));
-      lightSwitch.setAttribute("aria-label", state.light ? "Turn night light off" : "Turn night light on");
-      lightCard.setAttribute("aria-expanded", String(state.lightExpanded));
-      lightSlider.setAttribute("aria-valuenow", String(state.lightLevel));
-
-      motionCard.classList.toggle("is-active", state.motion);
-      musicCard.classList.toggle("is-active", state.music);
-      motionCard.setAttribute("aria-pressed", String(state.motion));
-      musicCard.setAttribute("aria-pressed", String(state.music));
-      motionCard.setAttribute("aria-label", state.motion ? "Turn soothing motion off" : "Turn soothing motion on");
-      musicCard.setAttribute("aria-label", state.music ? "Turn white noise off" : "Turn white noise on");
-      lightSwitch.setAttribute("aria-pressed", String(state.light));
-
-      if (running) startTimer();
-      else stopTimer();
+    function resetCountdown(minutes) {
+      remainingSeconds = minutes * 60;
+      updateTimerDisplays();
+      startCountdown();
+      persistPrototypeState();
     }
 
-    smartToggle.addEventListener("click", () => {
-      if (isRunning()) {
-        state.motion = false;
-        state.music = false;
-        state.seconds = DEFAULT_SECONDS;
-      } else {
-        state.motion = true;
-        state.music = true;
-        state.seconds = ACTIVE_SECONDS;
-      }
-      render();
-    });
-
-    motionCard.addEventListener("click", () => {
-      const wasRunning = isRunning();
-      state.motion = !state.motion;
-      if (!wasRunning && state.motion) state.seconds = ACTIVE_SECONDS;
-      render();
-    });
-
-    musicCard.addEventListener("click", () => {
-      const wasRunning = isRunning();
-      state.music = !state.music;
-      if (!wasRunning && state.music) state.seconds = ACTIVE_SECONDS;
-      render();
-    });
-
-    lightCard.addEventListener("click", () => {
-      if (!state.lightExpanded) setLightLevel(1);
-      state.lightExpanded = true;
-      state.light = true;
-      render();
-    });
-
-    lightCard.addEventListener("keydown", (event) => {
-      if (event.key !== "Enter" && event.key !== " ") return;
-      event.preventDefault();
-      if (!state.lightExpanded) setLightLevel(1);
-      state.lightExpanded = true;
-      state.light = true;
-      render();
-    });
-
-    lightSwitch.addEventListener("click", (event) => {
-      event.stopPropagation();
-      if (!state.lightExpanded && !state.light) setLightLevel(1);
-      state.lightExpanded = true;
-      state.light = !state.light;
-      render();
-    });
-
-    lightSlider.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const rect = lightSlider.getBoundingClientRect();
-      const x = clamp(event.clientX - rect.left, 0, rect.width);
-      setLightLevel((x / rect.width) * 100);
-      state.lightExpanded = true;
-      state.light = true;
-      render();
-    });
-
-    lightSlider.addEventListener("keydown", (event) => {
-      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      event.preventDefault();
-      setLightLevel(state.lightLevel + (event.key === "ArrowRight" ? 1 : -1));
-      state.lightExpanded = true;
-      state.light = true;
-      render();
-    });
-
-    tabButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        phone.dataset.tab = button.dataset.tabTarget;
-        tabButtons.forEach((tabButton) => {
-          tabButton.classList.toggle("active", tabButton === button);
-        });
-      });
-    });
-
-    render();
+    loadPrototypeState();
+    showScreen(currentScreen, "none");
+    updateTimerDisplays();
   </script>
 </body>
 </html>
