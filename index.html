@@ -61,6 +61,49 @@
         filter var(--motion-duration, 360ms) ease;
     }
 
+    .screen-image-fixed-top {
+      clip-path: inset(0 0 calc(100% - var(--fixed-top-height, 408px)) 0);
+    }
+
+    .screen-scroll-region {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: var(--scroll-region-top, 408px);
+      bottom: 0;
+      overflow-x: hidden;
+      overflow-y: auto;
+      overscroll-behavior-y: contain;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      touch-action: pan-y;
+    }
+
+    .screen-scroll-region::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+      display: none;
+    }
+
+    .screen-scroll-canvas {
+      position: relative;
+      width: 100%;
+    }
+
+    .screen-scroll-content {
+      position: relative;
+      width: 100%;
+      top: calc(-1 * var(--scroll-offset, 0px));
+    }
+
+    .screen-scroll-region .hotspot,
+    .screen-scroll-region .scene-card,
+    .screen-scroll-region .timer-control,
+    .screen-scroll-region .night-light-switch,
+    .screen-scroll-region .night-light-slider-control {
+      touch-action: pan-y;
+    }
+
     .screen-layer.no-motion {
       transition: none;
     }
@@ -1762,6 +1805,8 @@
         image: "assets/soothing-on.png",
         width: 402,
         height: 874,
+        scrollable: true,
+        scrollHeight: 924,
         stableTop: 408,
         overlays: ["countdown", "sleepModeDynamic", "sceneControls", "nightLightControls"],
         alt: "婴儿床控制页，默认停留在 Soothing 页面，包含总开关、计时、运动、白噪音和夜灯控制。",
@@ -1824,6 +1869,8 @@
         image: "assets/soothing-off.png",
         width: 402,
         height: 874,
+        scrollable: true,
+        scrollHeight: 924,
         stableTop: 408,
         overlays: ["countdown", "sleepModeDynamic", "sceneControls", "nightLightControls"],
         alt: "婴儿床 Soothing 页面关闭状态。",
@@ -2312,6 +2359,86 @@
       }
     };
 
+    const transientLayerClasses = [
+      "no-motion",
+      "from-right",
+      "from-left",
+      "from-right-soft",
+      "from-left-soft",
+      "from-bottom",
+      "fade-in",
+      "to-left",
+      "to-right",
+      "to-left-soft",
+      "to-right-soft",
+      "to-bottom",
+      "fade-out",
+      "dim-back",
+      "content-fade-in",
+      "content-fade-out",
+      "clip-content",
+      "clip-stable-top"
+    ];
+
+    function resetLayerState(layer) {
+      layer.classList.remove(...transientLayerClasses);
+      layer.style.zIndex = "";
+      layer.style.removeProperty("--motion-duration");
+      layer.style.removeProperty("--clip-top");
+    }
+
+    function createScreenImage(screen, options = {}) {
+      const image = document.createElement("img");
+      image.className = "screen-image";
+      image.src = screen.image;
+      image.alt = options.alt ?? screen.alt;
+      if (options.fixedTopHeight) {
+        image.classList.add("screen-image-fixed-top");
+        image.style.setProperty("--fixed-top-height", `${options.fixedTopHeight}px`);
+      }
+      if (options.ariaHidden) {
+        image.alt = "";
+        image.setAttribute("aria-hidden", "true");
+      }
+      return image;
+    }
+
+    function appendHotspots(screen, parent, filterFn = () => true, heightRef = screen.height) {
+      const hotspotLayer = document.createElement("div");
+      hotspotLayer.className = "hotspots";
+      let count = 0;
+
+      for (const spot of screen.hotspots) {
+        if (!filterFn(spot)) continue;
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "hotspot";
+        if (spot.label === "切换总开关" || spot.label === "打开总开关") {
+          button.classList.add("is-power-toggle");
+        }
+        button.setAttribute("aria-label", spot.label);
+        button.title = spot.label;
+        button.style.left = `${(spot.x / screen.width) * 100}%`;
+        button.style.top = `${(spot.y / heightRef) * 100}%`;
+        button.style.width = `${(spot.w / screen.width) * 100}%`;
+        button.style.height = `${(spot.h / heightRef) * 100}%`;
+        button.addEventListener("click", spot.action);
+        hotspotLayer.appendChild(button);
+        count += 1;
+      }
+
+      if (count > 0) {
+        parent.appendChild(hotspotLayer);
+      }
+    }
+
+    function initializeScrollableRegion(layer, screen) {
+      if (!screen.scrollable || !Number.isFinite(screen.stableTop)) return;
+      const scrollRegion = layer.querySelector(".screen-scroll-region");
+      if (!scrollRegion) return;
+      scrollRegion.scrollTop = 0;
+    }
+
     function showScreen(name, transitionName = "fade") {
       const screen = screens[name];
       if (!screen || transitionLocked) return;
@@ -2350,6 +2477,7 @@
         screenStack.replaceChildren(nextLayer);
         nextLayer.classList.remove("no-motion");
         activeLayer = nextLayer;
+        initializeScrollableRegion(nextLayer, screen);
         updateTimerDisplays();
         updatePowerHint(activeLayer);
         return;
@@ -2378,11 +2506,11 @@
 
       window.setTimeout(() => {
         screenStack.replaceChildren(nextLayer);
-        nextLayer.className = "screen-layer";
-        nextLayer.style.zIndex = "";
+        resetLayerState(nextLayer);
         activeLayer = nextLayer;
         transitionLocked = false;
         phone.classList.remove("is-transitioning");
+        initializeScrollableRegion(nextLayer, screen);
         updateTimerDisplays();
         updatePowerHint(activeLayer);
       }, transition.duration + 40);
@@ -2391,7 +2519,7 @@
     function showContentTabScreen(name, screen, previousScreen, transition) {
       const previousLayer = activeLayer;
       const nextLayer = createLayer(screen);
-      const stableTopLayer = createLayer(previousScreen, { hotspots: false, overlays: false });
+      const stableTopLayer = createLayer(previousScreen, { hotspots: false, overlays: false, scrollable: false });
       const clipTop = screen.stableTop || previousScreen.stableTop;
 
       currentScreen = name;
@@ -2425,12 +2553,12 @@
       });
 
       window.setTimeout(() => {
-        nextLayer.className = "screen-layer";
-        nextLayer.style.zIndex = "";
+        resetLayerState(nextLayer);
         screenStack.replaceChildren(nextLayer);
         activeLayer = nextLayer;
         transitionLocked = false;
         phone.classList.remove("is-transitioning");
+        initializeScrollableRegion(nextLayer, screen);
         updateTimerDisplays();
         updatePowerHint(activeLayer);
       }, transition.duration + 40);
@@ -2439,15 +2567,52 @@
     function createLayer(screen, options = {}) {
       const withHotspots = options.hotspots !== false;
       const withOverlays = options.overlays !== false;
+      const withScrollable = options.scrollable !== false && !!screen.scrollable && Number.isFinite(screen.stableTop);
       const layer = document.createElement("div");
       layer.className = "screen-layer";
 
+      if (withScrollable) {
+        if (screen.image) {
+          layer.appendChild(createScreenImage(screen, { fixedTopHeight: screen.stableTop }));
+        }
+
+        if (withHotspots) {
+          appendHotspots(screen, layer, (spot) => spot.y < screen.stableTop);
+        }
+
+        const scrollRegion = document.createElement("div");
+        scrollRegion.className = "screen-scroll-region";
+        scrollRegion.style.setProperty("--scroll-region-top", `${screen.stableTop}px`);
+
+        const scrollCanvas = document.createElement("div");
+        scrollCanvas.className = "screen-scroll-canvas";
+        scrollCanvas.style.height = `${Math.max((screen.scrollHeight || screen.height) - screen.stableTop, screen.height - screen.stableTop)}px`;
+
+        const scrollContent = document.createElement("div");
+        scrollContent.className = "screen-scroll-content";
+        scrollContent.style.setProperty("--scroll-offset", `${screen.stableTop}px`);
+        scrollContent.style.height = `${Math.max(screen.scrollHeight || screen.height, screen.height)}px`;
+
+        if (screen.image) {
+          scrollContent.appendChild(createScreenImage(screen, { ariaHidden: true }));
+        }
+
+        if (withOverlays) {
+          renderOverlays(screen, scrollContent);
+        }
+
+        if (withHotspots) {
+          appendHotspots(screen, scrollContent, (spot) => spot.y >= screen.stableTop, screen.scrollHeight || screen.height);
+        }
+
+        scrollCanvas.appendChild(scrollContent);
+        scrollRegion.appendChild(scrollCanvas);
+        layer.appendChild(scrollRegion);
+        return layer;
+      }
+
       if (screen.image) {
-        const image = document.createElement("img");
-        image.className = "screen-image";
-        image.src = screen.image;
-        image.alt = screen.alt;
-        layer.appendChild(image);
+        layer.appendChild(createScreenImage(screen));
       }
 
       if (withOverlays) {
@@ -2455,25 +2620,7 @@
       }
 
       if (withHotspots) {
-        const hotspotLayer = document.createElement("div");
-        hotspotLayer.className = "hotspots";
-        for (const spot of screen.hotspots) {
-          const button = document.createElement("button");
-          button.type = "button";
-          button.className = "hotspot";
-          if (spot.label === "切换总开关" || spot.label === "打开总开关") {
-            button.classList.add("is-power-toggle");
-          }
-          button.setAttribute("aria-label", spot.label);
-          button.title = spot.label;
-          button.style.left = `${(spot.x / screen.width) * 100}%`;
-          button.style.top = `${(spot.y / screen.height) * 100}%`;
-          button.style.width = `${(spot.w / screen.width) * 100}%`;
-          button.style.height = `${(spot.h / screen.height) * 100}%`;
-          button.addEventListener("click", spot.action);
-          hotspotLayer.appendChild(button);
-        }
-        layer.appendChild(hotspotLayer);
+        appendHotspots(screen, layer);
       }
       return layer;
     }
