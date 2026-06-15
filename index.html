@@ -203,6 +203,17 @@
       transform: scale(1);
     }
 
+    .hotspot.is-power-toggle::after,
+    .hotspot.is-power-toggle:active::after {
+      opacity: 0;
+      transform: none;
+    }
+
+    .hotspot.is-power-toggle:focus-visible {
+      outline: none;
+      background: transparent;
+    }
+
     .hotspot:focus-visible {
       outline: 3px solid rgba(95, 49, 168, 0.48);
       outline-offset: 2px;
@@ -263,6 +274,60 @@
     .timer-control:focus-visible {
       outline: 3px solid rgba(95, 49, 168, 0.48);
       outline-offset: 2px;
+    }
+
+    .power-hint {
+      position: absolute;
+      left: 315px;
+      top: 446px;
+      z-index: 4;
+      width: 56px;
+      height: 56px;
+      pointer-events: none;
+      border-radius: 50%;
+      opacity: 0;
+      transition: opacity 220ms ease;
+      transform-origin: 50% 50%;
+    }
+
+    .power-hint.is-visible {
+      opacity: 1;
+      animation: powerHintCirclePulse 1.5s ease-out 1;
+    }
+
+    .power-hint::before,
+    .power-hint::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+    }
+
+    .power-hint::before {
+      background: radial-gradient(circle, rgba(163, 122, 255, 0.18) 0%, rgba(163, 122, 255, 0.08) 48%, rgba(163, 122, 255, 0) 74%);
+    }
+
+    .power-hint::after {
+      border: 2px solid rgba(141, 111, 247, 0.32);
+      box-shadow: 0 0 0 0 rgba(141, 111, 247, 0.12);
+    }
+
+    @keyframes powerHintCirclePulse {
+      0% {
+        transform: scale(0.92);
+        opacity: 0;
+      }
+      18% {
+        opacity: 0.88;
+      }
+      58% {
+        transform: scale(1.18);
+        opacity: 0.56;
+      }
+      100% {
+        transform: scale(1.28);
+        opacity: 0;
+      }
     }
 
     .timer-clock {
@@ -614,8 +679,8 @@
       inset: 0;
       z-index: 4;
       background:
-        radial-gradient(circle at top right, rgba(208, 232, 255, 0.85), transparent 32%),
-        linear-gradient(180deg, #fdfcff 0%, #f7f8ff 42%, #f8fbff 100%);
+        radial-gradient(circle at top right, rgba(214, 202, 255, 0.78), transparent 34%),
+        linear-gradient(180deg, #fdfcff 0%, #f8f4ff 42%, #f7f1ff 100%);
       color: #1e1a2a;
       overflow: hidden;
     }
@@ -641,7 +706,7 @@
     }
 
     .onboarding-kicker {
-      color: #6f7da1;
+      color: #7a68a8;
       font: 600 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
@@ -653,7 +718,7 @@
     }
 
     .onboarding-progress-label {
-      color: #7e88a3;
+      color: #8d7baa;
       font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       text-transform: uppercase;
@@ -663,7 +728,7 @@
       width: 100%;
       height: 6px;
       border-radius: 999px;
-      background: rgba(203, 214, 237, 0.7);
+      background: rgba(220, 211, 242, 0.78);
       overflow: hidden;
     }
 
@@ -672,14 +737,14 @@
       width: 33.333%;
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(135deg, #6d7ef5 0%, #6ca9ff 100%);
+      background: linear-gradient(135deg, #8d6ff7 0%, #a77bff 100%);
       transition: width 220ms ease;
     }
 
     .onboarding-title {
       margin-top: 14px;
       color: #1e1a2a;
-      font: 650 31px/37px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      font: 650 26px/32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
@@ -711,6 +776,14 @@
       display: flex;
     }
 
+    .onboarding-step[data-step="1"] {
+      padding-top: 44px;
+    }
+
+    .onboarding-step[data-step="3"] {
+      padding-top: 18px;
+    }
+
     .onboarding-card {
       position: relative;
       border: 1px solid rgba(192, 202, 228, 0.6);
@@ -735,6 +808,18 @@
       margin-top: 14px;
     }
 
+    .onboarding-link-button {
+      margin-top: 14px;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #7a5fe0;
+      font: 600 14px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      text-align: left;
+    }
+
     .onboarding-choice-card {
       display: flex;
       align-items: center;
@@ -757,15 +842,17 @@
     }
 
     .onboarding-choice-card.is-selected {
-      border-color: #bdd1ff;
-      background: #f1f6ff;
-      box-shadow: 0 10px 24px rgba(76, 122, 214, 0.12);
+      border-color: #d4c4ff;
+      background: #f7f2ff;
+      box-shadow: 0 10px 24px rgba(128, 94, 214, 0.12);
     }
 
     .onboarding-choice-card:focus-visible,
+    .onboarding-link-button:focus-visible,
     .onboarding-age-button:focus-visible,
     .onboarding-cta:focus-visible,
     .onboarding-secondary:focus-visible,
+    .baby-sheet-input:focus-visible,
     .onboarding-scene-toggle:focus-visible {
       outline: 3px solid rgba(58, 120, 214, 0.38);
       outline-offset: 2px;
@@ -821,8 +908,8 @@
     }
 
     .onboarding-choice-card.is-selected .onboarding-baby-pill {
-      background: #dfeaff;
-      color: #3561b9;
+      background: #ece4ff;
+      color: #6e50c9;
     }
 
     .onboarding-baby-note {
@@ -846,8 +933,8 @@
     }
 
     .onboarding-choice-card.is-selected .onboarding-choice-check {
-      border-color: #5f87dc;
-      background: #5f87dc;
+      border-color: #7a5fe0;
+      background: #7a5fe0;
       color: #fff;
     }
 
@@ -942,8 +1029,8 @@
       height: 40px;
       border: 0;
       border-radius: 14px;
-      background: #eef4ff;
-      color: #4f69a1;
+      background: #f1ebff;
+      color: #7555c8;
       font: 500 24px/40px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       text-align: center;
       cursor: pointer;
@@ -953,19 +1040,6 @@
 
     .onboarding-scene-toggle:active {
       transform: scale(0.96);
-    }
-
-    .onboarding-scene-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 14px;
-      padding: 8px 12px;
-      border-radius: 999px;
-      background: #f6f2ff;
-      color: #5b4d86;
-      font: 600 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      letter-spacing: 0;
     }
 
     .onboarding-scene-note {
@@ -1036,9 +1110,9 @@
 
     .onboarding-cta {
       border: 0;
-      background: linear-gradient(135deg, #6d7ef5 0%, #6ca9ff 100%);
+      background: linear-gradient(135deg, #8d6ff7 0%, #a77bff 100%);
       color: #fff;
-      box-shadow: 0 14px 28px rgba(85, 126, 228, 0.24);
+      box-shadow: 0 14px 28px rgba(128, 94, 214, 0.24);
     }
 
     .onboarding-secondary {
@@ -1050,6 +1124,14 @@
     .onboarding-cta:active,
     .onboarding-secondary:active {
       transform: scale(0.985);
+    }
+
+    .onboarding-cta:disabled,
+    .onboarding-secondary:disabled {
+      opacity: 0.46;
+      cursor: default;
+      transform: none;
+      box-shadow: none;
     }
 
     .age-sheet-options {
@@ -1112,9 +1194,9 @@
     }
 
     .age-sheet-option.is-selected {
-      border-color: #b8c9ff;
-      background: #edf3ff;
-      color: #3860b0;
+      border-color: #d4c4ff;
+      background: #f3edff;
+      color: #6e50c9;
     }
 
     .age-sheet-note {
@@ -1122,6 +1204,42 @@
       color: #7b748d;
       font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
+    }
+
+    .baby-sheet-field {
+      margin-top: 16px;
+    }
+
+    .baby-sheet-label {
+      color: #7f7690;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .baby-sheet-input {
+      width: 100%;
+      height: 52px;
+      margin-top: 10px;
+      padding: 0 16px;
+      border: 1px solid #dfe4f4;
+      border-radius: 16px;
+      background: #f7f9ff;
+      color: #2a2340;
+      font: 600 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      outline: none;
+    }
+
+    .baby-sheet-input::placeholder {
+      color: #9aa4bc;
+      font-weight: 500;
+    }
+
+    .baby-sheet-actions {
+      margin-top: 16px;
+      display: grid;
+      gap: 10px;
     }
 
     .night-light-controls {
@@ -1230,7 +1348,7 @@
       top: var(--night-light-slider-top, 716px);
       z-index: 3;
       width: 338px;
-      height: 42px;
+      height: 50px;
       border: 0;
       padding: 0;
       background: transparent;
@@ -1265,7 +1383,7 @@
       position: absolute;
       left: 0;
       right: 0;
-      top: 25px;
+      top: 22px;
       height: 5px;
       overflow: hidden;
       border-radius: 999px;
@@ -1296,7 +1414,7 @@
 
     .night-light-slider-hint {
       position: absolute;
-      top: 27px;
+      top: 34px;
       color: #140a2e;
       font: 500 11px/14px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
@@ -1591,6 +1709,9 @@
       .night-light-slider-control,
       .night-light-collapsed-mask,
       .night-light-collapsed-card,
+      .power-hint,
+      .power-hint::before,
+      .power-hint::after,
       .monitoring-action-button::after,
       .monitoring-recording-badge,
       .monitoring-snapshot-preview,
@@ -2026,13 +2147,17 @@
     let selectedBabyAgeMonths = 6;
     let onboardingStep = 1;
     let onboardingSceneExpanded = false;
+    let pendingBabyName = "";
+    let pendingBabyAge = 3;
+    let powerHintShown = false;
     let monitoringRecording = false;
     let countdownInterval = null;
     let toastTimer = null;
+    let powerHintTimer = null;
     let activeLayer = null;
     let transitionLocked = false;
 
-    const ONBOARDING_FLOW_VERSION = 2;
+    const ONBOARDING_FLOW_VERSION = 3;
     const defaultBabyAgeById = {
       tony: 6,
       ammy: 3
@@ -2106,22 +2231,22 @@
         min: 0,
         max: 3,
         sceneId: "night",
-        title: "这个阶段更需要稳定包裹感",
-        copy: "0-3 个月的宝宝还在适应昼夜节律，容易被突然的动作和声音惊扰。先用节奏更柔和、循环更稳定的夜眠卡，会更接近他们熟悉的被抱哄状态。"
+        title: "更适合轻柔、稳定的安抚节奏",
+        copy: "会优先推荐更平缓的运动轨迹、较低运动档位，以及更柔和的白噪音和音量。"
       },
       {
         min: 4,
         max: 6,
         sceneId: "general",
-        title: "这个阶段开始建立自己的安抚偏好",
-        copy: "4-6 个月的宝宝通常已经能区分熟悉的安抚方式，但状态波动还是比较明显。先从通用卡开始，既保留安抚节奏，也方便后续再细调。"
+        title: "更适合平稳、连续的安抚节奏",
+        copy: "会优先推荐更平稳的运动轨迹、适中的运动档位，以及更容易建立熟悉感的白噪音和音量。"
       },
       {
         min: 7,
         max: 12,
         sceneId: "nap",
-        title: "这个阶段白天小睡更容易被打断",
-        copy: "7-12 个月的宝宝白天活动量增加，白天哄睡更容易受情绪和环境影响。先用午憩卡，让节奏更轻、更短，也更利于白天过渡。"
+        title: "更适合轻一些的过渡节奏",
+        copy: "会优先推荐更轻的运动轨迹、较低运动档位，以及更适合短时过渡的白噪音和音量。"
       }
     ];
 
@@ -2226,6 +2351,7 @@
         nextLayer.classList.remove("no-motion");
         activeLayer = nextLayer;
         updateTimerDisplays();
+        updatePowerHint(activeLayer);
         return;
       }
 
@@ -2258,6 +2384,7 @@
         transitionLocked = false;
         phone.classList.remove("is-transitioning");
         updateTimerDisplays();
+        updatePowerHint(activeLayer);
       }, transition.duration + 40);
     }
 
@@ -2305,6 +2432,7 @@
         transitionLocked = false;
         phone.classList.remove("is-transitioning");
         updateTimerDisplays();
+        updatePowerHint(activeLayer);
       }, transition.duration + 40);
     }
 
@@ -2333,6 +2461,9 @@
           const button = document.createElement("button");
           button.type = "button";
           button.className = "hotspot";
+          if (spot.label === "切换总开关" || spot.label === "打开总开关") {
+            button.classList.add("is-power-toggle");
+          }
           button.setAttribute("aria-label", spot.label);
           button.title = spot.label;
           button.style.left = `${(spot.x / screen.width) * 100}%`;
@@ -2401,6 +2532,14 @@
         updateSleepModeDynamic(dynamic);
       }
 
+      if ((screen.label === "婴儿床首页 / Soothing" || screen.label === "婴儿床首页 / Soothing 关闭") && cribOnboardingCompleted) {
+        const hint = document.createElement("div");
+        hint.className = "power-hint";
+        hint.setAttribute("aria-hidden", "true");
+        layer.appendChild(hint);
+        updatePowerHint(hint);
+      }
+
       if (screen.overlays?.includes("sceneControls")) {
         const controls = document.createElement("div");
         controls.className = "scene-controls";
@@ -2460,19 +2599,6 @@
       }
 
       if (screen.overlays?.includes("onboardingFlow")) {
-        const babyChoiceMarkup = babies.map((baby) => `
-          <button type="button" class="onboarding-choice-card" data-baby-id="${baby.id}">
-            <div class="onboarding-baby-avatar">${baby.avatar}</div>
-            <div class="onboarding-choice-body">
-              <div class="onboarding-choice-top">
-                <div class="onboarding-baby-name">${baby.name}</div>
-                <div class="onboarding-baby-pill" data-baby-age="${baby.id}"></div>
-              </div>
-              <div class="onboarding-baby-note">${baby.note}</div>
-            </div>
-            <div class="onboarding-choice-check">✓</div>
-          </button>`).join("");
-
         const flow = document.createElement("div");
         flow.className = "onboarding-screen";
         flow.innerHTML = `
@@ -2482,7 +2608,7 @@
               <div class="onboarding-progress-label" id="onboardingProgressLabel"></div>
               <div class="onboarding-progress-track"><span class="onboarding-progress-fill" id="onboardingProgressFill"></span></div>
             </div>
-            <div class="onboarding-title" id="onboardingTitle">先帮宝宝确认一套更合适的初始方案</div>
+            <div class="onboarding-title" id="onboardingTitle">欢迎使用智能婴儿床，请确认要守护的宝宝</div>
             <div class="onboarding-copy" id="onboardingCopy"></div>
           </div>
           <div class="onboarding-step-stack">
@@ -2490,8 +2616,9 @@
               <div class="onboarding-card">
                 <div class="onboarding-section-title">已绑定宝宝</div>
                 <div class="onboarding-choice-list">
-                  ${babyChoiceMarkup}
+                  ${getBabyChoiceMarkup()}
                 </div>
+                <button type="button" class="onboarding-link-button" id="onboardingAddBabyButton">绑定其他宝宝 &gt;</button>
               </div>
               <div class="onboarding-step-actions">
                 <button type="button" class="onboarding-cta" id="onboardingStep1Next">确认宝宝并继续</button>
@@ -2522,7 +2649,6 @@
               </div>
               <div class="onboarding-step-actions">
                 <button type="button" class="onboarding-cta" id="onboardingAgeConfirmButton">月龄正确，继续推荐</button>
-                <button type="button" class="onboarding-secondary" id="onboardingAgeEditButton">月龄不对，去修改</button>
                 <button type="button" class="onboarding-secondary" id="onboardingBackToBabyButton">返回重新选择宝宝</button>
               </div>
             </section>
@@ -2535,8 +2661,7 @@
                   </div>
                   <button type="button" class="onboarding-scene-toggle" id="onboardingSceneToggle">+</button>
                 </div>
-                <div class="onboarding-scene-chip" id="onboardingSceneChip"></div>
-                <div class="onboarding-scene-note">默认保持收起，避免第一次进入时就被一串参数打断。展开后可以看到这次会写入通用卡的具体配置。</div>
+                <div class="onboarding-scene-note">确认后，这些设置会写入“通用卡”。展开后可查看具体配置。</div>
                 <div class="onboarding-scene-panel" id="onboardingScenePanel">
                   <div class="onboarding-scene-meta">
                     <div><div class="onboarding-scene-label">推荐卡片</div><div class="onboarding-scene-value" id="onboardingSceneName"></div></div>
@@ -2565,8 +2690,30 @@
             <div class="age-sheet-note">我们会根据月龄推荐更贴近当下睡眠节律的场景卡。</div>
           </div>`;
 
+        const addBabySheet = document.createElement("div");
+        addBabySheet.className = "age-sheet-options";
+        addBabySheet.innerHTML = `
+          <div class="onboarding-scrim"></div>
+          <div class="age-sheet-card">
+            <div class="age-sheet-title">添加其他宝宝</div>
+            <div class="baby-sheet-field">
+              <div class="baby-sheet-label">宝宝昵称</div>
+              <input type="text" class="baby-sheet-input" id="babySheetNameInput" placeholder="请输入宝宝昵称" maxlength="18">
+            </div>
+            <div class="baby-sheet-field">
+              <div class="baby-sheet-label">当前月龄</div>
+              <div class="age-sheet-grid" id="babySheetAgeGrid"></div>
+            </div>
+            <div class="age-sheet-note">添加后会自动按这位宝宝的月龄继续推荐方案。</div>
+            <div class="baby-sheet-actions">
+              <button type="button" class="onboarding-cta" id="babySheetConfirmButton" disabled>确认添加</button>
+              <button type="button" class="onboarding-secondary" id="babySheetCancelButton">取消</button>
+            </div>
+          </div>`;
+
         layer.appendChild(flow);
         layer.appendChild(ageSheet);
+        layer.appendChild(addBabySheet);
         setupOnboardingFlow(layer);
       }
 
@@ -2767,6 +2914,7 @@
         stopCountdown();
       }
       updateSleepModeDynamic();
+      updatePowerHint();
       renderHud(screens[currentScreen]);
       persistPrototypeState();
     }
@@ -2876,6 +3024,60 @@
       return babies.find((baby) => baby.id === selectedBabyId) || babies[0];
     }
 
+    function escapeHtml(value) {
+      return String(value ?? "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/\"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+
+    function getBabyChoiceMarkup() {
+      return babies.map((baby) => `
+        <button type="button" class="onboarding-choice-card" data-baby-id="${baby.id}">
+          <div class="onboarding-baby-avatar">${escapeHtml(baby.avatar)}</div>
+          <div class="onboarding-choice-body">
+            <div class="onboarding-choice-top">
+              <div class="onboarding-baby-name">${escapeHtml(baby.name)}</div>
+              <div class="onboarding-baby-pill" data-baby-age="${baby.id}"></div>
+            </div>
+            <div class="onboarding-baby-note">${escapeHtml(baby.note)}</div>
+          </div>
+          <div class="onboarding-choice-check">✓</div>
+        </button>`).join("");
+    }
+
+    function createBabyIdFromName(name) {
+      const normalized = (name || "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+      const base = normalized || `baby-${Date.now()}`;
+      let nextId = base;
+      let suffix = 2;
+      while (babies.some((baby) => baby.id === nextId)) {
+        nextId = `${base}-${suffix}`;
+        suffix += 1;
+      }
+      return nextId;
+    }
+
+    function getBabyAvatar(name) {
+      const firstChar = String(name || "").trim().charAt(0);
+      return firstChar ? firstChar.toUpperCase() : "B";
+    }
+
+    function rebuildOnboardingBabyChoices(root = activeLayer || document) {
+      const list = root.querySelector(".onboarding-choice-list");
+      if (!list) return;
+      list.innerHTML = getBabyChoiceMarkup();
+      for (const button of list.querySelectorAll(".onboarding-choice-card")) {
+        button.addEventListener("click", () => selectBabyProfile(button.dataset.babyId || babies[0].id));
+      }
+      updateOnboardingDisplays(root);
+    }
+
     function getRecommendedProfile() {
       return ageRecommendations.find((item) => selectedBabyAgeMonths >= item.min && selectedBabyAgeMonths <= item.max) || ageRecommendations[1];
     }
@@ -2921,6 +3123,27 @@
       if (!ageSheet) return;
       const nextVisible = typeof force === "boolean" ? force : ageSheet.style.display === "none";
       ageSheet.style.display = nextVisible ? "grid" : "none";
+    }
+
+    function addBabyProfile(name, months) {
+      const trimmedName = String(name || "").trim();
+      const safeMonths = clamp(Math.round(months), 0, 24);
+      if (!trimmedName) return false;
+      const nextId = createBabyIdFromName(trimmedName);
+      babies.push({
+        id: nextId,
+        name: trimmedName,
+        note: `${safeMonths} 个月，等待进一步完善这位宝宝的专属安抚偏好。`,
+        avatar: getBabyAvatar(trimmedName)
+      });
+      babyAgeById[nextId] = safeMonths;
+      selectedBabyId = nextId;
+      selectedBabyAgeMonths = safeMonths;
+      pendingBabyName = "";
+      pendingBabyAge = 3;
+      rebuildOnboardingBabyChoices();
+      persistPrototypeState();
+      return true;
     }
 
     function goToOnboardingStep(step) {
@@ -2971,8 +3194,8 @@
       const stepMeta = {
         1: {
           progress: "步骤 1 / 3",
-          title: "先确认这张婴儿床现在绑定的是哪位宝宝",
-          copy: "第一次进入前，先把宝宝确认下来，后面才好按这个宝宝当前月龄去推荐更合适的起步方案。"
+          title: "欢迎使用智能婴儿床，请确认要守护的宝宝",
+          copy: "我们将按照宝宝的当前月龄推荐更合适的服务方案"
         },
         2: {
           progress: "步骤 2 / 3",
@@ -2982,7 +3205,7 @@
         3: {
           progress: "步骤 3 / 3",
           title: `先给 ${baby.name} 一套更适合的哄睡起步方案`,
-          copy: "我们会先推荐一张更贴合当前月龄睡眠特点的场景卡，并直接写入通用卡，进入控制页后就能马上用。"
+          copy: "我们会根据当前月龄的睡眠特点，推荐更合适的运动轨迹、运动档位、白噪音类型和音量，并在确认后写入“通用卡”。"
         }
       };
       const currentStep = stepMeta[onboardingStep] || stepMeta[1];
@@ -3035,9 +3258,6 @@
       for (const value of root.querySelectorAll("#onboardingRecommendCopy")) {
         value.textContent = recommendation.copy;
       }
-      for (const value of root.querySelectorAll("#onboardingSceneChip")) {
-        value.textContent = `建议先使用「${scene.title}」卡`;
-      }
       for (const value of root.querySelectorAll("#onboardingSceneName")) {
         value.textContent = scene.title;
       }
@@ -3075,10 +3295,10 @@
 
     function setupOnboardingFlow(layer) {
       const babyChoiceButtons = layer.querySelectorAll(".onboarding-choice-card");
+      const addBabyButton = layer.querySelector("#onboardingAddBabyButton");
       const step1NextButton = layer.querySelector("#onboardingStep1Next");
       const ageButton = layer.querySelector("#onboardingAgeButton");
       const ageConfirmButton = layer.querySelector("#onboardingAgeConfirmButton");
-      const ageEditButton = layer.querySelector("#onboardingAgeEditButton");
       const backToBabyButton = layer.querySelector("#onboardingBackToBabyButton");
       const sceneToggle = layer.querySelector("#onboardingSceneToggle");
       const applyButton = layer.querySelector("#onboardingApplyButton");
@@ -3086,19 +3306,47 @@
       const ageSheet = layer.querySelector(".age-sheet-options");
       const ageGrid = layer.querySelector("#ageSheetGrid");
       const scrim = layer.querySelector(".onboarding-scrim");
+      const addBabySheets = layer.querySelectorAll(".age-sheet-options");
+      const addBabySheet = addBabySheets[1];
+      const addBabyScrim = addBabySheet?.querySelector(".onboarding-scrim");
+      const babyNameInput = layer.querySelector("#babySheetNameInput");
+      const babyAgeGrid = layer.querySelector("#babySheetAgeGrid");
+      const babyConfirmButton = layer.querySelector("#babySheetConfirmButton");
+      const babyCancelButton = layer.querySelector("#babySheetCancelButton");
 
       for (const button of babyChoiceButtons) {
         button.addEventListener("click", () => selectBabyProfile(button.dataset.babyId || babies[0].id));
       }
+      const updateAddBabySheet = () => {
+        if (babyNameInput) babyNameInput.value = pendingBabyName;
+        if (babyConfirmButton) babyConfirmButton.disabled = !String(pendingBabyName || "").trim();
+        if (babyAgeGrid) {
+          for (const option of babyAgeGrid.querySelectorAll(".age-sheet-option")) {
+            option.classList.toggle("is-selected", Number(option.dataset.months) === pendingBabyAge);
+          }
+        }
+      };
+      const toggleAddBabySheet = (force) => {
+        if (!addBabySheet) return;
+        const nextVisible = typeof force === "boolean" ? force : addBabySheet.style.display === "none";
+        if (nextVisible && ageSheet) ageSheet.style.display = "none";
+        addBabySheet.style.display = nextVisible ? "grid" : "none";
+        if (nextVisible) {
+          updateAddBabySheet();
+          babyNameInput?.focus();
+        }
+      };
+      if (addBabyButton) addBabyButton.addEventListener("click", () => toggleAddBabySheet(true));
       if (step1NextButton) step1NextButton.addEventListener("click", () => goToOnboardingStep(2));
       if (ageButton) ageButton.addEventListener("click", () => toggleAgeSheet());
       if (ageConfirmButton) ageConfirmButton.addEventListener("click", () => goToOnboardingStep(3));
-      if (ageEditButton) ageEditButton.addEventListener("click", () => toggleAgeSheet(true));
       if (backToBabyButton) backToBabyButton.addEventListener("click", () => goToOnboardingStep(1));
       if (sceneToggle) sceneToggle.addEventListener("click", toggleOnboardingSceneDetails);
       if (applyButton) applyButton.addEventListener("click", applyRecommendedOnboarding);
       if (backToAgeButton) backToAgeButton.addEventListener("click", () => goToOnboardingStep(2));
       if (scrim) scrim.addEventListener("click", () => toggleAgeSheet(false));
+      if (addBabyScrim) addBabyScrim.addEventListener("click", () => toggleAddBabySheet(false));
+      if (babyCancelButton) babyCancelButton.addEventListener("click", () => toggleAddBabySheet(false));
 
       if (ageGrid) {
         for (const months of [1, 2, 3, 4, 5, 6, 9, 12]) {
@@ -3112,8 +3360,41 @@
         }
       }
 
+      if (babyAgeGrid) {
+        for (const months of [1, 2, 3, 4, 5, 6, 9, 12]) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "age-sheet-option";
+          button.dataset.months = String(months);
+          button.textContent = String(months);
+          button.addEventListener("click", () => {
+            pendingBabyAge = months;
+            updateAddBabySheet();
+          });
+          babyAgeGrid.appendChild(button);
+        }
+      }
+
+      if (babyNameInput) {
+        babyNameInput.addEventListener("input", () => {
+          pendingBabyName = babyNameInput.value;
+          updateAddBabySheet();
+        });
+      }
+
+      if (babyConfirmButton) {
+        babyConfirmButton.addEventListener("click", () => {
+          if (!addBabyProfile(pendingBabyName, pendingBabyAge)) return;
+          toggleAddBabySheet(false);
+          toast(`已添加 ${getSelectedBaby().name}`);
+        });
+      }
+
       if (ageSheet && !ageSheet.style.display) {
         ageSheet.style.display = "none";
+      }
+      if (addBabySheets[1] && !addBabySheets[1].style.display) {
+        addBabySheets[1].style.display = "none";
       }
 
       updateOnboardingDisplays(layer);
@@ -3139,6 +3420,8 @@
           completedOnboardingVersion,
           selectedBabyId,
           selectedBabyAgeMonths,
+          powerHintShown,
+          babies,
           babyAgeById,
           onboardingSceneExpanded,
           scenes
@@ -3163,6 +3446,20 @@
         if (typeof saved.nightLightOn === "boolean") nightLightOn = saved.nightLightOn;
         if (typeof saved.nightLightBrightness === "number") nightLightBrightness = saved.nightLightBrightness;
         if (typeof saved.nightLightTemperature === "number") nightLightTemperature = saved.nightLightTemperature;
+        if (typeof saved.powerHintShown === "boolean") powerHintShown = saved.powerHintShown;
+        if (Array.isArray(saved.babies)) {
+          babies.length = 0;
+          for (const persistedBaby of saved.babies) {
+            if (!persistedBaby || typeof persistedBaby !== "object") continue;
+            if (typeof persistedBaby.id !== "string" || typeof persistedBaby.name !== "string") continue;
+            babies.push({
+              id: persistedBaby.id,
+              name: persistedBaby.name,
+              note: typeof persistedBaby.note === "string" ? persistedBaby.note : "等待进一步完善这位宝宝的专属安抚偏好。",
+              avatar: typeof persistedBaby.avatar === "string" ? persistedBaby.avatar : getBabyAvatar(persistedBaby.name)
+            });
+          }
+        }
         if (saved.babyAgeById && typeof saved.babyAgeById === "object") {
           for (const baby of babies) {
             if (typeof saved.babyAgeById[baby.id] === "number") {
@@ -3294,6 +3591,26 @@
 
       for (const value of root.querySelectorAll(".sleep-mode-tile-card.is-noise .sleep-mode-tile-value")) {
         value.textContent = activeTrack;
+      }
+    }
+
+    function updatePowerHint(root = document) {
+      const shouldShow = cribOnboardingCompleted && !powerOn && !powerHintShown && (currentScreen === "soothing" || currentScreen === "soothingOff");
+      const hints = root.matches?.(".power-hint")
+        ? [root, ...root.querySelectorAll(".power-hint")]
+        : [...root.querySelectorAll(".power-hint")];
+      for (const hint of hints) {
+        hint.classList.toggle("is-visible", shouldShow);
+      }
+      window.clearTimeout(powerHintTimer);
+      if (shouldShow) {
+        powerHintShown = true;
+        persistPrototypeState();
+        powerHintTimer = window.setTimeout(() => {
+          for (const hint of document.querySelectorAll(".power-hint")) {
+            hint.classList.remove("is-visible");
+          }
+        }, 1600);
       }
     }
 
