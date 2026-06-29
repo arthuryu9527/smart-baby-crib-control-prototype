@@ -295,6 +295,7 @@
 
     .screen-scroll-region .hotspot,
     .screen-scroll-region .scene-card,
+    .screen-scroll-region .scene-add-button,
     .screen-scroll-region .timer-control,
     .screen-scroll-region .night-light-switch,
     .screen-scroll-region .night-light-slider-control {
@@ -462,11 +463,11 @@
 
     .timer-control {
       position: absolute;
-      z-index: 4;
-      left: 28px;
-      top: 467px;
+      z-index: 7;
+      left: 32px;
+      top: 487px;
       width: 100px;
-      height: 44px;
+      height: 38px;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -519,7 +520,7 @@
     .power-hint {
       position: absolute;
       left: 315px;
-      top: 446px;
+      top: 462px;
       z-index: 4;
       width: 56px;
       height: 56px;
@@ -791,9 +792,176 @@
     .sleep-mode-dynamic {
       position: absolute;
       inset: 0;
-      z-index: 4;
+      z-index: 6;
       color: #5d2fa2;
       pointer-events: none;
+    }
+
+    .sleep-mode-surface {
+      position: absolute;
+      left: 16px;
+      top: 424px;
+      z-index: 3;
+      width: 370px;
+      height: 218px;
+      isolation: isolate;
+      border: 1px solid #f1ebff;
+      border-radius: 20px;
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.68) 0%, rgba(250, 247, 255, 0.28) 48%, rgba(236, 226, 255, 0.4) 100%),
+        linear-gradient(135deg, #fdfbff 0%, #f8f4ff 48%, #f1ebff 100%);
+      box-shadow: 0 8px 24px rgba(93, 47, 162, 0.06);
+      pointer-events: auto;
+      overflow: hidden;
+      transition: background 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+    }
+
+    .sleep-mode-surface::before {
+      content: "";
+      position: absolute;
+      inset: -32px -120px;
+      z-index: 0;
+      background:
+        radial-gradient(50% 68% at 32% 42%, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0) 62%),
+        linear-gradient(115deg, rgba(255, 255, 255, 0) 18%, rgba(166, 137, 248, 0.18) 42%, rgba(255, 255, 255, 0.72) 50%, rgba(166, 137, 248, 0.13) 58%, rgba(255, 255, 255, 0) 82%);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate3d(-32%, 0, 0);
+    }
+
+    .sleep-mode-surface .sleep-mode-tile-card {
+      top: 104px;
+    }
+
+    .sleep-mode-dynamic.is-on .sleep-mode-surface {
+      border-color: rgba(169, 142, 213, 0.34);
+      background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.58) 0%, rgba(248, 244, 255, 0.2) 48%, rgba(234, 224, 255, 0.38) 100%),
+        linear-gradient(135deg, #fdfbff 0%, #f8f2ff 48%, #f0e8ff 100%);
+      box-shadow: 0 10px 28px rgba(93, 47, 162, 0.08);
+    }
+
+    .sleep-mode-dynamic.is-on .sleep-mode-surface::before {
+      opacity: 1;
+      animation: sleepModeSurfaceFlow 4.2s ease-in-out infinite alternate;
+    }
+
+    @keyframes sleepModeSurfaceFlow {
+      0% {
+        transform: translate3d(-36%, 0, 0);
+      }
+      100% {
+        transform: translate3d(34%, 0, 0);
+      }
+    }
+
+    .sleep-mode-title-row {
+      position: absolute;
+      left: 14px;
+      top: 12px;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      max-width: 250px;
+      pointer-events: auto;
+    }
+
+    .sleep-mode-surface-title {
+      max-width: 196px;
+      overflow: hidden;
+      color: #251227;
+      font: 510 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .sleep-mode-edit-button {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: #6b50b9;
+      box-shadow: 0 6px 16px rgba(74, 60, 116, 0.08);
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+      transition: transform 120ms ease, background 180ms ease, color 180ms ease;
+    }
+
+    .sleep-mode-edit-button:active {
+      transform: scale(0.96);
+    }
+
+    .sleep-mode-edit-button:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .sleep-mode-edit-button.is-hidden {
+      display: none;
+    }
+
+    .sleep-mode-edit-button svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .sleep-mode-power-button {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      z-index: 2;
+      width: 54px;
+      height: 54px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 0;
+      border-radius: 50%;
+      background: #5d2fa2;
+      color: #fff;
+      box-shadow: 0 10px 20px rgba(93, 47, 162, 0.18);
+      cursor: pointer;
+      pointer-events: auto;
+      touch-action: manipulation;
+      transition: background 180ms ease, color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+    }
+
+    .sleep-mode-dynamic.is-off .sleep-mode-power-button {
+      background: #f3effa;
+      color: #a98ed5;
+      box-shadow: inset 0 0 0 1px #eee7ff;
+    }
+
+    .sleep-mode-power-button:active {
+      transform: scale(0.96);
+    }
+
+    .sleep-mode-power-button:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .sleep-mode-power-button svg {
+      width: 25px;
+      height: 25px;
+      stroke: currentColor;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .sleep-mode-dynamic.is-off {
@@ -803,30 +971,44 @@
     .sleep-mode-tile-card {
       position: absolute;
       top: 540px;
+      z-index: 4;
+      --sleep-mode-tile-inset: 24px;
       width: 165px;
       height: 91px;
       border: 1px solid #eee7ff;
       border-radius: 16px;
       background: linear-gradient(135deg, #f9f7ff 0%, #eee8ff 100%);
       color: currentColor;
-      pointer-events: none;
+      pointer-events: auto;
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: transform 120ms ease, background 180ms ease, border-color 180ms ease;
     }
 
     .sleep-mode-dynamic.is-off .sleep-mode-tile-card {
       background: #fff;
     }
 
+    .sleep-mode-tile-card:active {
+      transform: scale(0.985);
+    }
+
+    .sleep-mode-tile-card:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
     .sleep-mode-tile-card.is-motion {
-      left: 32px;
+      left: 12px;
     }
 
     .sleep-mode-tile-card.is-noise {
-      left: 205px;
+      left: 185px;
     }
 
     .sleep-mode-tile-icon {
       position: absolute;
-      left: 24px;
+      left: var(--sleep-mode-tile-inset);
       top: 20px;
       width: 24px;
       height: 24px;
@@ -844,13 +1026,15 @@
 
     .sleep-mode-tile-value {
       position: absolute;
-      left: 24px;
+      left: var(--sleep-mode-tile-inset);
       right: 16px;
       bottom: 17px;
+      display: block;
       overflow: hidden;
       color: currentColor;
       font: 500 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
+      text-align: left;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
@@ -865,27 +1049,39 @@
     .scene-section-mask {
       position: absolute;
       left: 0;
-      top: 648px;
+      top: 630px;
       z-index: 1;
       width: 402px;
-      height: 226px;
+      height: 244px;
       background: #fff;
     }
 
     .scene-strip {
       position: absolute;
       left: 32px;
-      top: 656px;
+      top: 638px;
       z-index: 2;
-      width: 338px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
+      max-width: 338px;
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
+      overflow-x: auto;
+      overflow-y: visible;
+      padding-top: 12px;
       pointer-events: auto;
+      scrollbar-width: none;
+      white-space: nowrap;
+    }
+
+    .scene-strip::-webkit-scrollbar {
+      width: 0;
+      height: 0;
     }
 
     .scene-card {
-      min-width: 0;
+      position: relative;
+      width: 74px;
+      min-width: 74px;
       height: 30px;
       display: flex;
       align-items: center;
@@ -901,6 +1097,11 @@
       transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
     }
 
+    .scene-card[data-scene-kind="custom"] {
+      width: 92px;
+      min-width: 92px;
+    }
+
     .scene-card:active {
       transform: scale(0.97);
     }
@@ -910,6 +1111,20 @@
       background: #f4efff;
       color: #5d2fa2;
       box-shadow: 0 7px 16px rgba(93, 47, 162, 0.1);
+    }
+
+    .scene-card.is-selected::before {
+      content: "";
+      position: absolute;
+      left: 50%;
+      top: -10px;
+      width: 0;
+      height: 0;
+      border-left: 6px solid transparent;
+      border-right: 6px solid transparent;
+      border-top: 7px solid rgba(93, 47, 162, 0.34);
+      transform: translateX(-50%);
+      pointer-events: none;
     }
 
     .scene-card:focus-visible {
@@ -928,13 +1143,456 @@
       white-space: nowrap;
     }
 
+    .scene-add-button {
+      width: 44px;
+      height: 30px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid #eee7ff;
+      border-radius: 16px;
+      background: #fff;
+      color: #6b50b8;
+      box-shadow: 0 1px 2px rgba(35, 26, 58, 0.03);
+      cursor: pointer;
+      touch-action: manipulation;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease, box-shadow 180ms ease;
+    }
+
+    .scene-add-button:active {
+      transform: scale(0.97);
+    }
+
+    .scene-add-button:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
+    .scene-add-button svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+      stroke-width: 2.2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .scene-editor-screen {
+      position: absolute;
+      inset: 0;
+      z-index: 7;
+      display: none;
+      flex-direction: column;
+      padding: 48px 16px 22px;
+      background: linear-gradient(180deg, #fffefe 0%, #fbf8ff 56%, #f7f4ff 100%);
+      color: #28121f;
+      overflow: hidden;
+    }
+
+    .scene-editor-screen.is-visible {
+      display: flex;
+    }
+
+    .scene-editor-head {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      flex-shrink: 0;
+    }
+
+    .scene-editor-head .onboarding-back-button {
+      position: absolute;
+      left: 0;
+      top: 2px;
+    }
+
+    .scene-editor-actions {
+      position: absolute;
+      right: 0;
+      top: 2px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .scene-editor-save,
+    .scene-editor-delete {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 999px;
+      background: #fff;
+      box-shadow: 0 8px 20px rgba(74, 60, 116, 0.08);
+      color: #6b50b9;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+    }
+
+    .scene-editor-delete {
+      color: #b25a74;
+    }
+
+    .scene-editor-delete.is-hidden {
+      display: none;
+    }
+
+    .scene-editor-save svg,
+    .scene-editor-delete svg {
+      width: 18px;
+      height: 18px;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .scene-editor-title {
+      color: #28121f;
+      font: 620 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .scene-editor-form {
+      margin-top: 22px;
+      display: grid;
+      gap: 14px;
+      overflow-y: auto;
+      padding-bottom: 18px;
+      scrollbar-width: none;
+    }
+
+    .scene-editor-form::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    .scene-delete-confirm {
+      position: absolute;
+      inset: 0;
+      z-index: 9;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background: rgba(38, 27, 58, 0.28);
+      backdrop-filter: blur(8px);
+    }
+
+    .scene-delete-confirm.is-visible {
+      display: flex;
+    }
+
+    .scene-delete-confirm-card {
+      width: 100%;
+      max-width: 282px;
+      display: grid;
+      gap: 16px;
+      padding: 22px 18px 18px;
+      border: 1px solid rgba(124, 104, 182, 0.14);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 24px 56px rgba(42, 28, 74, 0.2);
+      text-align: center;
+    }
+
+    .scene-delete-confirm-title {
+      color: #28121f;
+      font: 650 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .scene-delete-confirm-copy {
+      color: #7f728e;
+      font: 500 14px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .scene-delete-confirm-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .scene-delete-confirm-cancel,
+    .scene-delete-confirm-submit {
+      height: 44px;
+      border: 0;
+      border-radius: 999px;
+      font: 650 14px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    .scene-delete-confirm-cancel {
+      background: #f4f0fb;
+      color: #5f526d;
+    }
+
+    .scene-delete-confirm-submit {
+      background: #b25a74;
+      color: #fff;
+      box-shadow: 0 10px 22px rgba(178, 90, 116, 0.22);
+    }
+
+    .scene-editor-section {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid rgba(124, 104, 182, 0.12);
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 10px 24px rgba(64, 46, 116, 0.06);
+    }
+
+    .scene-editor-section-title {
+      color: #28121f;
+      font: 620 16px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .scene-editor-field-label {
+      color: #867a99;
+      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .scene-editor-name-input {
+      width: 100%;
+      height: 58px;
+      padding: 0 18px;
+      border: 1px solid #ecebed;
+      border-radius: 18px;
+      background: #fff;
+      color: #28121f;
+      font: 560 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      outline: none;
+      box-shadow: 0 6px 18px rgba(88, 67, 145, 0.04);
+    }
+
+    .scene-editor-name-input::placeholder {
+      color: #a79abf;
+    }
+
+    .scene-editor-curve-grid {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .scene-editor-curve-card {
+      width: 100%;
+      height: 78px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 12px 14px 11px;
+      border: 1px solid #ecebed;
+      border-radius: 16px;
+      background: #fff;
+      color: #28121f;
+      font: 510 15px/19px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 120ms ease;
+    }
+
+    .scene-editor-curve-card:active,
+    .scene-editor-chip:active {
+      transform: scale(0.97);
+    }
+
+    .scene-editor-curve-card.is-selected,
+    .scene-editor-chip.is-selected {
+      border-color: #e3d8ff;
+      background: #f4efff;
+      color: #5d2fa2;
+    }
+
+    .scene-editor-level-control {
+      position: relative;
+      width: 100%;
+      height: 38px;
+      display: grid;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      border: 0;
+      border-radius: 48px;
+      background: #f5f1fb;
+      color: #28121f;
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .scene-editor-level-thumb {
+      position: absolute;
+      left: calc(var(--scene-editor-level-index, 2) * 20%);
+      top: 0;
+      width: 20%;
+      height: 38px;
+      border-radius: 48px;
+      background: #5d2fa2;
+      box-shadow: 0 6px 14px rgba(93, 47, 162, 0.18);
+      transition: left 160ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .scene-editor-level-segment {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 38px;
+      border: 0;
+      padding: 0;
+      border-radius: 48px;
+      background: transparent;
+      color: inherit;
+      font: 510 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      transition: color 160ms ease;
+    }
+
+    .scene-editor-level-segment.is-selected {
+      color: #fff;
+    }
+
+    .scene-editor-toggle-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 56px;
+      padding: 0 16px;
+      border: 1px solid #ecebed;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(88, 67, 145, 0.04);
+    }
+
+    .scene-editor-toggle-row .night-light-switch {
+      position: relative;
+      left: auto;
+      top: auto;
+      z-index: 1;
+      flex: 0 0 auto;
+    }
+
+    .scene-editor-toggle-label {
+      color: #28121f;
+      font: 510 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .scene-editor-chip-group {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .scene-editor-chip {
+      min-height: 48px;
+      padding: 0 8px;
+      border: 1px solid #ecebed;
+      border-radius: 16px;
+      background: #fff;
+      color: #28121f;
+      font: 510 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      cursor: pointer;
+      transition: background 160ms ease, border-color 160ms ease, color 160ms ease, transform 120ms ease;
+    }
+
+    .scene-editor-volume-control {
+      position: relative;
+      width: 100%;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 10px;
+      border: 1px solid #ecebed;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 6px 18px rgba(88, 67, 145, 0.04);
+      color: #28121f;
+      cursor: pointer;
+      touch-action: none;
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    .scene-editor-volume-track {
+      position: relative;
+      flex: 1 1 auto;
+      height: 6px;
+      border-radius: 999px;
+      background: #f0eaf8;
+      overflow: visible;
+    }
+
+    .scene-editor-volume-fill {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: var(--scene-editor-volume-fill, 28%);
+      height: 100%;
+      border-radius: inherit;
+      background: #5d2fa2;
+      transition: width 120ms ease;
+      overflow: hidden;
+    }
+
+    .scene-editor-volume-thumb {
+      position: absolute;
+      left: var(--scene-editor-volume-thumb, calc(28% - 10px));
+      top: 50%;
+      width: 20px;
+      height: 20px;
+      border: 4px solid #5d2fa2;
+      border-radius: 50%;
+      background: #fff;
+      box-shadow: 0 6px 14px rgba(93, 47, 162, 0.2);
+      transform: translateY(-50%);
+      transition: left 120ms ease;
+    }
+
+    .scene-editor-volume-value {
+      min-width: 42px;
+      color: #5d2fa2;
+      font: 620 14px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .scene-editor-curve-card:focus-visible,
+    .scene-editor-level-control:focus-visible,
+    .scene-editor-volume-control:focus-visible,
+    .scene-editor-chip:focus-visible,
+    .scene-editor-save:focus-visible,
+    .scene-editor-delete:focus-visible,
+    .scene-delete-confirm-cancel:focus-visible,
+    .scene-delete-confirm-submit:focus-visible {
+      outline: 3px solid rgba(95, 49, 168, 0.48);
+      outline-offset: 2px;
+    }
+
     .onboarding-screen {
       position: absolute;
       inset: 0;
       z-index: 4;
       background:
-        radial-gradient(circle at top right, rgba(214, 202, 255, 0.78), transparent 34%),
-        linear-gradient(180deg, #fdfcff 0%, #f8f4ff 42%, #f7f1ff 100%);
+        linear-gradient(180deg, rgba(165, 137, 245, 0.12) 0%, rgba(165, 137, 245, 0.03) 22%, rgba(255, 255, 255, 0) 34%),
+        radial-gradient(130% 78% at 0% 0%, rgba(188, 169, 255, 0.18) 0%, rgba(188, 169, 255, 0) 54%),
+        linear-gradient(180deg, #fffefe 0%, #fbf8ff 56%, #f7f4ff 100%);
       color: #1e1a2a;
       overflow: hidden;
     }
@@ -942,20 +1600,18 @@
     .onboarding-screen::before {
       content: "";
       position: absolute;
-      inset: auto -80px -140px auto;
-      width: 280px;
-      height: 280px;
-      border-radius: 50%;
-      background: rgba(255, 226, 198, 0.34);
-      filter: blur(6px);
+      inset: 0;
+      background:
+        linear-gradient(140deg, rgba(255, 255, 255, 0) 34%, rgba(152, 123, 245, 0.07) 58%, rgba(152, 123, 245, 0) 82%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.38) 0%, rgba(255, 255, 255, 0) 44%);
       pointer-events: none;
     }
 
     .onboarding-head {
       position: absolute;
-      left: 24px;
-      right: 24px;
-      top: 72px;
+      left: 26px;
+      right: 26px;
+      top: 64px;
       z-index: 2;
     }
 
@@ -963,46 +1619,49 @@
       display: flex;
       align-items: center;
       justify-content: flex-start;
+      min-height: 36px;
     }
 
     .onboarding-back-button {
-      width: 28px;
-      height: 28px;
+      width: 36px;
+      height: 36px;
       padding: 0;
       border: 0;
-      background: transparent;
-      color: #6f5bb0;
-      font: 700 22px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      box-shadow: 0 8px 20px rgba(74, 60, 116, 0.08);
+      color: #6b50b9;
+      font: 650 22px/36px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       cursor: pointer;
       text-align: center;
     }
 
     .onboarding-kicker {
-      margin-top: 14px;
-      color: #7a68a8;
-      font: 600 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      margin-top: 18px;
+      color: #80739e;
+      font: 600 14px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
     .onboarding-progress {
-      margin-top: 18px;
+      margin-top: 20px;
       display: grid;
-      gap: 8px;
+      gap: 10px;
     }
 
     .onboarding-progress-label {
-      color: #8d7baa;
-      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      letter-spacing: 0;
-      text-transform: uppercase;
+      color: #978aaf;
+      font: 600 11px/15px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0.02em;
+      text-transform: none;
     }
 
     .onboarding-progress-track {
       width: 100%;
-      height: 6px;
+      height: 4px;
       border-radius: 999px;
-      background: rgba(220, 211, 242, 0.78);
+      background: rgba(196, 185, 223, 0.62);
       overflow: hidden;
     }
 
@@ -1011,31 +1670,36 @@
       width: 33.333%;
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(135deg, #8d6ff7 0%, #a77bff 100%);
+      background: linear-gradient(90deg, #8d6ff7 0%, #b694ff 100%);
       transition: width 220ms ease;
     }
 
     .onboarding-title {
-      margin-top: 14px;
-      color: #1e1a2a;
-      font: 650 26px/32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      margin-top: 18px;
+      max-width: 320px;
+      color: #231b34;
+      font: 620 28px/36px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
     .onboarding-copy {
-      margin-top: 12px;
-      max-width: 334px;
-      color: #645f74;
-      font: 400 15px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      margin-top: 10px;
+      max-width: 318px;
+      color: #6d647d;
+      font: 400 15px/23px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
+    }
+
+    .onboarding-copy.is-empty {
+      display: none;
     }
 
     .onboarding-step-stack {
       position: absolute;
-      left: 20px;
-      right: 20px;
-      top: 286px;
-      bottom: 22px;
+      left: 22px;
+      right: 22px;
+      top: 284px;
+      bottom: 26px;
       z-index: 2;
     }
 
@@ -1051,43 +1715,49 @@
     }
 
     .onboarding-step[data-step="1"] {
-      padding-top: 44px;
+      padding-top: 62px;
+    }
+
+    .onboarding-step[data-step="2"] {
+      padding-top: 36px;
     }
 
     .onboarding-step[data-step="3"] {
-      padding-top: 72px;
+      padding-top: 40px;
     }
 
     .onboarding-card {
       position: relative;
-      border: 1px solid rgba(192, 202, 228, 0.6);
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.92);
-      box-shadow: 0 18px 36px rgba(41, 38, 64, 0.08);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      padding: 18px;
+      border: 1px solid rgba(124, 104, 182, 0.14);
+      border-radius: 30px;
+      background: rgba(255, 255, 255, 0.9);
+      box-shadow:
+        0 14px 34px rgba(64, 46, 116, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      padding: 22px 20px;
     }
 
     .onboarding-section-title {
-      color: #7f7690;
-      font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-      letter-spacing: 0;
-      text-transform: uppercase;
+      color: #9184a7;
+      font: 600 11px/15px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0.04em;
+      text-transform: none;
     }
 
     .onboarding-choice-list {
       display: grid;
-      gap: 12px;
-      margin-top: 14px;
+      gap: 14px;
+      margin-top: 16px;
     }
 
     .onboarding-link-button {
-      margin-top: 14px;
+      margin-top: 18px;
       padding: 0;
       border: 0;
       background: transparent;
-      color: #7a5fe0;
+      color: #7b62da;
       font: 600 14px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       cursor: pointer;
@@ -1098,8 +1768,8 @@
       padding: 0;
       border: 0;
       background: transparent;
-      color: #8a809d;
-      font: 500 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: #8b80a2;
+      font: 500 14px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       cursor: pointer;
       text-align: center;
@@ -1108,13 +1778,14 @@
     .onboarding-choice-card {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       width: 100%;
-      min-height: 88px;
-      padding: 16px;
-      border: 1px solid #e7edf8;
-      border-radius: 22px;
-      background: #fbfcff;
+      min-height: 96px;
+      padding: 16px 18px;
+      border: 1px solid rgba(126, 104, 184, 0.1);
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(251, 248, 255, 0.88) 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
       color: #241e35;
       text-align: left;
       cursor: pointer;
@@ -1123,13 +1794,15 @@
     }
 
     .onboarding-choice-card:active {
-      transform: scale(0.985);
+      transform: scale(0.992);
     }
 
     .onboarding-choice-card.is-selected {
-      border-color: #d4c4ff;
-      background: #f7f2ff;
-      box-shadow: 0 10px 24px rgba(128, 94, 214, 0.12);
+      border-color: rgba(141, 111, 247, 0.28);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.98) 0%, rgba(247, 242, 255, 0.96) 100%);
+      box-shadow:
+        0 10px 24px rgba(110, 80, 201, 0.08),
+        0 0 0 4px rgba(141, 111, 247, 0.08);
     }
 
     .onboarding-choice-card:focus-visible,
@@ -1144,11 +1817,12 @@
     }
 
     .onboarding-baby-avatar {
-      width: 56px;
-      height: 56px;
-      border-radius: 20px;
-      background: linear-gradient(145deg, #ffd5c8 0%, #ffe9dd 100%);
-      color: #8f5260;
+      width: 58px;
+      height: 58px;
+      border-radius: 22px;
+      background: linear-gradient(145deg, #ffe4f0 0%, #f0e6ff 100%);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      color: #7b5068;
       font: 650 22px/56px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       text-align: center;
       flex: 0 0 auto;
@@ -1163,38 +1837,38 @@
     .onboarding-baby-row {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
     }
 
     .onboarding-choice-top {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 12px;
       min-width: 0;
     }
 
     .onboarding-baby-name {
-      color: #21192b;
-      font: 650 22px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      color: #261d36;
+      font: 620 21px/27px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
     .onboarding-baby-pill {
       display: inline-flex;
       align-items: center;
-      height: 24px;
-      padding: 0 10px;
+      height: 26px;
+      padding: 0 12px;
       border-radius: 999px;
-      background: #f2f4fb;
-      color: #69748f;
+      background: rgba(141, 111, 247, 0.09);
+      color: #6c5d97;
       font: 600 12px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       flex: 0 0 auto;
     }
 
     .onboarding-choice-card.is-selected .onboarding-baby-pill {
-      background: #ece4ff;
-      color: #6e50c9;
+      background: rgba(141, 111, 247, 0.14);
+      color: #674bc2;
     }
 
     .onboarding-choice-meta {
@@ -1247,13 +1921,14 @@
     }
 
     .onboarding-choice-check {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      border: 1px solid #d6deef;
-      background: #fff;
+      border: 1px solid rgba(132, 118, 171, 0.2);
+      background: rgba(255, 255, 255, 0.86);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
       color: transparent;
-      font: 700 15px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      font: 700 15px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       text-align: center;
       flex: 0 0 auto;
       transition: border-color 180ms ease, background 180ms ease, color 180ms ease;
@@ -1261,29 +1936,54 @@
 
     .onboarding-choice-card.is-selected .onboarding-choice-check {
       border-color: #7a5fe0;
-      background: #7a5fe0;
+      background: linear-gradient(135deg, #8d6ff7 0%, #a77bff 100%);
       color: #fff;
     }
 
     .onboarding-summary-card {
-      padding: 18px;
+      padding: 22px 20px 20px;
+    }
+
+    .onboarding-summary-group {
+      margin-top: 18px;
+      padding: 16px;
+      border-radius: 26px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(248, 244, 255, 0.92) 100%);
+      border: 1px solid rgba(141, 111, 247, 0.1);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
+    }
+
+    .onboarding-summary-card .onboarding-baby-row {
+      margin-top: 0 !important;
+      padding: 0;
+      border-radius: 0;
+      background: transparent;
+      border: 0;
+    }
+
+    .onboarding-summary-divider {
+      height: 1px;
+      margin: 16px 0 14px;
+      background: rgba(141, 111, 247, 0.12);
     }
 
     .onboarding-summary-copy {
       margin-top: 10px;
-      color: #6f697d;
-      font: 400 14px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: #6e647f;
+      font: 400 14px/21px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
     .onboarding-summary-birthday-button {
       position: relative;
       width: 100%;
-      margin-top: 12px;
-      padding: 12px 14px;
-      border: 1px solid #ebeff9;
-      border-radius: 18px;
-      background: #f7f9ff;
+      margin-top: 0;
+      min-height: 48px;
+      padding: 0 24px 0 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
       text-align: left;
       color: #21192b;
       cursor: pointer;
@@ -1298,10 +1998,10 @@
     .onboarding-summary-birthday-button::after {
       content: "›";
       position: absolute;
-      right: 14px;
+      right: 2px;
       top: 50%;
       transform: translateY(-50%);
-      color: #8a90a0;
+      color: #9a90b6;
       font: 500 18px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
@@ -1369,48 +2069,52 @@
 
     .onboarding-scene-panel {
       margin-top: 0;
-      padding: 14px;
-      border-radius: 18px;
-      background: linear-gradient(145deg, #fcfbff 0%, #f6f0ff 100%);
-      border: 1px solid #ebe3ff;
+      padding: 16px;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 243, 255, 0.94) 100%);
+      border: 1px solid rgba(141, 111, 247, 0.12);
+      box-shadow:
+        0 10px 26px rgba(100, 80, 162, 0.06),
+        inset 0 1px 0 rgba(255, 255, 255, 0.88);
     }
 
     .onboarding-scene-meta {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px 16px;
+      gap: 14px;
     }
 
     .onboarding-scene-meta > div {
-      padding: 12px 12px 10px;
-      border-radius: 14px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid rgba(231, 223, 252, 0.86);
+      padding: 14px 14px 12px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.86);
+      border: 1px solid rgba(141, 111, 247, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88);
     }
 
     .onboarding-scene-label {
-      color: #7f7690;
+      color: #9486ab;
       font: 500 11px/15px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
     .onboarding-scene-value {
-      margin-top: 4px;
-      color: #261f35;
-      font: 600 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      margin-top: 6px;
+      color: #261d36;
+      font: 600 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
     .onboarding-step-actions {
       margin-top: auto;
       display: grid;
-      gap: 10px;
+      gap: 12px;
     }
 
     .onboarding-cta,
     .onboarding-secondary {
-      height: 54px;
-      border-radius: 18px;
+      height: 56px;
+      border-radius: 28px;
       font: 600 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       cursor: pointer;
@@ -1420,15 +2124,15 @@
 
     .onboarding-cta {
       border: 0;
-      background: linear-gradient(135deg, #8d6ff7 0%, #a77bff 100%);
+      background: linear-gradient(135deg, #8d6ff7 0%, #a884ff 100%);
       color: #fff;
-      box-shadow: 0 14px 28px rgba(128, 94, 214, 0.24);
+      box-shadow: 0 12px 26px rgba(128, 94, 214, 0.2);
     }
 
     .onboarding-secondary {
-      border: 1px solid rgba(203, 210, 226, 0.9);
-      background: rgba(255, 255, 255, 0.72);
-      color: #5b5668;
+      border: 1px solid rgba(141, 111, 247, 0.12);
+      background: rgba(255, 255, 255, 0.74);
+      color: #635b75;
     }
 
     .onboarding-cta:active,
@@ -1458,24 +2162,24 @@
       position: absolute;
       inset: 0;
       z-index: 5;
-      background: rgba(28, 24, 41, 0.18);
-      backdrop-filter: blur(4px);
-      -webkit-backdrop-filter: blur(4px);
+      background: rgba(34, 28, 52, 0.12);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
 
     .age-sheet-card {
-      padding: 18px;
-      border-radius: 22px;
-      background: rgba(255, 255, 255, 0.96);
-      border: 1px solid rgba(205, 213, 231, 0.94);
-      box-shadow: 0 18px 36px rgba(41, 38, 64, 0.12);
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      padding: 20px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(141, 111, 247, 0.12);
+      box-shadow: 0 18px 36px rgba(72, 56, 118, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
     }
 
     .age-sheet-title {
-      color: #1f192d;
-      font: 650 20px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      color: #281f39;
+      font: 620 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
@@ -1487,10 +2191,10 @@
     }
 
     .age-sheet-option {
-      height: 48px;
-      border: 1px solid #e6ebfb;
+      height: 46px;
+      border: 1px solid rgba(141, 111, 247, 0.1);
       border-radius: 16px;
-      background: #f7f9ff;
+      background: rgba(255, 255, 255, 0.88);
       color: #312947;
       font: 600 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
@@ -1504,15 +2208,15 @@
     }
 
     .age-sheet-option.is-selected {
-      border-color: #d4c4ff;
-      background: #f3edff;
-      color: #6e50c9;
+      border-color: rgba(141, 111, 247, 0.24);
+      background: rgba(245, 240, 255, 0.94);
+      color: #6a4fc6;
     }
 
     .age-sheet-note {
       margin-top: 14px;
-      color: #7b748d;
-      font: 400 13px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      color: #7b728e;
+      font: 400 13px/19px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
@@ -1559,8 +2263,10 @@
       display: none;
       flex-direction: column;
       padding: 44px 24px 28px;
-      background: #fff;
-      color: #3c3f48;
+      background:
+        linear-gradient(180deg, rgba(165, 137, 245, 0.1) 0%, rgba(165, 137, 245, 0.02) 18%, rgba(255, 255, 255, 0) 30%),
+        linear-gradient(180deg, #fffefe 0%, #fbf8ff 58%, #f7f4ff 100%);
+      color: #3f3654;
       overflow: hidden;
     }
 
@@ -1576,16 +2282,14 @@
     .baby-editor-head .onboarding-back-button {
       position: absolute;
       left: 0;
-      top: 2px;
-      width: 32px;
-      height: 32px;
-      color: #44454e;
-      font: 500 34px/32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      top: 0;
+      color: #6a50b8;
+      font: 650 22px/36px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
     .baby-editor-title {
-      color: #44454e;
-      font: 500 24px/30px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      color: #312746;
+      font: 620 22px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
@@ -1594,7 +2298,7 @@
     }
 
     .baby-editor-card {
-      margin-top: 12px;
+      margin-top: 18px;
       flex: 1 1 auto;
       display: flex;
       flex-direction: column;
@@ -1605,12 +2309,15 @@
     }
 
     .baby-editor-avatar-preview {
-      width: 154px;
-      height: 154px;
-      margin: 12px auto 0;
+      width: 132px;
+      height: 132px;
+      margin: 8px auto 0;
       border-radius: 50%;
-      border: 3px solid #f2d6d7;
-      background: #fff;
+      border: 1px solid rgba(141, 111, 247, 0.12);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(247, 242, 255, 0.88) 100%);
+      box-shadow:
+        0 16px 30px rgba(78, 58, 134, 0.08),
+        inset 0 1px 0 rgba(255, 255, 255, 0.84);
       position: relative;
       display: flex;
       align-items: center;
@@ -1620,7 +2327,7 @@
     .baby-editor-avatar-icon {
       width: 88px;
       height: 88px;
-      color: #c7c8cc;
+      color: #c0b4d9;
     }
 
     .baby-editor-avatar-icon svg {
@@ -1632,27 +2339,27 @@
     .baby-editor-avatar-camera {
       position: absolute;
       right: -2px;
-      bottom: 14px;
-      width: 56px;
-      height: 56px;
+      bottom: 10px;
+      width: 48px;
+      height: 48px;
       border-radius: 50%;
-      background: #be7a7d;
+      background: linear-gradient(135deg, #8d6ff7 0%, #a77bff 100%);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 24px rgba(190, 122, 125, 0.24);
+      box-shadow: 0 10px 24px rgba(128, 94, 214, 0.22);
     }
 
     .baby-editor-avatar-camera svg {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       color: #fff;
     }
 
     .baby-editor-form {
-      margin-top: 38px;
+      margin-top: 30px;
       display: grid;
-      gap: 18px;
+      gap: 14px;
     }
 
     .baby-sheet-field {
@@ -1663,8 +2370,8 @@
     .baby-sheet-required {
       position: absolute;
       left: -18px;
-      top: 21px;
-      color: #ff6666;
+      top: 18px;
+      color: #cf78a6;
       font: 600 24px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
@@ -1674,41 +2381,46 @@
 
     .baby-sheet-input {
       width: 100%;
-      height: 64px;
+      height: 58px;
       margin-top: 0;
-      padding: 0 22px;
-      border: 1px solid #e3e3e6;
-      border-radius: 18px;
-      background: #fff;
-      color: #2f3138;
-      font: 400 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      padding: 0 20px;
+      border: 1px solid rgba(141, 111, 247, 0.12);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.9);
+      color: #312746;
+      font: 500 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
       outline: none;
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.01);
+      box-shadow:
+        0 6px 18px rgba(88, 67, 145, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.84);
     }
 
     .baby-sheet-input::placeholder {
-      color: #cbccd2;
+      color: #a79abf;
       font-weight: 400;
     }
 
     .baby-sheet-select {
       width: 100%;
-      height: 64px;
-      border: 1px solid #e3e3e6;
-      border-radius: 18px;
-      background: #fff;
+      height: 58px;
+      border: 1px solid rgba(141, 111, 247, 0.12);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.9);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 22px;
-      color: #cbccd2;
-      font: 400 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      padding: 0 20px;
+      color: #a79abf;
+      font: 500 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
+      box-shadow:
+        0 6px 18px rgba(88, 67, 145, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.84);
     }
 
     .baby-sheet-select.is-filled {
-      color: #2f3138;
+      color: #312746;
     }
 
     .baby-sheet-select-text {
@@ -1723,13 +2435,13 @@
     }
 
     .baby-sheet-select-icon {
-      color: #666973;
+      color: #8e83aa;
       font: 500 20px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
     .baby-sheet-date-icon {
       margin-right: 12px;
-      color: #474a53;
+      color: #8e83aa;
       font: 500 20px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
@@ -1746,19 +2458,20 @@
 
     .baby-sheet-actions {
       margin-top: auto;
-      padding-top: 26px;
+      padding-top: 24px;
       display: grid;
       gap: 0;
     }
 
     .baby-sheet-save {
       width: 100%;
-      height: 68px;
+      height: 56px;
       border: 0;
-      border-radius: 18px;
-      background: #414149;
+      border-radius: 28px;
+      background: linear-gradient(135deg, #8d6ff7 0%, #a884ff 100%);
+      box-shadow: 0 12px 26px rgba(128, 94, 214, 0.2);
       color: #fff;
-      font: 500 27px/34px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      font: 600 18px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
     }
 
@@ -2340,6 +3053,8 @@
   </main>
 
   <script>
+    const DEVICE_NAME = "Clara's Baby Crib";
+
     const screens = {
       devices: {
         label: "设备页",
@@ -2478,6 +3193,14 @@
             action: () => startSafetyCheck()
           }
         ]
+      },
+      sceneEditor: {
+        label: "新增哄睡方案",
+        width: 402,
+        height: 874,
+        overlays: ["sceneEditor"],
+        alt: "新增或编辑哄睡方案配置页。",
+        hotspots: []
       },
       monitoring: {
         label: "婴儿床首页 / Monitoring",
@@ -2754,6 +3477,16 @@
     let pendingBabyBirthday = "";
     let pendingBabyAge = 3;
     let babyEditorVisible = false;
+    let sceneEditorVisible = false;
+    let sceneEditorMode = "create";
+    let editingSceneId = null;
+    let pendingSceneName = "自定义方案";
+    let pendingSceneCurve = 2;
+    let pendingSceneMotionLevel = 2;
+    let pendingSceneMonitoring = true;
+    let pendingSceneTrack = "Moon Lullaby";
+    let pendingSceneVolume = 28;
+    let sceneEditorReturnScreen = "soothingOff";
     let powerHintShown = false;
     let monitoringRecording = false;
     let activeWorkspacePanel = "devices";
@@ -2764,6 +3497,7 @@
     let transitionLocked = false;
 
     const ONBOARDING_FLOW_VERSION = 3;
+    const MAX_CUSTOM_SCENES = 3;
     const AGE_REFERENCE_DATE = new Date(Date.UTC(2025, 6, 12));
     const defaultBabyAgeById = {
       tony: 6,
@@ -2861,8 +3595,12 @@
           {
             title: "功能范围",
             items: [
-              "系统至少应提供推荐、自定义1、自定义2三张场景卡，且默认选中推荐场景。",
-              "每张场景卡均应绑定一组完整配置，至少包含 Mode、Movement Path、Motion Level、Monitoring 状态、白噪音曲目及音量。",
+              "Sleep-Soothing Mode 区域应以独立卡片承载卡片名称、总开关、定时入口、运动设置模块及音乐设置模块；卡片下方提供推荐方案卡及新增入口图标，用于创建新的哄睡方案。",
+              "Sleep-Soothing Mode 卡片背景应与整体紫色主题保持一致；当哄睡模式处于开启状态时，卡片背景可呈现轻量、连续的淡紫色流动效果，用于表达正在运行的状态。",
+              "新增方案至少应支持配置方案名称、运动曲线、运动挡位、Monitoring 开关状态、音乐分类及音量滑动调节。",
+              "用户完成新增并保存后，系统应新增一张独立的自定义哄睡方案卡并直接生效，不得覆盖此前已创建的自定义方案。",
+              "首期最多允许用户添加 3 个自定义哄睡方案卡；当自定义方案数量达到 3 个时，场景标签条中的新增入口应隐藏。",
+              "已创建的用户自定义方案应支持完整配置编辑与删除；编辑入口仅在选中用户自定义方案时展示，系统预置方案不展示该入口。",
               "设备详情页面应继续支持对 Motion、白噪音、计时器、夜灯及 Monitoring 等模块进行独立操作与调整。",
               "计时器应提供固定时长选项，配置范围为 5 分钟至 30 分钟，步长为 5 分钟。",
               "夜灯模块一期已支持亮度调节；本次新增色温调节能力，色温调节范围为 2700K 至 5500K，步长为 100K，默认值待定。",
@@ -2875,8 +3613,13 @@
             title: "交互要求",
             items: [
               "设备详情页面默认应停留于 Soothing 页面，并作为主要控制首页。",
-              "用户在推荐、自定义1、自定义2之间切换哄睡方案时，整个 Sleep-Soothing Mode 卡片应呈现轻量的切换动效，用于反馈当前方案已完成切换；该动效应克制、短时，不得干扰卡片内信息阅读与后续操作。",
-              "场景卡切换后，Sleep-Soothing Mode 区域中的运动与音乐信息应同步更新并即时展示；用户仍应能够继续进入 Motion 设置页面与白噪音设置页面，以完成进一步调整。"
+              "用户点击新增入口图标后，系统应弹出新增页面；该页面应支持填写方案名称，并完成运动曲线、运动挡位、Monitoring 开关、音乐分类及音量滑动调节。",
+              "用户在新增页面点击右上角勾选确认后，系统应保存当前输入内容、生成一张新的自定义哄睡方案卡并立即生效；关闭后，Sleep-Soothing Mode 区域中的运动与音乐信息应同步更新。",
+              "当用户已创建 3 个自定义哄睡方案后，新增入口应自动隐藏；用户删除任一自定义方案后，新增入口应重新出现。",
+              "用户点击 Sleep-Soothing Mode 卡片标题右侧编辑图标后，系统应打开与新增页面结构一致的编辑页面；页面标题应显示为“编辑哄睡方案”，并支持修改方案名称、运动曲线、运动挡位、Monitoring 开关、音乐分类及音量。",
+              "用户在编辑页面点击右上角删除按钮后，系统应弹出二次确认弹窗；用户点击取消则回到编辑页面；用户确认删除后，系统应删除当前自定义哄睡方案卡、提示“移除成功”，并回到推荐方案。",
+              "场景标签条应在当前选中标签上方展示小三角指示，箭头应从 Sleep-Soothing Mode 卡片指向当前标签，并与标签左右居中对齐。",
+              "用户在推荐方案与新建方案之间切换时，整个 Sleep-Soothing Mode 卡片应呈现轻量的切换动效，用于反馈当前方案已完成切换；该动效应克制、短时，不得干扰卡片内信息阅读与后续操作。"
             ]
           }
         ]
@@ -2886,7 +3629,7 @@
     const scenes = [
       {
         id: "general",
-        title: "推荐",
+        title: "Preset",
         meta: "Curve 3 · Ocean",
         mode: "Manual",
         curve: 3,
@@ -2898,8 +3641,8 @@
         loopMode: "single"
       },
       {
-        id: "night",
-        title: "自定义1",
+        id: "custom",
+        title: "自定义方案",
         meta: "Curve 2 · Lullaby",
         mode: "Auto",
         curve: 2,
@@ -2908,11 +3651,26 @@
         realtimeMonitoring: true,
         track: "Moon Lullaby",
         volume: 28,
-        loopMode: "single"
+        loopMode: "single",
+        showInStrip: false
+      },
+      {
+        id: "night",
+        title: "自定义模板 1",
+        meta: "Curve 2 · Lullaby",
+        mode: "Auto",
+        curve: 2,
+        movementPath: "Curve 2",
+        motionLevel: 2,
+        realtimeMonitoring: true,
+        track: "Moon Lullaby",
+        volume: 28,
+        loopMode: "single",
+        showInStrip: false
       },
       {
         id: "nap",
-        title: "自定义2",
+        title: "自定义模板 2",
         meta: "Curve 4 · Cloud",
         mode: "Auto",
         curve: 4,
@@ -2921,7 +3679,8 @@
         realtimeMonitoring: false,
         track: "Cotton Cloud",
         volume: 34,
-        loopMode: "single"
+        loopMode: "single",
+        showInStrip: false
       }
     ];
 
@@ -3338,17 +4097,42 @@
         const dynamic = document.createElement("div");
         dynamic.className = `sleep-mode-dynamic ${powerOn ? "is-on" : "is-off"}`;
         dynamic.innerHTML = `
-          <div class="sleep-mode-tile-card is-motion">
-            <span class="sleep-mode-tile-icon" aria-hidden="true">${cribIcon()}</span>
-            <span class="sleep-mode-tile-arrow" aria-hidden="true">›</span>
-            <span class="sleep-mode-tile-value"></span>
-          </div>
-          <div class="sleep-mode-tile-card is-noise">
-            <span class="sleep-mode-tile-icon" aria-hidden="true">${musicIcon()}</span>
-            <span class="sleep-mode-tile-arrow" aria-hidden="true">›</span>
-            <span class="sleep-mode-tile-value"></span>
+          <div class="sleep-mode-surface">
+            <div class="sleep-mode-title-row">
+              <div class="sleep-mode-surface-title">Sleep-Soothing Mode</div>
+              <button type="button" class="sleep-mode-edit-button is-hidden" id="sleepModeEditButton" aria-label="编辑自定义哄睡方案" title="编辑自定义哄睡方案">${editIcon()}</button>
+            </div>
+            <button type="button" class="sleep-mode-power-button" aria-label="${powerOn ? "关闭哄睡模式" : "开启哄睡模式"}" title="${powerOn ? "关闭哄睡模式" : "开启哄睡模式"}" aria-pressed="${powerOn}">${powerIcon()}</button>
+            <button type="button" class="sleep-mode-tile-card is-motion" aria-label="打开哄睡设置页">
+              <span class="sleep-mode-tile-icon" aria-hidden="true">${cribIcon()}</span>
+              <span class="sleep-mode-tile-arrow" aria-hidden="true">›</span>
+              <span class="sleep-mode-tile-value"></span>
+            </button>
+            <button type="button" class="sleep-mode-tile-card is-noise" aria-label="打开白噪音设置页">
+              <span class="sleep-mode-tile-icon" aria-hidden="true">${musicIcon()}</span>
+              <span class="sleep-mode-tile-arrow" aria-hidden="true">›</span>
+              <span class="sleep-mode-tile-value"></span>
+            </button>
           </div>`;
         layer.appendChild(dynamic);
+        const powerButton = dynamic.querySelector(".sleep-mode-power-button");
+        powerButton?.addEventListener("click", () => {
+          if (powerOn) {
+            setSleepPower(false);
+            showScreen("soothingOff", "content-fade");
+            return;
+          }
+          startSafetyCheck();
+        });
+        dynamic.querySelector(".sleep-mode-tile-card.is-motion")?.addEventListener("click", () => {
+          showScreen("motion", "sheet-open");
+        });
+        dynamic.querySelector(".sleep-mode-tile-card.is-noise")?.addEventListener("click", () => {
+          showScreen("noise", "sheet-open");
+        });
+        dynamic.querySelector("#sleepModeEditButton")?.addEventListener("click", () => {
+          toggleSceneEditor(true, { mode: "edit", sceneId: selectedSceneId });
+        });
         updateSleepModeDynamic(dynamic);
       }
 
@@ -3370,19 +4154,89 @@
 
         const strip = document.createElement("div");
         strip.className = "scene-strip";
-        for (const scene of scenes) {
+        for (const scene of scenes.filter((item) => item.showInStrip !== false)) {
           const button = document.createElement("button");
           button.type = "button";
           button.className = "scene-card";
           button.dataset.sceneId = scene.id;
+          button.dataset.sceneKind = getSceneKind(scene);
           button.setAttribute("aria-label", `选择${scene.title}场景`);
           button.innerHTML = `<span class="scene-card-title">${scene.title}</span>`;
           button.addEventListener("click", () => selectScene(scene.id));
           strip.appendChild(button);
         }
+        if (canAddCustomScene()) {
+          const addButton = document.createElement("button");
+          addButton.type = "button";
+          addButton.className = "scene-add-button";
+          addButton.setAttribute("aria-label", "新增哄睡方案");
+          addButton.title = "新增哄睡方案";
+          addButton.innerHTML = addIcon();
+          addButton.addEventListener("click", () => toggleSceneEditor(true, { mode: "create" }));
+          strip.appendChild(addButton);
+        }
         controls.appendChild(strip);
         layer.appendChild(controls);
         updateSceneControls(controls);
+      }
+
+      if (screen.overlays?.includes("sceneEditor")) {
+        const editor = document.createElement("div");
+        editor.className = "scene-editor-screen is-visible";
+        editor.id = "sceneEditorScreen";
+        editor.innerHTML = `
+          <div class="scene-editor-head">
+            <button type="button" class="onboarding-back-button" id="sceneEditorBackButton" aria-label="返回设备详情" title="返回设备详情">‹</button>
+            <div class="scene-editor-title" id="sceneEditorTitle">新增哄睡方案</div>
+            <div class="scene-editor-actions">
+              <button type="button" class="scene-editor-delete" id="sceneEditorDeleteButton" aria-label="删除方案" title="删除方案">${deleteIcon()}</button>
+              <button type="button" class="scene-editor-save" id="sceneEditorSaveButton" aria-label="保存方案" title="保存方案">${checkIcon()}</button>
+            </div>
+          </div>
+          <div class="scene-editor-form">
+            <section class="scene-editor-section">
+              <div class="scene-editor-section-title">方案名称</div>
+              <input type="text" class="scene-editor-name-input" id="sceneEditorNameInput" maxlength="12" placeholder="输入名称">
+            </section>
+            <section class="scene-editor-section">
+              <div class="scene-editor-section-title">运动设置</div>
+              <div class="scene-editor-field-label">运动曲线</div>
+              <div class="scene-editor-curve-grid" id="sceneEditorCurveGroup"></div>
+              <div class="scene-editor-field-label">运动挡位</div>
+              <div class="scene-editor-level-control" id="sceneEditorLevelGroup" role="slider" aria-label="调整运动挡位" aria-valuemin="0" aria-valuemax="4">
+                <div class="scene-editor-level-thumb" aria-hidden="true"></div>
+              </div>
+              <div class="scene-editor-toggle-row">
+                <span class="scene-editor-toggle-label">Monitoring</span>
+                <button type="button" class="night-light-switch" id="sceneEditorMonitoringSwitch" aria-label="切换监护模式"></button>
+              </div>
+            </section>
+            <section class="scene-editor-section">
+              <div class="scene-editor-section-title">音乐设置</div>
+              <div class="scene-editor-field-label">音乐分类</div>
+              <div class="scene-editor-chip-group" id="sceneEditorTrackGroup"></div>
+              <div class="scene-editor-field-label">音量</div>
+              <div class="scene-editor-volume-control" id="sceneEditorVolumeGroup" role="slider" aria-label="调整音量" aria-valuemin="0" aria-valuemax="100">
+                <div class="scene-editor-volume-track">
+                  <div class="scene-editor-volume-fill" aria-hidden="true"></div>
+                  <div class="scene-editor-volume-thumb" aria-hidden="true"></div>
+                </div>
+                <div class="scene-editor-volume-value" id="sceneEditorVolumeValue"></div>
+              </div>
+            </section>
+          </div>
+          <div class="scene-delete-confirm" id="sceneDeleteConfirm" aria-hidden="true">
+            <div class="scene-delete-confirm-card" role="dialog" aria-modal="true" aria-labelledby="sceneDeleteConfirmTitle">
+              <div class="scene-delete-confirm-title" id="sceneDeleteConfirmTitle">确认删除该方案？</div>
+              <div class="scene-delete-confirm-copy">删除后，该自定义哄睡方案将从场景标签中移除。</div>
+              <div class="scene-delete-confirm-actions">
+                <button type="button" class="scene-delete-confirm-cancel" id="sceneDeleteConfirmCancel">取消</button>
+                <button type="button" class="scene-delete-confirm-submit" id="sceneDeleteConfirmSubmit">确认删除</button>
+              </div>
+            </div>
+          </div>`;
+        layer.appendChild(editor);
+        setupSceneEditor(editor);
       }
 
       if (screen.overlays?.includes("monitoringControls")) {
@@ -3426,12 +4280,12 @@
             <div class="onboarding-head-bar">
               <button type="button" class="onboarding-back-button" id="onboardingReturnButton" aria-label="返回设备列表" title="返回设备列表">‹</button>
             </div>
-            <div class="onboarding-kicker">Clara's Baby Crib</div>
+            <div class="onboarding-kicker">${DEVICE_NAME}</div>
             <div class="onboarding-progress">
               <div class="onboarding-progress-label" id="onboardingProgressLabel"></div>
               <div class="onboarding-progress-track"><span class="onboarding-progress-fill" id="onboardingProgressFill"></span></div>
             </div>
-            <div class="onboarding-title" id="onboardingTitle">欢迎使用智能婴儿床，请确认要守护的宝宝</div>
+            <div class="onboarding-title" id="onboardingTitle">${DEVICE_NAME} 将照护的宝宝是？</div>
             <div class="onboarding-copy" id="onboardingCopy"></div>
           </div>
           <div class="onboarding-step-stack">
@@ -3451,19 +4305,22 @@
             <section class="onboarding-step" data-step="2">
               <div class="onboarding-card onboarding-summary-card">
                 <div class="onboarding-section-title">当前宝宝信息</div>
-                <div class="onboarding-baby-row" style="margin-top: 14px;">
-                  <div class="onboarding-baby-avatar" id="onboardingBabyAvatar"></div>
-                  <div class="onboarding-baby-profile">
-                    <div class="onboarding-choice-top">
-                      <div class="onboarding-baby-name" id="onboardingBabyName"></div>
-                      <div class="onboarding-baby-pill" id="onboardingBabyAgePill"></div>
+                <div class="onboarding-summary-group">
+                  <div class="onboarding-baby-row">
+                    <div class="onboarding-baby-avatar" id="onboardingBabyAvatar"></div>
+                    <div class="onboarding-baby-profile">
+                      <div class="onboarding-choice-top">
+                        <div class="onboarding-baby-name" id="onboardingBabyName"></div>
+                        <div class="onboarding-baby-pill" id="onboardingBabyAgePill"></div>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div class="onboarding-summary-birthday-button" id="onboardingBirthdayButton">
-                  <div class="onboarding-summary-label">宝宝生日</div>
-                  <div class="onboarding-summary-value" id="onboardingSummaryBirthday"></div>
-                  <input type="date" id="onboardingBirthdayInput" aria-label="修改宝宝生日">
+                  <div class="onboarding-summary-divider"></div>
+                  <div class="onboarding-summary-birthday-button" id="onboardingBirthdayButton">
+                    <div class="onboarding-summary-label">宝宝生日</div>
+                    <div class="onboarding-summary-value" id="onboardingSummaryBirthday"></div>
+                    <input type="date" id="onboardingBirthdayInput" aria-label="修改宝宝生日">
+                  </div>
                 </div>
               </div>
               <div class="onboarding-step-actions">
@@ -3860,6 +4717,13 @@
         </svg>`;
     }
 
+    function powerIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 3v9M7.05 6.6a7.2 7.2 0 1 0 9.9 0" />
+        </svg>`;
+    }
+
     function getDefaultBabyAge(babyId) {
       return defaultBabyAgeById[babyId] || defaultBabyAgeById[babies[0].id] || 6;
     }
@@ -3968,6 +4832,128 @@
       return firstChar ? firstChar.toUpperCase() : "B";
     }
 
+    function addIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M12 5v14M5 12h14"></path>
+        </svg>`;
+    }
+
+    function checkIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="m5 12.5 4.3 4.3L19 7.5"></path>
+        </svg>`;
+    }
+
+    function deleteIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4 7h16M10 11v6M14 11v6M8 7l1-3h6l1 3M6.5 7l1 14h9l1-14"></path>
+        </svg>`;
+    }
+
+    function editIcon() {
+      return `
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M4.5 19.5h4.1L18.7 9.4a2.9 2.9 0 0 0-4.1-4.1L4.5 15.4v4.1Z"></path>
+          <path d="m13.5 6.5 4 4"></path>
+        </svg>`;
+    }
+
+    function getSceneById(sceneId) {
+      return scenes.find((scene) => scene.id === sceneId);
+    }
+
+    function getSceneKind(scene) {
+      if (!scene) return "unknown";
+      if (scene.id === "general") return "preset";
+      if (String(scene.id || "").startsWith("custom")) return "custom";
+      return "template";
+    }
+
+    function isCustomScene(scene) {
+      return getSceneKind(scene) === "custom";
+    }
+
+    function getVisibleScenes() {
+      return scenes.filter((scene) => scene.showInStrip !== false);
+    }
+
+    function getCustomSceneCount() {
+      return scenes.filter((scene) => isCustomScene(scene) && scene.showInStrip !== false).length;
+    }
+
+    function canAddCustomScene() {
+      return getCustomSceneCount() < MAX_CUSTOM_SCENES;
+    }
+
+    function createCustomSceneId() {
+      let index = 1;
+      while (scenes.some((scene) => scene.id === `custom-${index}`)) {
+        index += 1;
+      }
+      return `custom-${index}`;
+    }
+
+    function getSceneVolumeOptions() {
+      return [20, 30, 40, 50, 60];
+    }
+
+    function getSceneTrackOptions() {
+      return ["Ocean Waves", "Moon Lullaby", "Cotton Cloud"];
+    }
+
+    function syncRuntimeFromScene(scene) {
+      if (!scene) return;
+      selectedCurve = scene.curve;
+      motionLevel = scene.motionLevel;
+      realtimeMonitoring = scene.realtimeMonitoring;
+      activeTrack = scene.track;
+      noiseVolume = scene.volume;
+      loopMode = scene.loopMode;
+      noisePlaying = true;
+    }
+
+    function buildSceneMeta(scene) {
+      return `${scene.movementPath.replace("Curve ", "C")} · ${scene.track.replace("Ocean Waves", "Ocean").replace("Moon Lullaby", "Lullaby").replace("Cotton Cloud", "Cloud")}`;
+    }
+
+    function applyPendingSceneToScene(scene) {
+      if (!scene) return;
+      scene.title = String(pendingSceneName || "").trim() || "自定义方案";
+      scene.curve = pendingSceneCurve;
+      scene.movementPath = `Curve ${pendingSceneCurve}`;
+      scene.motionLevel = pendingSceneMotionLevel;
+      scene.realtimeMonitoring = pendingSceneMonitoring;
+      scene.track = pendingSceneTrack;
+      scene.volume = pendingSceneVolume;
+      scene.loopMode = "single";
+      scene.meta = buildSceneMeta(scene);
+      scene.mode = "Auto";
+      scene.showInStrip = true;
+    }
+
+    function createCustomSceneFromPending() {
+      const scene = {
+        id: createCustomSceneId(),
+        title: "自定义方案",
+        meta: "Curve 2 · Lullaby",
+        mode: "Auto",
+        curve: 2,
+        movementPath: "Curve 2",
+        motionLevel: 2,
+        realtimeMonitoring: true,
+        track: "Moon Lullaby",
+        volume: 28,
+        loopMode: "single",
+        showInStrip: true
+      };
+      applyPendingSceneToScene(scene);
+      scenes.push(scene);
+      return scene;
+    }
+
     function rebuildOnboardingBabyChoices(root = activeLayer || document) {
       const list = root.querySelector(".onboarding-choice-list");
       if (!list) return;
@@ -4045,6 +5031,207 @@
       }
     }
 
+    function toggleSceneEditor(force, options = {}) {
+      const nextVisible = typeof force === "boolean" ? force : !sceneEditorVisible;
+      sceneEditorVisible = nextVisible;
+      if (nextVisible) {
+        sceneEditorReturnScreen = currentScreen === "sceneEditor"
+          ? sceneEditorReturnScreen
+          : currentScreen;
+        const mode = options.mode === "edit" ? "edit" : "create";
+        const editableScene = mode === "edit" ? getSceneById(options.sceneId || selectedSceneId) : null;
+        sceneEditorMode = editableScene && isCustomScene(editableScene) ? "edit" : "create";
+        editingSceneId = sceneEditorMode === "edit" ? editableScene.id : null;
+        const sourceScene = sceneEditorMode === "edit" ? editableScene : null;
+        pendingSceneName = sourceScene?.title || "自定义方案";
+        pendingSceneCurve = sourceScene?.curve ?? 2;
+        pendingSceneMotionLevel = sourceScene?.motionLevel ?? 2;
+        pendingSceneMonitoring = sourceScene?.realtimeMonitoring ?? true;
+        pendingSceneTrack = sourceScene?.track || "Moon Lullaby";
+        pendingSceneVolume = sourceScene?.volume ?? 28;
+        persistPrototypeState();
+        showScreen("sceneEditor", "sheet-open");
+        return;
+      }
+      sceneEditorMode = "create";
+      editingSceneId = null;
+      persistPrototypeState();
+      showScreen(sceneEditorReturnScreen || (powerOn ? "soothing" : "soothingOff"), "sheet-close");
+    }
+
+    function setupSceneEditor(editor) {
+      const backButton = editor.querySelector("#sceneEditorBackButton");
+      const saveButton = editor.querySelector("#sceneEditorSaveButton");
+      const deleteButton = editor.querySelector("#sceneEditorDeleteButton");
+      const deleteConfirm = editor.querySelector("#sceneDeleteConfirm");
+      const deleteConfirmCancel = editor.querySelector("#sceneDeleteConfirmCancel");
+      const deleteConfirmSubmit = editor.querySelector("#sceneDeleteConfirmSubmit");
+      const nameInput = editor.querySelector("#sceneEditorNameInput");
+      const curveGroup = editor.querySelector("#sceneEditorCurveGroup");
+      const levelGroup = editor.querySelector("#sceneEditorLevelGroup");
+      const monitoringSwitch = editor.querySelector("#sceneEditorMonitoringSwitch");
+      const trackGroup = editor.querySelector("#sceneEditorTrackGroup");
+      const volumeGroup = editor.querySelector("#sceneEditorVolumeGroup");
+
+      const toggleDeleteConfirm = (visible) => {
+        if (!deleteConfirm) return;
+        deleteConfirm.classList.toggle("is-visible", visible);
+        deleteConfirm.setAttribute("aria-hidden", String(!visible));
+      };
+
+      if (curveGroup && !curveGroup.children.length) {
+        for (const curve of [1, 2, 3, 4, 5]) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "scene-editor-curve-card";
+          button.dataset.curve = String(curve);
+          button.setAttribute("aria-label", `选择 Curve ${curve}`);
+          button.innerHTML = `<span>Curve ${curve}</span>${waveIcon()}`;
+          button.addEventListener("click", () => {
+            pendingSceneCurve = curve;
+            updateSceneEditor(editor);
+          });
+          curveGroup.appendChild(button);
+        }
+      }
+
+      if (levelGroup && !levelGroup.querySelector("[data-level]")) {
+        ["Off", "1", "2", "3", "4"].forEach((label, level) => {
+          const segment = document.createElement("span");
+          segment.className = "scene-editor-level-segment";
+          segment.dataset.level = String(level);
+          segment.textContent = label;
+          segment.addEventListener("click", () => {
+            pendingSceneMotionLevel = level;
+            updateSceneEditor(editor);
+          });
+          levelGroup.appendChild(segment);
+        });
+
+        let isDraggingSceneLevel = false;
+        const setSceneLevelFromPointer = (event) => {
+          const rect = levelGroup.getBoundingClientRect();
+          const segmentWidth = rect.width / 5;
+          const level = clamp(Math.floor((event.clientX - rect.left) / segmentWidth), 0, 4);
+          pendingSceneMotionLevel = level;
+          updateSceneEditor(editor);
+        };
+
+        levelGroup.tabIndex = 0;
+        levelGroup.addEventListener("pointerdown", (event) => {
+          isDraggingSceneLevel = true;
+          levelGroup.setPointerCapture?.(event.pointerId);
+          setSceneLevelFromPointer(event);
+        });
+        levelGroup.addEventListener("pointermove", (event) => {
+          if (isDraggingSceneLevel) setSceneLevelFromPointer(event);
+        });
+        levelGroup.addEventListener("pointerup", (event) => {
+          isDraggingSceneLevel = false;
+          levelGroup.releasePointerCapture?.(event.pointerId);
+        });
+        levelGroup.addEventListener("pointercancel", () => {
+          isDraggingSceneLevel = false;
+        });
+        levelGroup.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+            event.preventDefault();
+            pendingSceneMotionLevel = clamp(pendingSceneMotionLevel - 1, 0, 4);
+            updateSceneEditor(editor);
+          }
+          if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+            event.preventDefault();
+            pendingSceneMotionLevel = clamp(pendingSceneMotionLevel + 1, 0, 4);
+            updateSceneEditor(editor);
+          }
+        });
+      }
+
+      if (trackGroup && !trackGroup.children.length) {
+        for (const track of getSceneTrackOptions()) {
+          const button = document.createElement("button");
+          button.type = "button";
+          button.className = "scene-editor-chip";
+          button.dataset.track = track;
+          button.textContent = track;
+          button.addEventListener("click", () => {
+            pendingSceneTrack = track;
+            updateSceneEditor(editor);
+          });
+          trackGroup.appendChild(button);
+        }
+      }
+
+      if (volumeGroup && !volumeGroup.dataset.bound) {
+        volumeGroup.dataset.bound = "true";
+        volumeGroup.tabIndex = 0;
+        let isDraggingSceneVolume = false;
+        const setSceneVolumeFromPointer = (event) => {
+          const track = volumeGroup.querySelector(".scene-editor-volume-track");
+          if (!track) return;
+          const rect = track.getBoundingClientRect();
+          const ratio = clamp((event.clientX - rect.left) / rect.width, 0, 1);
+          pendingSceneVolume = clamp(Math.round(ratio * 100), 0, 100);
+          updateSceneEditor(editor);
+        };
+
+        volumeGroup.addEventListener("pointerdown", (event) => {
+          isDraggingSceneVolume = true;
+          volumeGroup.setPointerCapture?.(event.pointerId);
+          setSceneVolumeFromPointer(event);
+        });
+        volumeGroup.addEventListener("pointermove", (event) => {
+          if (isDraggingSceneVolume) setSceneVolumeFromPointer(event);
+        });
+        volumeGroup.addEventListener("pointerup", (event) => {
+          isDraggingSceneVolume = false;
+          volumeGroup.releasePointerCapture?.(event.pointerId);
+        });
+        volumeGroup.addEventListener("pointercancel", () => {
+          isDraggingSceneVolume = false;
+        });
+        volumeGroup.addEventListener("keydown", (event) => {
+          if (event.key === "ArrowLeft" || event.key === "ArrowDown") {
+            event.preventDefault();
+            pendingSceneVolume = clamp(pendingSceneVolume - 5, 0, 100);
+            updateSceneEditor(editor);
+          }
+          if (event.key === "ArrowRight" || event.key === "ArrowUp") {
+            event.preventDefault();
+            pendingSceneVolume = clamp(pendingSceneVolume + 5, 0, 100);
+            updateSceneEditor(editor);
+          }
+        });
+      }
+
+      if (backButton) backButton.addEventListener("click", () => toggleSceneEditor(false));
+      if (saveButton) saveButton.addEventListener("click", saveCustomScene);
+      if (deleteButton) deleteButton.addEventListener("click", () => toggleDeleteConfirm(true));
+      if (deleteConfirmCancel) deleteConfirmCancel.addEventListener("click", () => toggleDeleteConfirm(false));
+      if (deleteConfirm) {
+        deleteConfirm.addEventListener("click", (event) => {
+          if (event.target === deleteConfirm) toggleDeleteConfirm(false);
+        });
+      }
+      if (deleteConfirmSubmit) deleteConfirmSubmit.addEventListener("click", deleteCustomScene);
+      if (nameInput) {
+        nameInput.addEventListener("input", () => {
+          pendingSceneName = nameInput.value;
+          updateSceneEditor(editor);
+        });
+      }
+      if (monitoringSwitch) {
+        monitoringSwitch.addEventListener("click", () => {
+          pendingSceneMonitoring = !pendingSceneMonitoring;
+          updateSceneEditor(editor);
+        });
+      }
+
+      updateSceneEditor(editor);
+      nameInput?.focus();
+      persistPrototypeState();
+    }
+
     function updateBabyEditorForm(root = activeLayer || document) {
       const nameInput = root.querySelector("#babySheetNameInput");
       const birthdayInput = root.querySelector("#babySheetBirthdayInput");
@@ -4061,6 +5248,57 @@
         birthdayDisplayWrap.classList.toggle("is-filled", Boolean(pendingBabyBirthday));
       }
       if (confirm) confirm.disabled = !(safeName && pendingBabyBirthday);
+    }
+
+    function updateSceneEditor(root = activeLayer || document) {
+      const title = root.querySelector("#sceneEditorTitle");
+      if (title) {
+        title.textContent = sceneEditorMode === "edit" ? "编辑哄睡方案" : "新增哄睡方案";
+      }
+
+      const nameInput = root.querySelector("#sceneEditorNameInput");
+      if (nameInput && nameInput.value !== pendingSceneName) {
+        nameInput.value = pendingSceneName;
+      }
+
+      const deleteButton = root.querySelector("#sceneEditorDeleteButton");
+      if (deleteButton) {
+        deleteButton.classList.toggle("is-hidden", sceneEditorMode !== "edit" || !editingSceneId);
+      }
+
+      for (const chip of root.querySelectorAll(".scene-editor-curve-card[data-curve]")) {
+        chip.classList.toggle("is-selected", Number(chip.dataset.curve) === pendingSceneCurve);
+        chip.setAttribute("aria-pressed", String(Number(chip.dataset.curve) === pendingSceneCurve));
+      }
+      for (const chip of root.querySelectorAll(".scene-editor-level-segment[data-level]")) {
+        chip.classList.toggle("is-selected", Number(chip.dataset.level) === pendingSceneMotionLevel);
+      }
+      const levelControl = root.querySelector("#sceneEditorLevelGroup");
+      if (levelControl) {
+        levelControl.style.setProperty("--scene-editor-level-index", String(pendingSceneMotionLevel));
+        levelControl.setAttribute("aria-valuenow", String(pendingSceneMotionLevel));
+        levelControl.setAttribute("aria-valuetext", pendingSceneMotionLevel === 0 ? "Off" : `Level ${pendingSceneMotionLevel}`);
+      }
+      for (const chip of root.querySelectorAll(".scene-editor-chip[data-track]")) {
+        chip.classList.toggle("is-selected", chip.dataset.track === pendingSceneTrack);
+        chip.setAttribute("aria-pressed", String(chip.dataset.track === pendingSceneTrack));
+      }
+      for (const control of root.querySelectorAll(".scene-editor-volume-control")) {
+        const safeVolume = clamp(Math.round(pendingSceneVolume), 0, 100);
+        const ratio = safeVolume / 100;
+        control.style.setProperty("--scene-editor-volume-fill", `${ratio * 100}%`);
+        control.style.setProperty("--scene-editor-volume-thumb", `calc(${ratio * 100}% - 10px)`);
+        control.setAttribute("aria-valuenow", String(safeVolume));
+        control.setAttribute("aria-valuetext", `${safeVolume}%`);
+        const valueLabel = control.querySelector(".scene-editor-volume-value");
+        if (valueLabel) valueLabel.textContent = `${safeVolume}%`;
+      }
+
+      const monitoringSwitch = root.querySelector("#sceneEditorMonitoringSwitch");
+      if (monitoringSwitch) {
+        monitoringSwitch.classList.toggle("is-off", !pendingSceneMonitoring);
+        monitoringSwitch.setAttribute("aria-pressed", String(pendingSceneMonitoring));
+      }
     }
 
     function toggleAgeSheet(force) {
@@ -4104,6 +5342,66 @@
       updateOnboardingDisplays();
     }
 
+    function removeCustomScene(sceneId) {
+      const scene = getSceneById(sceneId);
+      if (!scene || !isCustomScene(scene)) return false;
+      const index = scenes.findIndex((item) => item.id === scene.id);
+      if (index >= 0) {
+        scenes.splice(index, 1);
+      }
+      if (selectedSceneId === scene.id || !getVisibleScenes().some((item) => item.id === selectedSceneId)) {
+        const generalScene = getSceneById("general");
+        selectedSceneId = "general";
+        syncRuntimeFromScene(generalScene);
+        updateMotionControlDisplays();
+        renderHud(screens[currentScreen]);
+        updateSceneControls();
+        updateSleepModeDynamic();
+      } else {
+        updateSceneControls();
+        updateSleepModeDynamic();
+      }
+      return true;
+    }
+
+    function saveCustomScene() {
+      let customScene = null;
+      if (sceneEditorMode === "edit" && editingSceneId) {
+        customScene = getSceneById(editingSceneId);
+        if (!customScene || !isCustomScene(customScene)) return;
+        applyPendingSceneToScene(customScene);
+      } else {
+        if (!canAddCustomScene()) {
+          toast(`最多添加 ${MAX_CUSTOM_SCENES} 个自定义方案`);
+          return;
+        }
+        customScene = createCustomSceneFromPending();
+      }
+
+      selectedSceneId = customScene.id;
+      syncRuntimeFromScene(customScene);
+      updateSceneControls();
+      updateSceneEditor();
+      updateSleepModeDynamic();
+      updateMotionControlDisplays();
+      renderHud(screens[currentScreen]);
+      toggleSceneEditor(false);
+      persistPrototypeState();
+      toast(`已保存${customScene.title}`);
+    }
+
+    function deleteCustomScene() {
+      const customScene = getSceneById(editingSceneId);
+      if (!customScene || !isCustomScene(customScene)) {
+        toggleSceneEditor(false);
+        return;
+      }
+      removeCustomScene(customScene.id);
+      toggleSceneEditor(false);
+      persistPrototypeState();
+      toast("移除成功");
+    }
+
     function applySceneToGeneral(sceneId, { setActive = true } = {}) {
       const source = scenes.find((scene) => scene.id === sceneId);
       const general = scenes.find((scene) => scene.id === "general");
@@ -4141,18 +5439,18 @@
       const stepMeta = {
         1: {
           progress: "步骤 1 / 3",
-          title: "欢迎使用智能婴儿床，请确认要守护的宝宝",
-          copy: "我们将按照宝宝当前的月龄，推荐更合适的哄睡服务方案。"
+          title: `${DEVICE_NAME} 将照护的宝宝是？`,
+          copy: "确认后，这张床的哄睡设置将以这位宝宝的信息为准。"
         },
         2: {
           progress: "步骤 2 / 3",
-          title: `确认 ${baby.name} 的月龄`,
-          copy: "我们会按以下信息，给宝宝推荐符合当前阶段的哄睡方案配置。"
+          title: `确认 ${baby.name} 的生日和月龄`,
+          copy: "生日将用于估算月龄，帮助匹配适合当前阶段的哄睡方案。"
         },
         3: {
           progress: "步骤 3 / 3",
-          title: `根据当前月龄的睡眠特点，生成${baby.name}的哄睡配置方案。`,
-          copy: "我们会将以下配置信息写入“推荐”卡。后续在使用过程中，您可随时修改。"
+          title: `已为 ${baby.name} 生成哄睡推荐方案`,
+          copy: "以下配置将保存为“推荐”方案，后续可随时调整。"
         }
       };
       const currentStep = stepMeta[onboardingStep] || stepMeta[1];
@@ -4168,6 +5466,7 @@
       }
       for (const value of root.querySelectorAll("#onboardingCopy")) {
         value.textContent = currentStep.copy;
+        value.classList.toggle("is-empty", !currentStep.copy);
       }
       for (const step of root.querySelectorAll(".onboarding-step")) {
         step.classList.toggle("is-active", Number(step.dataset.step) === onboardingStep);
@@ -4452,21 +5751,26 @@
         }
         if (Array.isArray(saved.scenes)) {
           for (const persisted of saved.scenes) {
+            if (!persisted || typeof persisted !== "object" || typeof persisted.id !== "string") continue;
             const localScene = scenes.find((scene) => scene.id === persisted.id);
-            if (!localScene) continue;
+            if (!localScene) {
+              if (String(persisted.id).startsWith("custom")) {
+                scenes.push({ ...persisted, loopMode: "single", showInStrip: persisted.showInStrip !== false });
+              }
+              continue;
+            }
             Object.assign(localScene, persisted);
           }
         }
-        const sceneTitleOverrides = {
-          general: "推荐",
-          night: "自定义1",
-          nap: "自定义2"
-        };
         for (const scene of scenes) {
-          if (sceneTitleOverrides[scene.id]) {
-            scene.title = sceneTitleOverrides[scene.id];
-          }
           scene.loopMode = "single";
+          if (scene.id === "general") scene.title = "Preset";
+          if (scene.id === "night" || scene.id === "nap") {
+            scene.showInStrip = false;
+          }
+        }
+        if (!getVisibleScenes().some((scene) => scene.id === selectedSceneId)) {
+          selectedSceneId = "general";
         }
         loopMode = "single";
       } catch {}
@@ -4563,9 +5867,28 @@
 
     function updateSleepModeDynamic(root = document) {
       const scene = getActiveScene();
+      const isEditableCustomScene = isCustomScene(scene) && scene.showInStrip !== false;
       for (const dynamic of root.querySelectorAll(".sleep-mode-dynamic")) {
         dynamic.classList.toggle("is-on", powerOn);
         dynamic.classList.toggle("is-off", !powerOn);
+      }
+
+      for (const title of root.querySelectorAll(".sleep-mode-surface-title")) {
+        title.textContent = isEditableCustomScene ? scene.title : "Sleep-Soothing Mode";
+      }
+
+      for (const button of root.querySelectorAll(".sleep-mode-edit-button")) {
+        button.classList.toggle("is-hidden", !isEditableCustomScene);
+        const label = `编辑${scene.title || "自定义方案"}方案`;
+        button.setAttribute("aria-label", label);
+        button.title = label;
+      }
+
+      for (const button of root.querySelectorAll(".sleep-mode-power-button")) {
+        const label = powerOn ? "关闭哄睡模式" : "开启哄睡模式";
+        button.setAttribute("aria-label", label);
+        button.title = label;
+        button.setAttribute("aria-pressed", String(powerOn));
       }
 
       for (const value of root.querySelectorAll(".sleep-mode-tile-card.is-motion .sleep-mode-tile-value")) {
