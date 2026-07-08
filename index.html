@@ -4890,7 +4890,7 @@
 
     <aside class="requirement-panel" aria-label="功能需求描述">
       <div>
-        <div class="requirement-kicker">Requirements</div>
+        <div class="requirement-kicker" hidden>Requirements</div>
         <h2 class="requirement-title" id="requirementTitle">需求说明</h2>
         <p class="requirement-copy" id="requirementCopy">右侧根据当前演示界面切换对应需求说明。</p>
       </div>
@@ -9729,15 +9729,18 @@
 
     function renderRequirementPanel(panel = activeWorkspacePanel) {
       const content = requirementContent[panel] || requirementContent.devices;
+      const visibleSectionTitles = new Set(["子流程图", "交互说明"]);
+      const visibleSections = content.sections.filter((section) => visibleSectionTitles.has(section.title));
       requirementTitleEl.textContent = content.title;
-      requirementCopyEl.textContent = content.copy;
+      requirementCopyEl.textContent = "";
+      requirementCopyEl.hidden = true;
 
-      if (!content.sections.length) {
+      if (!visibleSections.length) {
         requirementBodyEl.innerHTML = "";
         return;
       }
 
-      requirementBodyEl.innerHTML = content.sections.map((section) => {
+      requirementBodyEl.innerHTML = visibleSections.map((section) => {
         const flow = Array.isArray(section.flow) && section.flow.length
           ? `<div class="requirement-flow">${section.flow.map((step, index) => `<div class="requirement-flow-step" data-index="${index + 1}"><span class="requirement-flow-label">${step}</span></div>`).join("")}</div>`
           : "";
