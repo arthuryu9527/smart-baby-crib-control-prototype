@@ -3068,6 +3068,7 @@
     }
 
     .onboarding-kicker {
+      display: none;
       margin-top: 18px;
       color: #80739e;
       font: 600 14px/18px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
@@ -3075,12 +3076,17 @@
     }
 
     .onboarding-progress {
-      margin-top: 20px;
-      display: grid;
-      gap: 10px;
+      position: absolute;
+      left: 50%;
+      top: 30px;
+      width: 128px;
+      margin: 0;
+      display: block;
+      transform: translateX(-50%);
     }
 
     .onboarding-progress-label {
+      display: none;
       color: #978aaf;
       font: 600 11px/15px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0.02em;
@@ -3089,9 +3095,9 @@
 
     .onboarding-progress-track {
       width: 100%;
-      height: 4px;
+      height: 6px;
       border-radius: 999px;
-      background: rgba(196, 185, 223, 0.62);
+      background: rgba(125, 95, 189, 0.16);
       overflow: hidden;
     }
 
@@ -3100,16 +3106,202 @@
       width: 33.333%;
       height: 100%;
       border-radius: inherit;
-      background: linear-gradient(90deg, #8d6ff7 0%, #b694ff 100%);
+      background: #7852c8;
       transition: width 220ms ease;
     }
 
     .onboarding-title {
-      margin-top: 18px;
+      margin-top: 94px;
       max-width: 320px;
       color: #231b34;
       font: 620 28px/36px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
       letter-spacing: 0;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-title {
+      font-size: 24px;
+      line-height: 30px;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-head {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 226px;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-head-bar {
+      position: absolute;
+      left: 26px;
+      top: 69px;
+      min-height: 48px;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-back-button {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+      color: transparent;
+      font-size: 0;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-back-button::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 16px;
+      width: 14px;
+      height: 14px;
+      border-left: 2px solid #1b1530;
+      border-bottom: 2px solid #1b1530;
+      transform: rotate(45deg);
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-header-skip-button {
+      position: absolute;
+      right: 26px;
+      top: 78px;
+      z-index: 5;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.54);
+      color: #210044;
+      font: 700 15px/19px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-progress {
+      top: 89px;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-title {
+      margin-top: 139px;
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 286px;
+      color: #180438;
+      text-align: center;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-copy {
+      margin-left: auto;
+      margin-right: auto;
+      max-width: 270px;
+      color: #201034;
+      font: 500 15px/20px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      text-align: center;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-step-stack {
+      left: 22px;
+      right: 22px;
+      top: 312px;
+      bottom: 54px;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-step[data-step="2"] {
+      padding-top: 0;
+      gap: 0;
+    }
+
+    .onboarding-screen.is-recommend-step .onboarding-header-skip-button {
+      position: absolute;
+      right: 26px;
+      top: 78px;
+      z-index: 5;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.54);
+      color: #210044;
+      font: 700 15px/19px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+    }
+
+    .onboarding-screen.is-recommend-step .onboarding-head {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 226px;
+    }
+
+    .onboarding-screen.is-recommend-step .onboarding-head-bar {
+      position: absolute;
+      left: 26px;
+      top: 69px;
+      min-height: 48px;
+    }
+
+    .onboarding-screen.is-recommend-step .onboarding-progress {
+      top: 89px;
+    }
+
+    .onboarding-screen.is-recommend-step .onboarding-title,
+    .onboarding-screen.is-recommend-step .onboarding-copy {
+      display: none;
+    }
+
+    .onboarding-recommend-head {
+      display: none;
+      margin-top: 139px;
+      margin-left: auto;
+      margin-right: auto;
+      width: min(320px, calc(100% - 48px));
+      text-align: left;
+    }
+
+    .onboarding-screen.is-recommend-step .onboarding-recommend-head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .onboarding-recommend-head-line {
+      color: #180438;
+      font: 600 21px/28px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      width: 100%;
+      text-align: left;
+    }
+
+    #onboardingRecommendStageLine {
+      color: #201034;
+      font: 500 15px/21px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-recommend-head-line.is-body {
+      color: #201034;
+      font: 500 15px/21px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-screen.is-recommend-typing .onboarding-recommend-card,
+    .onboarding-screen.is-recommend-typing .onboarding-step[data-step="3"] .onboarding-step-actions {
+      display: none;
+    }
+
+    .onboarding-screen.is-hidden .onboarding-picker-status,
+    .onboarding-screen.is-hidden .onboarding-head,
+    .onboarding-screen.is-hidden .onboarding-step-stack,
+    .onboarding-screen.is-hidden .onboarding-picker-home-indicator {
+      display: none !important;
     }
 
     .onboarding-copy {
@@ -3121,6 +3313,13 @@
     }
 
     .onboarding-copy.is-empty {
+      display: none;
+    }
+
+    .onboarding-picker-status,
+    .onboarding-header-skip-button,
+    .onboarding-picker-hero,
+    .onboarding-picker-home-indicator {
       display: none;
     }
 
@@ -3153,7 +3352,7 @@
     }
 
     .onboarding-step[data-step="2"] {
-      padding-top: 36px;
+      padding-top: 24px;
     }
 
     .onboarding-step[data-step="3"] {
@@ -3218,6 +3417,236 @@
 
     .onboarding-empty-inline-form.is-visible {
       display: block;
+    }
+
+    .onboarding-empty-hero,
+    .onboarding-empty-name-screen {
+      display: none;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-picker-status {
+      position: absolute;
+      left: 58px;
+      right: 34px;
+      top: 27px;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #05000f;
+      font: 700 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      pointer-events: none;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-head {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 434px;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-head-bar {
+      position: absolute;
+      left: 26px;
+      top: 69px;
+      min-height: 48px;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-back-button {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+      color: transparent;
+      font-size: 0;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-back-button::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 16px;
+      width: 14px;
+      height: 14px;
+      border-left: 2px solid #1b1530;
+      border-bottom: 2px solid #1b1530;
+      transform: rotate(45deg);
+    }
+
+    .onboarding-screen.is-empty-name-step #onboardingSkipButton,
+    .onboarding-screen.is-empty-name-step .onboarding-section-title,
+    .onboarding-screen.is-empty-name-step #onboardingEmptyBabyForm,
+    .onboarding-screen.is-empty-name-step #onboardingAddBabyButton,
+    .onboarding-screen.is-empty-name-step .onboarding-picker-hero {
+      display: none !important;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-card {
+      display: block !important;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-choice-list {
+      display: none;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-progress {
+      top: 89px;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-header-skip-button {
+      position: absolute;
+      right: 26px;
+      top: 78px;
+      z-index: 5;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.54);
+      color: #210044;
+      font: 700 15px/19px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-progress-track {
+      background: rgba(34, 24, 48, 0.14);
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-progress-fill {
+      background: #8f121b;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-empty-hero {
+      position: absolute;
+      left: 50%;
+      top: 142px;
+      display: block;
+      width: 120px;
+      height: 120px;
+      transform: translateX(-50%);
+    }
+
+    .onboarding-empty-hero svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-title {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 275px;
+      max-width: none;
+      margin: 0;
+      color: #180438;
+      font: 700 32px/38px Georgia, "Times New Roman", serif;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-copy {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 362px;
+      max-width: none;
+      margin: 0;
+      color: #7d748a;
+      font: 500 16px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-step-stack {
+      left: 28px;
+      right: 28px;
+      top: 454px;
+      bottom: 54px;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-step[data-step="1"] {
+      padding-top: 0;
+      gap: 0;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-empty-name-screen {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .onboarding-empty-name-input-shell {
+      position: relative;
+    }
+
+    .onboarding-empty-name-input {
+      width: 100%;
+      height: 74px;
+      padding: 0 74px 0 36px;
+      border: 1.5px solid rgba(34, 24, 48, 0.66);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.98);
+      color: #201034;
+      font: 500 24px/30px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      box-sizing: border-box;
+    }
+
+    .onboarding-empty-name-input::placeholder {
+      color: #b5adc3;
+    }
+
+    .onboarding-empty-name-clear {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0;
+      border: 0;
+      border-radius: 50%;
+      background: #1e1b29;
+      color: #fff;
+      font: 500 26px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+
+    .onboarding-empty-name-clear.is-hidden {
+      display: none;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-step-actions {
+      margin-top: auto;
+      gap: 12px;
+    }
+
+    .onboarding-screen.is-empty-name-step .onboarding-cta {
+      height: 60px;
+      border-radius: 999px;
+      background: #201b28;
+      box-shadow: none;
+      color: #fff;
+      font: 700 18px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      opacity: 1;
     }
 
     .onboarding-screen.is-empty-create-state .onboarding-choice-list {
@@ -3309,6 +3738,7 @@
 
     .onboarding-choice-card:focus-visible,
     .onboarding-link-button:focus-visible,
+    .onboarding-header-skip-button:focus-visible,
     .onboarding-age-button:focus-visible,
     .onboarding-cta:focus-visible,
     .onboarding-secondary:focus-visible,
@@ -3442,8 +3872,575 @@
       color: #fff;
     }
 
+    .onboarding-screen.is-baby-picker-layout {
+      background: linear-gradient(180deg, #d9ceff 0%, #eeeaff 34%, #f5f2ff 100%);
+      color: #16072f;
+    }
+
+    .onboarding-screen.is-baby-picker-layout::before {
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 28%),
+        radial-gradient(circle at 76% 26%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 32%);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-picker-status {
+      position: absolute;
+      left: 58px;
+      right: 34px;
+      top: 27px;
+      z-index: 4;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #05000f;
+      font: 700 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      pointer-events: none;
+    }
+
+    .onboarding-picker-status-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .onboarding-picker-signal {
+      width: 22px;
+      height: 14px;
+      display: inline-grid;
+      grid-template-columns: repeat(4, 4px);
+      align-items: end;
+      gap: 2px;
+    }
+
+    .onboarding-picker-signal span {
+      display: block;
+      width: 4px;
+      border-radius: 3px;
+      background: #05000f;
+    }
+
+    .onboarding-picker-signal span:nth-child(1) { height: 5px; }
+    .onboarding-picker-signal span:nth-child(2) { height: 8px; }
+    .onboarding-picker-signal span:nth-child(3) { height: 11px; }
+    .onboarding-picker-signal span:nth-child(4) { height: 14px; }
+
+    .onboarding-picker-wifi {
+      position: relative;
+      width: 18px;
+      height: 14px;
+      overflow: hidden;
+    }
+
+    .onboarding-picker-wifi::before,
+    .onboarding-picker-wifi::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: 1px;
+      border: 2px solid #05000f;
+      border-color: #05000f transparent transparent transparent;
+      border-radius: 50%;
+      transform: translateX(-50%);
+    }
+
+    .onboarding-picker-wifi::before {
+      width: 18px;
+      height: 18px;
+    }
+
+    .onboarding-picker-wifi::after {
+      width: 10px;
+      height: 10px;
+      bottom: -1px;
+    }
+
+    .onboarding-picker-battery {
+      position: relative;
+      width: 25px;
+      height: 12px;
+      border: 1.5px solid #05000f;
+      border-radius: 4px;
+    }
+
+    .onboarding-picker-battery::before {
+      content: "";
+      position: absolute;
+      right: -3.5px;
+      top: 3px;
+      width: 2px;
+      height: 5px;
+      border-radius: 0 2px 2px 0;
+      background: #05000f;
+    }
+
+    .onboarding-picker-battery::after {
+      content: "";
+      position: absolute;
+      left: 2px;
+      top: 2px;
+      width: 18px;
+      height: 6px;
+      border-radius: 2px;
+      background: #05000f;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-head {
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 370px;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-head-bar {
+      position: absolute;
+      left: 26px;
+      top: 69px;
+      min-height: 48px;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-back-button {
+      position: relative;
+      width: 48px;
+      height: 48px;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+      color: transparent;
+      font-size: 0;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-back-button::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 16px;
+      width: 14px;
+      height: 14px;
+      border-left: 2px solid #1b1530;
+      border-bottom: 2px solid #1b1530;
+      transform: rotate(45deg);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-kicker,
+    .onboarding-screen.is-baby-picker-layout .onboarding-progress-label,
+    .onboarding-screen.is-baby-picker-layout .onboarding-section-title,
+    .onboarding-screen.is-baby-picker-layout #onboardingSkipButton {
+      display: none;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-header-skip-button {
+      position: absolute;
+      right: 26px;
+      top: 78px;
+      z-index: 5;
+      height: 34px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.54);
+      color: #210044;
+      font: 700 15px/19px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+      touch-action: manipulation;
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.42);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-header-skip-button:active {
+      transform: scale(0.97);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-progress {
+      position: absolute;
+      left: 50%;
+      top: 89px;
+      width: 128px;
+      margin: 0;
+      transform: translateX(-50%);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-progress-track {
+      height: 6px;
+      background: rgba(125, 95, 189, 0.16);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-progress-fill {
+      background: #7852c8;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-picker-hero {
+      position: absolute;
+      left: 50%;
+      top: 151px;
+      display: block;
+      width: 112px;
+      height: 112px;
+      transform: translateX(-50%);
+    }
+
+    .onboarding-picker-hero svg {
+      display: block;
+      width: 100%;
+      height: 100%;
+      overflow: visible;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-title {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 278px;
+      max-width: none;
+      margin: 0;
+      color: #180438;
+      font: 700 24px/28px Georgia, "Times New Roman", serif;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-copy {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      top: 339px;
+      max-width: none;
+      margin: 0;
+      color: #201034;
+      font: 500 15px/18px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-step-stack {
+      left: 26px;
+      right: 22px;
+      top: 386px;
+      bottom: 54px;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-step[data-step="1"] {
+      padding-top: 0;
+      gap: 0;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-card {
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-list {
+      gap: 12px;
+      margin-top: 0;
+    }
+
+    .onboarding-screen.is-baby-picker-layout #onboardingAddBabyButton {
+      width: 100%;
+      height: 66px;
+      margin-top: 16px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 0 22px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.98);
+      color: #25212b;
+      font: 500 19px/25px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      text-align: center;
+      box-shadow: none;
+    }
+
+    .onboarding-screen.is-baby-picker-layout #onboardingAddBabyButton::before {
+      content: "+";
+      display: inline-grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      color: #25212b;
+      font: 400 40px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-card {
+      min-height: 78px;
+      gap: 12px;
+      padding: 13px 25px;
+      border: 2px solid transparent;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: none;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-card.is-selected {
+      border-color: #24202a;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: none;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-baby-avatar {
+      width: 39px;
+      height: 39px;
+      border-radius: 50%;
+      background: #d9d9dc;
+      box-shadow: none;
+      color: transparent;
+      font-size: 0;
+      line-height: 39px;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-card.is-selected .onboarding-baby-avatar {
+      background:
+        radial-gradient(circle at 52% 42%, rgba(92, 42, 34, 0.48) 0 7%, transparent 8%),
+        radial-gradient(circle at 37% 40%, rgba(92, 42, 34, 0.42) 0 5%, transparent 6%),
+        radial-gradient(circle at 42% 69%, rgba(194, 84, 74, 0.34) 0 10%, transparent 11%),
+        radial-gradient(circle at 48% 47%, #f8cdb5 0 44%, transparent 45%),
+        radial-gradient(circle at 34% 24%, #3b2520 0 28%, transparent 29%),
+        linear-gradient(145deg, #f7c2a7, #f3d8c5);
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-body {
+      display: grid;
+      align-content: center;
+      min-height: 44px;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-top {
+      display: block;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-baby-name {
+      color: #242029;
+      font: 650 18px/21px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-meta {
+      margin-top: 2px;
+      gap: 0;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-meta-item {
+      color: #9b999f;
+      font: 500 13px/16px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-choice-check {
+      display: none;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-step-actions {
+      margin-top: auto;
+      gap: 0;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-cta {
+      height: 52px;
+      border-radius: 999px;
+      background: #210044;
+      box-shadow: none;
+      color: #fff;
+      font: 700 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-screen.is-baby-picker-layout .onboarding-picker-home-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 10px;
+      z-index: 4;
+      display: block;
+      width: 156px;
+      height: 5px;
+      border-radius: 999px;
+      background: #05000f;
+      transform: translateX(-50%);
+      pointer-events: none;
+    }
+
     .onboarding-summary-card {
       padding: 22px 20px 20px;
+    }
+
+    .onboarding-step2-editor-card {
+      padding: 0;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .onboarding-step2-editor-form {
+      margin: 0;
+      display: grid;
+      gap: 0;
+      padding: 24px 20px 22px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 18px 42px rgba(93, 70, 154, 0.12);
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-field {
+      min-height: 64px;
+      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(142px, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-field:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: rgba(91, 68, 148, 0.1);
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-row-label {
+      color: #201034;
+      font: 650 18px/23px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-row-control {
+      min-width: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      color: #766c88;
+      font: 500 20px/25px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-input,
+    .onboarding-step2-editor-form .baby-sheet-select {
+      height: 40px;
+      min-width: 104px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: #766c88;
+      font: 500 19px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      text-align: right;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-input {
+      width: 116px;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-input::placeholder {
+      color: #766c88;
+      font-weight: 500;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-select-text {
+      text-align: right;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-select-trailing {
+      gap: 0;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-select-icon,
+    .onboarding-step2-editor-form .baby-sheet-date-icon,
+    .onboarding-step2-editor-form .baby-sheet-row-icon {
+      color: #7d6a9d;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-date-icon,
+    .onboarding-step2-editor-form .baby-sheet-row-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-date-icon svg,
+    .onboarding-step2-editor-form .baby-sheet-row-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      stroke: currentColor;
+    }
+
+    .onboarding-step2-editor-form .baby-sheet-native-select {
+      display: none;
+    }
+
+    .onboarding-step2-editor-form .baby-gender-options {
+      left: auto;
+      right: 0;
+      width: 190px;
+    }
+
+    .onboarding-step2-editor-form .baby-birthday-options {
+      left: 0;
+      right: 0;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-step-actions {
+      margin-top: auto;
+      gap: 12px;
+    }
+
+    .onboarding-step2-add-baby {
+      display: none;
+      width: 100%;
+      margin-top: 16px;
+      height: 58px;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 18px 42px rgba(93, 70, 154, 0.12);
+      color: #201034;
+      font: 500 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    .onboarding-step2-add-baby::before {
+      content: "+";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #201034;
+      font: 300 32px/32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .onboarding-step2-add-baby.is-visible {
+      display: inline-flex;
+    }
+
+    .onboarding-screen.is-age-confirm-step .onboarding-cta {
+      height: 52px;
+      border-radius: 999px;
+      background: #210044;
+      box-shadow: none;
+      color: #fff;
+      font: 700 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
     }
 
     .onboarding-summary-group {
@@ -4264,6 +5261,373 @@
     }
 
     .baby-sheet-cancel {
+      display: none;
+    }
+
+    .baby-editor-screen {
+      padding: 0;
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255, 255, 255, 0.34) 0%, rgba(255, 255, 255, 0) 28%),
+        radial-gradient(circle at 76% 26%, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0) 32%),
+        linear-gradient(180deg, #d9ceff 0%, #eeeaff 34%, #f5f2ff 100%);
+      color: #16072f;
+    }
+
+    .baby-editor-status {
+      position: absolute;
+      left: 58px;
+      right: 34px;
+      top: 27px;
+      z-index: 9;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #05000f;
+      font: 700 17px/22px -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      pointer-events: none;
+    }
+
+    .baby-editor-head {
+      position: absolute;
+      left: 26px;
+      right: 26px;
+      top: 69px;
+      z-index: 9;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .baby-editor-head .onboarding-back-button {
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.52);
+      color: transparent;
+      font-size: 0;
+    }
+
+    .baby-editor-head .onboarding-back-button::before {
+      content: "";
+      position: absolute;
+      left: 19px;
+      top: 16px;
+      width: 14px;
+      height: 14px;
+      border-left: 2px solid #1b1530;
+      border-bottom: 2px solid #1b1530;
+      transform: rotate(45deg);
+    }
+
+    .baby-editor-progress {
+      display: none;
+    }
+
+    .baby-editor-progress-fill {
+      display: none;
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor {
+      display: flex;
+      background:
+        radial-gradient(circle at 50% 38%, rgba(200, 186, 255, 0.42) 0%, rgba(200, 186, 255, 0.24) 22%, rgba(200, 186, 255, 0.08) 38%, rgba(200, 186, 255, 0) 62%),
+        linear-gradient(180deg, #f1ecff 0%, #faf8ff 100%);
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-editor-progress {
+      position: absolute;
+      left: 50%;
+      top: 34px;
+      width: 128px;
+      height: 6px;
+      display: block;
+      border-radius: 999px;
+      background: rgba(120, 108, 129, 0.18);
+      overflow: hidden;
+      transform: translateX(-50%);
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-editor-progress-fill {
+      display: block;
+      height: 100%;
+      border-radius: inherit;
+      background: #8f121b;
+      transition: width 220ms ease;
+    }
+
+    .baby-editor-card {
+      position: absolute;
+      inset: 0;
+      margin: 0;
+      padding: 0 28px 24px;
+      display: block;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+    }
+
+    .baby-editor-avatar-preview {
+      position: absolute;
+      left: 50%;
+      top: 154px;
+      width: 124px;
+      height: 110px;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      transform: translateX(-50%);
+    }
+
+    .baby-editor-avatar-icon {
+      width: 124px;
+      height: 110px;
+      color: inherit;
+    }
+
+    .baby-editor-avatar-camera {
+      display: none;
+    }
+
+    .baby-editor-title {
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      top: 289px;
+      color: #180438;
+      font: 700 24px/30px Georgia, "Times New Roman", serif;
+      letter-spacing: 0;
+      text-align: center;
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-editor-title {
+      top: 282px;
+      left: 34px;
+      right: 34px;
+      font-size: 34px;
+      line-height: 38px;
+    }
+
+    .baby-editor-screen .baby-editor-form {
+      position: absolute;
+      left: 22px;
+      right: 22px;
+      top: 410px;
+      margin: 0;
+      display: grid;
+      gap: 0;
+      padding: 24px 20px 22px;
+      border-radius: 28px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 18px 42px rgba(93, 70, 154, 0.12);
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-editor-form {
+      left: 28px;
+      right: 28px;
+      top: 394px;
+      padding: 18px 20px;
+      box-shadow: 0 24px 48px rgba(98, 81, 156, 0.12);
+    }
+
+    .baby-editor-screen .baby-sheet-field {
+      min-height: 64px;
+      margin: 0;
+      display: grid;
+      grid-template-columns: minmax(142px, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+    }
+
+    .baby-editor-screen .baby-sheet-field:not(:last-child)::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 1px;
+      background: rgba(91, 68, 148, 0.1);
+    }
+
+    .baby-sheet-row-label {
+      color: #201034;
+      font: 650 18px/23px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      white-space: nowrap;
+    }
+
+    .baby-sheet-row-control {
+      min-width: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 10px;
+      color: #766c88;
+      font: 500 20px/25px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+    }
+
+    .baby-editor-screen .baby-sheet-required {
+      display: none;
+    }
+
+    .baby-editor-screen .baby-sheet-input {
+      width: 116px;
+      height: 40px;
+      margin: 0;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: #766c88;
+      font: 500 19px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      text-align: right;
+    }
+
+    .baby-editor-screen .baby-sheet-input::placeholder {
+      color: #766c88;
+      font-weight: 500;
+    }
+
+    .baby-editor-screen .baby-sheet-select {
+      width: auto;
+      min-width: 104px;
+      height: 40px;
+      padding: 0;
+      border: 0;
+      border-radius: 0;
+      background: transparent;
+      box-shadow: none;
+      color: #766c88;
+      font: 500 19px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .baby-editor-screen .baby-sheet-select-text {
+      text-align: right;
+    }
+
+    .baby-editor-screen .baby-sheet-select-trailing {
+      gap: 0;
+    }
+
+    .baby-editor-screen .baby-sheet-select-icon {
+      color: #7d6a9d;
+      font: 500 26px/26px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      transform: rotate(90deg);
+    }
+
+    .baby-editor-screen .baby-sheet-date-icon,
+    .baby-sheet-row-icon {
+      width: 22px;
+      height: 22px;
+      color: #7d6a9d;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .baby-editor-screen .baby-sheet-date-icon svg,
+    .baby-sheet-row-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+      stroke: currentColor;
+    }
+
+    .baby-editor-screen .baby-gender-options {
+      left: auto;
+      right: 0;
+      top: calc(100% + 8px);
+      width: 190px;
+    }
+
+    .baby-editor-screen .baby-birthday-options {
+      left: 0;
+      right: 0;
+      top: calc(100% + 8px);
+    }
+
+    .baby-editor-add-another {
+      display: none;
+    }
+
+    .baby-editor-add-another::before {
+      content: none;
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-editor-add-another {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 130px;
+      height: 58px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      border: 0;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.98);
+      box-shadow: 0 24px 48px rgba(98, 81, 156, 0.12);
+      color: #201034;
+      font: 500 16px/20px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+      letter-spacing: 0;
+      cursor: pointer;
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-editor-add-another::before {
+      content: "+";
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #201034;
+      font: 300 32px/32px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .baby-editor-screen .baby-sheet-actions {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 34px;
+      margin: 0;
+      padding: 0;
+      display: block;
+    }
+
+    .baby-editor-screen .baby-sheet-save {
+      height: 58px;
+      border-radius: 999px;
+      background: #210044;
+      box-shadow: none;
+      color: #fff;
+      font: 700 19px/24px -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", sans-serif;
+    }
+
+    .baby-editor-screen .baby-sheet-save:disabled {
+      opacity: 1;
+      background: rgba(33, 0, 68, 0.32);
+      color: #fff;
+    }
+
+    .baby-editor-screen.is-empty-onboarding-editor .baby-sheet-save:disabled {
+      background: #b8b3b5;
+      color: rgba(255, 255, 255, 0.98);
+    }
+
+    .baby-editor-screen .baby-sheet-skip {
       display: none;
     }
 
@@ -5088,7 +6452,12 @@
     let onboardingStep = 1;
     let onboardingAnalysisActive = false;
     let onboardingAnalysisTimer = null;
+    let onboardingRecommendTypingActive = false;
+    let onboardingRecommendTypingComplete = false;
+    let onboardingRecommendTypingTimer = null;
+    let onboardingRecommendDisplayedLines = ["", "", "", ""];
     let pendingBabyName = "";
+    let onboardingEmptyNameCollected = false;
     let pendingBabyGender = "";
     let pendingBabyBirthday = "";
     let pendingBabyAge = 3;
@@ -5126,6 +6495,8 @@
 
     const ONBOARDING_FLOW_VERSION = 3;
     const ONBOARDING_ANALYSIS_DURATION_MS = 1850;
+    const ONBOARDING_RECOMMEND_TYPE_DURATION_MS = 2400;
+    const ONBOARDING_RECOMMEND_LINE_PAUSE_MS = 300;
     const MAX_CUSTOM_SCENES = 3;
     const SCENE_EDITOR_AVAILABLE_MODES = ["Manual"];
     const AGE_REFERENCE_DATE = new Date(Date.UTC(2025, 6, 12));
@@ -5169,14 +6540,14 @@
         sections: [
           {
             title: "子流程图",
-            flow: ["设备列表页", "点击 Clara's Baby Crib", "选择本床照护的宝宝", "确认生日与月龄", "智能分析过渡：月龄特征与推导过程", "展示 Smart 推荐方案", "接受推荐或跳过"]
+            flow: ["设备列表页", "点击 Clara's Baby Crib", "选择本床照护的宝宝", "确认生日与月龄", "展示 Smart 推荐方案", "接受推荐或跳过"]
           },
           {
             title: "交互说明",
             items: [
               "用户点击设备卡后进入宝宝选择页，默认展示所有宝宝信息，并支持新增宝宝。",
-              "选择宝宝后进入月龄确认，再进入推荐结果；生成推荐结果前展示轻量智能分析动效。",
-              "智能分析过渡页后续会补充月龄相关特征、推荐依据和方案推导过程，整体作为推荐生成前的智能分析承接。"
+              "选择宝宝后进入月龄确认，确认完成后直接进入推荐结果页。",
+              "推荐结果页展示当前月龄阶段、睡眠特征、推荐结论及详细推荐参数。"
             ]
           },
           {
@@ -5218,14 +6589,14 @@
         sections: [
           {
             title: "子流程图",
-            flow: ["设备列表页", "点击 Clara's Baby Crib", "确认是否照护唯一宝宝", "确认生日与月龄", "智能分析过渡：月龄特征与推导过程", "展示 Smart 推荐方案", "接受推荐或跳过"]
+            flow: ["设备列表页", "点击 Clara's Baby Crib", "确认生日与月龄", "展示 Smart 推荐方案", "接受推荐或跳过"]
           },
           {
             title: "交互说明",
             items: [
-              "点击设备后展示唯一宝宝的确认页。",
-              "用户可以确认当前宝宝，也可以新增宝宝后继续推荐流程。",
-              "智能分析过渡页后续会补充月龄相关特征、推荐依据和方案推导过程，整体作为推荐生成前的智能分析承接。"
+              "点击设备后直接进入生日与月龄确认页。",
+              "这一页直接复用 1-1 模块中的生日确认页样式与交互。",
+              "生日与月龄确认完成后，直接进入推荐结果页。"
             ]
           },
           {
@@ -5268,14 +6639,14 @@
         sections: [
           {
             title: "子流程图",
-            flow: ["设备列表页", "点击 Clara's Baby Crib", "填写宝宝信息", "保存并估算月龄", "智能分析过渡：月龄特征与推导过程", "展示 Smart 推荐方案", "接受推荐或跳过"]
+            flow: ["设备列表页", "点击 Clara's Baby Crib", "填写宝宝信息", "保存并估算月龄", "展示 Smart 推荐方案", "接受推荐或跳过"]
           },
           {
             title: "交互说明",
             items: [
               "点击设备后直接进入宝宝信息填写页。",
               "保存宝宝信息后直接进入推荐方案步骤，不再单独增加宝宝选择页。",
-              "智能分析过渡页后续会补充月龄相关特征、推荐依据和方案推导过程，整体作为推荐生成前的智能分析承接。"
+              "宝宝信息保存并完成月龄估算后，直接进入推荐结果页。"
             ]
           },
           {
@@ -5653,13 +7024,17 @@
       {
         id: "tony",
         name: "Tony",
+        gender: "Male",
         birthday: "2025-01-12",
+        premature: false,
         avatar: "T"
       },
       {
         id: "ammy",
         name: "Ammy",
+        gender: "Female",
         birthday: "2025-04-08",
+        premature: false,
         avatar: "A"
       }
     ];
@@ -6456,17 +7831,54 @@
         const flow = document.createElement("div");
         flow.className = "onboarding-screen";
         flow.innerHTML = `
+          <div class="onboarding-picker-status" aria-hidden="true">
+            <span>9:41</span>
+            <span class="onboarding-picker-status-icons">
+              <span class="onboarding-picker-signal"><span></span><span></span><span></span><span></span></span>
+              <span class="onboarding-picker-wifi"></span>
+              <span class="onboarding-picker-battery"></span>
+            </span>
+          </div>
           <div class="onboarding-head">
             <div class="onboarding-head-bar">
               <button type="button" class="onboarding-back-button" id="onboardingReturnButton" aria-label="返回设备列表" title="返回设备列表">‹</button>
             </div>
-            <div class="onboarding-kicker">${DEVICE_NAME}</div>
+            <button type="button" class="onboarding-header-skip-button" id="onboardingHeaderSkipButton" aria-label="跳过本次推荐">Skip</button>
+            <div class="onboarding-kicker" aria-hidden="true"></div>
             <div class="onboarding-progress">
               <div class="onboarding-progress-label" id="onboardingProgressLabel"></div>
               <div class="onboarding-progress-track"><span class="onboarding-progress-fill" id="onboardingProgressFill"></span></div>
             </div>
+            <div class="onboarding-picker-hero" aria-hidden="true">
+              <svg viewBox="0 0 112 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <radialGradient id="onboardingHeroGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(43 50) rotate(54) scale(35 31)">
+                    <stop offset="0" stop-color="#fff7e7"/>
+                    <stop offset="0.42" stop-color="#ff9ca4"/>
+                    <stop offset="0.76" stop-color="#a98aff"/>
+                    <stop offset="1" stop-color="#efe8ff" stop-opacity="0"/>
+                  </radialGradient>
+                  <linearGradient id="onboardingHeroMoon" x1="31" y1="33" x2="69" y2="71" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#fff8e9"/>
+                    <stop offset="1" stop-color="#eee3ff"/>
+                  </linearGradient>
+                </defs>
+                <rect x="7" y="6" width="98" height="98" rx="2" stroke="rgba(255,255,255,.55)" stroke-width="2" stroke-dasharray="15 8"/>
+                <circle cx="47" cy="50" r="34" fill="url(#onboardingHeroGlow)"/>
+                <path d="M63.6 24.2c-4.7 14.6-15.3 23.9-30.7 26.1 12 8.7 29.1 6.5 38.1-5 5.6-7.2 6.2-16.8 2.4-24.2-2.7 1.8-5.9 2.8-9.8 3.1Z" fill="url(#onboardingHeroMoon)"/>
+                <path d="M18.4 74.8c7.4 2 13.8.5 18.7-5.2m-3.7 1.4c6.8 10.7 18.6 9.3 22.1-1.2m-4.2 2c5.7 9.1 16.8 7.1 19.5-3.9m-3.6 2.5c7.5 5.5 16.4.3 16.4-9" stroke="#20172b" stroke-width="2.3" stroke-linecap="round"/>
+                <path d="M22 67.4c-3.8 3.8-9.8 2.7-11.5-2.1-1.2-3.5.5-7.1 3.3-8.6" stroke="#20172b" stroke-width="2.3" stroke-linecap="round"/>
+                <path d="M72 19.5c2.9 8.2 5.6 10.9 13.8 13.8-8.2 2.9-10.9 5.6-13.8 13.8-2.9-8.2-5.6-10.9-13.8-13.8 8.2-2.9 10.9-5.6 13.8-13.8Z" fill="#fffdf7" stroke="#20172b" stroke-width="2"/>
+              </svg>
+            </div>
             <div class="onboarding-title" id="onboardingTitle">${DEVICE_NAME} 将照护的宝宝是？</div>
             <div class="onboarding-copy" id="onboardingCopy"></div>
+            <div class="onboarding-recommend-head" id="onboardingRecommendHead" aria-live="polite">
+              <div class="onboarding-recommend-head-line" id="onboardingRecommendStageLine"></div>
+              <div class="onboarding-recommend-head-line is-body" id="onboardingRecommendTraitsLine"></div>
+              <div class="onboarding-recommend-head-line is-body" id="onboardingRecommendPlanLine"></div>
+              <div class="onboarding-recommend-head-line is-body" id="onboardingRecommendDetailLine"></div>
+            </div>
           </div>
           <div class="onboarding-step-stack">
             <section class="onboarding-step" data-step="1">
@@ -6529,6 +7941,12 @@
                     </div>
                   </div>
                 </div>
+                <div class="onboarding-empty-name-screen">
+                  <div class="onboarding-empty-name-input-shell">
+                    <input type="text" class="onboarding-empty-name-input" id="onboardingEmptyNameStageInput" placeholder="Clara" maxlength="18">
+                    <button type="button" class="onboarding-empty-name-clear is-hidden" id="onboardingEmptyNameClearButton" aria-label="Clear baby name">×</button>
+                  </div>
+                </div>
                 <button type="button" class="onboarding-link-button" id="onboardingAddBabyButton">新增宝宝信息</button>
               </div>
               <div class="onboarding-step-actions">
@@ -6537,23 +7955,31 @@
               </div>
             </section>
             <section class="onboarding-step" data-step="2">
-              <div class="onboarding-card onboarding-summary-card">
-                <div class="onboarding-section-title">当前宝宝信息</div>
-                <div class="onboarding-summary-group">
-                  <div class="onboarding-baby-row">
-                    <div class="onboarding-baby-avatar" id="onboardingBabyAvatar"></div>
-                    <div class="onboarding-baby-profile">
-                      <div class="onboarding-choice-top">
-                        <div class="onboarding-baby-name" id="onboardingBabyName"></div>
-                        <div class="onboarding-baby-pill" id="onboardingBabyAgePill"></div>
-                      </div>
+              <div class="onboarding-card onboarding-summary-card onboarding-step2-editor-card">
+                <div class="baby-editor-form onboarding-step2-editor-form">
+                  <div class="baby-sheet-field onboarding-step2-name-field">
+                    <div class="baby-sheet-row-label">Baby's Name</div>
+                    <div class="baby-sheet-row-control">
+                      <input type="text" class="baby-sheet-input" id="onboardingStep2NameInput" placeholder="Clara" maxlength="18">
+                      <span class="baby-sheet-row-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M4 20h5.2L20.1 9.1a2.9 2.9 0 0 0-4.1-4.1L5.1 15.9 4 20Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M14.5 6.5 17.6 9.6" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                      </span>
                     </div>
                   </div>
-                  <div class="onboarding-summary-divider"></div>
-                  <div class="baby-sheet-field onboarding-summary-birthday-field">
-                    <button type="button" class="onboarding-summary-birthday-button" id="onboardingBirthdayButton" aria-label="修改宝宝生日" aria-haspopup="dialog" aria-expanded="false">
-                      <div class="onboarding-summary-label">宝宝生日</div>
-                      <div class="onboarding-summary-value" id="onboardingSummaryBirthday"></div>
+                  <div class="baby-sheet-field onboarding-step2-birthday-field">
+                    <div class="baby-sheet-row-label">Baby's Birthday</div>
+                    <button type="button" class="baby-sheet-select baby-sheet-trigger" id="onboardingStep2BirthdayDisplayWrap" aria-label="选择宝宝生日">
+                      <span class="baby-sheet-select-text" id="onboardingStep2BirthdayDisplay">May 16 2026</span>
+                      <span class="baby-sheet-select-trailing">
+                        <span class="baby-sheet-date-icon" aria-hidden="true">
+                          <svg viewBox="0 0 24 24" fill="none">
+                            <path d="M7 3v4M17 3v4M4.5 9.2h15M6.5 5h11c1.7 0 3 1.3 3 3v10.5c0 1.7-1.3 3-3 3h-11c-1.7 0-3-1.3-3-3V8c0-1.7 1.3-3 3-3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                          </svg>
+                        </span>
+                      </span>
                     </button>
                     <div class="baby-birthday-options" data-birthday-source="selected-baby" aria-label="选择宝宝生日">
                       <div class="baby-calendar-head">
@@ -6573,11 +7999,34 @@
                     </div>
                     <input type="date" class="baby-sheet-native-date" id="onboardingBirthdayInput" aria-label="修改宝宝生日">
                   </div>
+                  <div class="baby-sheet-field onboarding-step2-gender-field">
+                    <div class="baby-sheet-row-label">Gender</div>
+                    <button type="button" class="baby-sheet-select baby-sheet-trigger" id="onboardingStep2GenderButton" aria-haspopup="listbox" aria-expanded="false">
+                      <span class="baby-sheet-select-text" id="onboardingStep2GenderDisplay">Select</span>
+                      <span class="baby-sheet-select-trailing"><span class="baby-sheet-select-icon" aria-hidden="true">›</span></span>
+                    </button>
+                    <div class="baby-gender-options" role="listbox" aria-label="选择宝宝性别">
+                      <button type="button" class="baby-gender-option" data-baby-gender="Male" role="option">Male</button>
+                      <button type="button" class="baby-gender-option" data-baby-gender="Female" role="option">Female</button>
+                    </div>
+                    <select class="baby-sheet-native-select" id="onboardingStep2GenderSelect" aria-label="选择宝宝性别">
+                      <option value="">Gender</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                    </select>
+                  </div>
+                  <div class="baby-sheet-field onboarding-step2-premature-field">
+                    <div class="baby-sheet-row-label">Born Premature</div>
+                    <button type="button" class="baby-sheet-select baby-sheet-trigger" id="onboardingStep2PrematureButton" aria-label="Born Premature">
+                      <span class="baby-sheet-select-text" id="onboardingStep2PrematureDisplay">No</span>
+                      <span class="baby-sheet-select-trailing"><span class="baby-sheet-select-icon" aria-hidden="true">›</span></span>
+                    </button>
+                  </div>
                 </div>
+                <button type="button" class="onboarding-step2-add-baby" id="onboardingStep2AddBabyButton">Add Another Baby</button>
               </div>
               <div class="onboarding-step-actions">
-                <button type="button" class="onboarding-cta" id="onboardingAgeConfirmButton">下一步</button>
-                <button type="button" class="onboarding-tertiary" id="onboardingAgeSkipButton">跳过推荐</button>
+                <button type="button" class="onboarding-cta" id="onboardingAgeConfirmButton">Next</button>
               </div>
             </section>
             <section class="onboarding-step" data-step="3">
@@ -6593,73 +8042,79 @@
               <div class="onboarding-card onboarding-recommend-card">
                 <div class="onboarding-scene-panel" id="onboardingScenePanel">
                   <div class="onboarding-scene-meta">
-                    <div><div class="onboarding-scene-label">运动曲线</div><div class="onboarding-scene-value" id="onboardingSceneCurve"></div></div>
-                    <div><div class="onboarding-scene-label">运动挡位</div><div class="onboarding-scene-value" id="onboardingSceneLevel"></div></div>
-                    <div><div class="onboarding-scene-label">音乐</div><div class="onboarding-scene-value" id="onboardingSceneTrack"></div></div>
-                    <div><div class="onboarding-scene-label">音量</div><div class="onboarding-scene-value" id="onboardingSceneVolume"></div></div>
+                    <div><div class="onboarding-scene-label">Movement Path</div><div class="onboarding-scene-value" id="onboardingSceneCurve"></div></div>
+                    <div><div class="onboarding-scene-label">Motion Level</div><div class="onboarding-scene-value" id="onboardingSceneLevel"></div></div>
                   </div>
                 </div>
               </div>
               <div class="onboarding-step-actions">
-                <button type="button" class="onboarding-cta" id="onboardingApplyButton">接受推荐的方案</button>
-                <button type="button" class="onboarding-tertiary" id="onboardingStep3SkipButton">跳过推荐</button>
+                <button type="button" class="onboarding-cta" id="onboardingApplyButton">Accept the recommended plan</button>
               </div>
             </section>
           </div>
+          <div class="onboarding-picker-home-indicator" aria-hidden="true"></div>
           <div class="baby-editor-screen" id="babyEditorScreen">
+            <div class="baby-editor-status" aria-hidden="true">
+              <span>9:41</span>
+              <span class="onboarding-picker-status-icons">
+                <span class="onboarding-picker-signal"><span></span><span></span><span></span><span></span></span>
+                <span class="onboarding-picker-wifi"></span>
+                <span class="onboarding-picker-battery"></span>
+              </span>
+            </div>
             <div class="baby-editor-head">
               <button type="button" class="onboarding-back-button" id="babyEditorBackButton" aria-label="返回宝宝列表" title="返回宝宝列表">‹</button>
-              <div class="baby-editor-title">Add Baby</div>
+              <div class="baby-editor-progress" aria-hidden="true"><span class="baby-editor-progress-fill"></span></div>
             </div>
             <div class="baby-editor-card">
               <div class="baby-editor-avatar-preview" id="babyEditorAvatarPreview" aria-hidden="true">
                 <span class="baby-editor-avatar-icon">
-                  <svg viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M39 27c0-4.4 3.6-8 8-8 3.5 0 6.4 2.2 7.5 5.3 3.5.4 6.3 3.4 6.3 7v4.1c8 4.3 13.4 12.7 13.4 22.4 0 14.1-11.8 25.5-26.2 25.5-14.5 0-26.3-11.4-26.3-25.5 0-9.7 5.5-18.2 13.5-22.5v-4c0-4 3-7.2 6.8-7.3Z" stroke="currentColor" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M44.2 53.8c0 1.8-1.4 3.2-3.1 3.2-1.8 0-3.2-1.4-3.2-3.2s1.4-3.1 3.2-3.1c1.7 0 3.1 1.4 3.1 3.1Zm15.7 0c0 1.8-1.4 3.2-3.2 3.2-1.7 0-3.1-1.4-3.1-3.2s1.4-3.1 3.1-3.1c1.8 0 3.2 1.4 3.2 3.1Z" fill="currentColor"/>
-                    <path d="M41.5 65.1c2 2.4 4.4 3.6 7.1 3.6 2.8 0 5.1-1.2 7.1-3.6" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
-                    <path d="M48.1 19.4c-1.8 3.9-4.6 6.9-8.6 8.8" stroke="currentColor" stroke-width="3.8" stroke-linecap="round"/>
-                  </svg>
-                </span>
-                <span class="baby-editor-avatar-camera" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M8.6 6.5 10 4.8h4l1.4 1.7h2.5c1.5 0 2.6 1.1 2.6 2.6v7.8c0 1.5-1.1 2.6-2.6 2.6H6.1c-1.5 0-2.6-1.1-2.6-2.6V9.1c0-1.5 1.1-2.6 2.6-2.6h2.5Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M12 16.3a3.6 3.6 0 1 0 0-7.2 3.6 3.6 0 0 0 0 7.2Z" stroke="currentColor" stroke-width="2"/>
+                  <svg viewBox="0 0 136 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="babyEditorBunnyBody" x1="29" y1="15" x2="94" y2="96" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#a77bff"/>
+                        <stop offset="1" stop-color="#7852c8"/>
+                      </linearGradient>
+                      <linearGradient id="babyEditorBunnyEar" x1="13" y1="24" x2="66" y2="82" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#8d6ff7"/>
+                        <stop offset="1" stop-color="#b394ff"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M62.7 38.8C51.6 16.5 35.1 7.2 25.7 15.1c-9.9 8.3-2.2 29.8 16.2 46.1" fill="url(#babyEditorBunnyEar)"/>
+                    <path d="M80.2 37.2C76.7 13.8 63.4-.4 51.5 3.1 39.5 6.7 37.6 29.9 49 52.6" fill="url(#babyEditorBunnyBody)"/>
+                    <path d="M43.2 42.7c15.1-17.3 50.1-1.5 62.1 20.1 14.8 26.6-6.1 48.7-40.1 47.4-38.9-1.5-55.1-29.5-22-67.5Z" fill="url(#babyEditorBunnyBody)"/>
+                    <ellipse cx="70.2" cy="69.3" rx="12.4" ry="18" fill="#210044"/>
+                    <ellipse cx="99.1" cy="70" rx="12.3" ry="17.9" fill="#210044"/>
+                    <path d="M69.6 61.7c1.6 4.1 3.1 5.6 7.2 7.2-4.1 1.6-5.6 3.1-7.2 7.2-1.6-4.1-3.1-5.6-7.2-7.2 4.1-1.6 5.6-3.1 7.2-7.2Z" fill="#fff"/>
+                    <path d="M98.4 62.2c1.6 4.1 3.1 5.6 7.2 7.2-4.1 1.6-5.6 3.1-7.2 7.2-1.6-4.1-3.1-5.6-7.2-7.2 4.1-1.6 5.6-3.1 7.2-7.2Z" fill="#fff"/>
                   </svg>
                 </span>
               </div>
+              <div class="baby-editor-title">“Tell us about your baby”</div>
               <div class="baby-editor-form">
                 <div class="baby-sheet-field">
-                  <input type="text" class="baby-sheet-input" id="babySheetFirstNameInput" placeholder="Enter your first name" maxlength="18">
-                </div>
-                <div class="baby-sheet-field">
-                  <input type="text" class="baby-sheet-input" id="babySheetLastNameInput" placeholder="Enter your last name" maxlength="18">
-                </div>
-                <div class="baby-sheet-field">
-                  <span class="baby-sheet-required" aria-hidden="true">*</span>
-                  <input type="text" class="baby-sheet-input" id="babySheetNameInput" placeholder="Baby's nickname" maxlength="18">
-                </div>
-                <div class="baby-sheet-field">
-                  <span class="baby-sheet-required" aria-hidden="true">*</span>
-                  <button type="button" class="baby-sheet-select baby-sheet-trigger" id="babySheetGenderButton" aria-haspopup="listbox" aria-expanded="false">
-                    <span class="baby-sheet-select-text" id="babySheetGenderDisplay">Gender</span>
-                    <span class="baby-sheet-select-trailing"><span class="baby-sheet-select-icon" aria-hidden="true">›</span></span>
-                  </button>
-                  <div class="baby-gender-options" role="listbox" aria-label="选择宝宝性别">
-                    <button type="button" class="baby-gender-option" data-baby-gender="Male" role="option">Male</button>
-                    <button type="button" class="baby-gender-option" data-baby-gender="Female" role="option">Female</button>
+                  <div class="baby-sheet-row-label">Baby's Name</div>
+                  <div class="baby-sheet-row-control">
+                    <input type="text" class="baby-sheet-input" id="babySheetNameInput" placeholder="Clara" maxlength="18">
+                    <span class="baby-sheet-row-icon" aria-hidden="true">
+                      <svg viewBox="0 0 24 24" fill="none">
+                        <path d="M4 20h5.2L20.1 9.1a2.9 2.9 0 0 0-4.1-4.1L5.1 15.9 4 20Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M14.5 6.5 17.6 9.6" stroke-width="2" stroke-linecap="round"/>
+                      </svg>
+                    </span>
                   </div>
-                  <select class="baby-sheet-native-select" id="babySheetGenderSelect" aria-label="选择宝宝性别">
-                    <option value="">Gender</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
                 </div>
                 <div class="baby-sheet-field">
-                  <span class="baby-sheet-required" aria-hidden="true">*</span>
+                  <div class="baby-sheet-row-label">Baby's Birthday</div>
                   <button type="button" class="baby-sheet-select baby-sheet-trigger" id="babySheetBirthdayDisplayWrap" aria-label="选择宝宝生日">
-                    <span class="baby-sheet-select-text" id="babySheetBirthdayDisplay">Child's Birthday</span>
-                    <span class="baby-sheet-select-trailing"><span class="baby-sheet-date-icon" aria-hidden="true">🗓</span><span class="baby-sheet-select-icon" aria-hidden="true">›</span></span>
+                    <span class="baby-sheet-select-text" id="babySheetBirthdayDisplay">May 16 2026</span>
+                    <span class="baby-sheet-select-trailing">
+                      <span class="baby-sheet-date-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none">
+                          <path d="M7 3v4M17 3v4M4.5 9.2h15M6.5 5h11c1.7 0 3 1.3 3 3v10.5c0 1.7-1.3 3-3 3h-11c-1.7 0-3-1.3-3-3V8c0-1.7 1.3-3 3-3Z" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                      </span>
+                    </span>
                   </button>
                   <div class="baby-birthday-options" aria-label="选择宝宝生日">
                     <div class="baby-calendar-head">
@@ -6679,9 +8134,33 @@
                   </div>
                   <input type="date" class="baby-sheet-native-date" id="babySheetBirthdayInput">
                 </div>
+                <div class="baby-sheet-field">
+                  <div class="baby-sheet-row-label">Gender</div>
+                  <button type="button" class="baby-sheet-select baby-sheet-trigger" id="babySheetGenderButton" aria-haspopup="listbox" aria-expanded="false">
+                    <span class="baby-sheet-select-text" id="babySheetGenderDisplay">Select</span>
+                    <span class="baby-sheet-select-trailing"><span class="baby-sheet-select-icon" aria-hidden="true">›</span></span>
+                  </button>
+                  <div class="baby-gender-options" role="listbox" aria-label="选择宝宝性别">
+                    <button type="button" class="baby-gender-option" data-baby-gender="Male" role="option">Male</button>
+                    <button type="button" class="baby-gender-option" data-baby-gender="Female" role="option">Female</button>
+                  </div>
+                  <select class="baby-sheet-native-select" id="babySheetGenderSelect" aria-label="选择宝宝性别">
+                    <option value="">Gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                  </select>
+                </div>
+                <div class="baby-sheet-field">
+                  <div class="baby-sheet-row-label">Born Premature</div>
+                  <button type="button" class="baby-sheet-select baby-sheet-trigger" id="babySheetPrematureButton" aria-label="Born Premature">
+                    <span class="baby-sheet-select-text">No</span>
+                    <span class="baby-sheet-select-trailing"><span class="baby-sheet-select-icon" aria-hidden="true">›</span></span>
+                  </button>
+                </div>
               </div>
+              <button type="button" class="baby-editor-add-another" id="babyEditorAddAnotherButton">Add Another Baby</button>
               <div class="baby-sheet-actions">
-                <button type="button" class="baby-sheet-save" id="babySheetConfirmButton" disabled>Save</button>
+                <button type="button" class="baby-sheet-save" id="babySheetConfirmButton" disabled>Next</button>
                 <button type="button" class="baby-sheet-skip" id="babySheetSkipButton">跳过推荐</button>
               </div>
             </div>
@@ -7313,7 +8792,8 @@
     }
 
     function getOnboardingStepOrder() {
-      return onboardingScenario === "empty" ? [1, 3] : [1, 2, 3];
+      if (onboardingScenario === "single") return [2, 3];
+      return [1, 2, 3];
     }
 
     function getOnboardingStepIndex(step = onboardingStep) {
@@ -7348,10 +8828,40 @@
       return list.find((baby) => baby.id === selectedBabyId) || list[0] || null;
     }
 
+    function updateSelectedBabyName(name) {
+      const trimmedName = String(name || "").trim();
+      const baby = getBabyById(selectedBabyId);
+      if (!baby || !trimmedName) return;
+      baby.name = trimmedName;
+      baby.avatar = getBabyAvatar(trimmedName);
+      rebuildOnboardingBabyChoices();
+      updateOnboardingDisplays();
+      persistPrototypeState();
+    }
+
+    function updateSelectedBabyGender(gender) {
+      const safeGender = String(gender || "").trim();
+      const baby = getBabyById(selectedBabyId);
+      if (!baby || !safeGender) return;
+      baby.gender = safeGender;
+      updateOnboardingDisplays();
+      persistPrototypeState();
+    }
+
+    function updateSelectedBabyPremature(premature) {
+      const baby = getBabyById(selectedBabyId);
+      if (!baby) return;
+      baby.premature = Boolean(premature);
+      updateOnboardingDisplays();
+      persistPrototypeState();
+    }
+
     function prepareOnboardingScenario(scenario = getOnboardingScenarioFromBabyCount()) {
       onboardingScenario = scenario;
-      onboardingStep = 1;
+      onboardingStep = scenario === "single" ? 2 : 1;
       clearOnboardingAnalysis();
+      clearOnboardingRecommendTyping();
+      onboardingEmptyNameCollected = false;
       babyEditorVisible = false;
       emptyScenarioBaby = null;
       emptyScenarioBabyId = null;
@@ -7376,6 +8886,20 @@
       const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
       if (!match) return value;
       return `${match[1]}.${match[2]}.${match[3]}`;
+    }
+
+    function formatBirthdaySlash(value) {
+      if (!value) return "";
+      const match = String(value).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+      if (!match) return value;
+      return `${match[1]}/${match[2]}/${match[3]}`;
+    }
+
+    function formatBirthdayLong(value) {
+      const parts = parseBirthdayParts(value);
+      if (!parts) return "";
+      const monthName = new Date(Date.UTC(parts.year, parts.month - 1, 1)).toLocaleString("en-US", { month: "short", timeZone: "UTC" });
+      return `${monthName} ${parts.day} ${parts.year}`;
     }
 
     function parseBirthdayParts(value) {
@@ -7539,6 +9063,9 @@
           <div class="onboarding-choice-body">
             <div class="onboarding-choice-top">
               <div class="onboarding-baby-name">${escapeHtml(baby.name)}</div>
+            </div>
+            <div class="onboarding-choice-meta">
+              <span class="onboarding-choice-meta-item">${escapeHtml(formatBirthdaySlash(baby.birthday))}</span>
             </div>
           </div>
           <div class="onboarding-choice-check">✓</div>
@@ -8149,8 +9676,49 @@
         selectedBabyAgeMonths = clamp(derivedAge, 0, 24);
         babyAgeById[selectedBabyId] = selectedBabyAgeMonths;
       }
+      rebuildOnboardingBabyChoices();
       updateOnboardingDisplays();
       persistPrototypeState();
+    }
+
+    function updateAgeConfirmEditor(root = activeLayer || document) {
+      const baby = getCurrentOnboardingBaby();
+      if (!baby) return;
+      const safeGender = String(baby.gender || "").trim();
+      const birthday = String(baby.birthday || "").trim();
+      const premature = Boolean(baby.premature);
+
+      for (const input of root.querySelectorAll("#onboardingStep2NameInput")) {
+        if (input.value !== baby.name) input.value = baby.name || "";
+      }
+      for (const value of root.querySelectorAll("#onboardingStep2BirthdayDisplay")) {
+        value.textContent = birthday ? formatBirthdayLong(birthday) : "May 16 2026";
+      }
+      for (const input of root.querySelectorAll("#onboardingBirthdayInput")) {
+        if (input.value !== birthday) input.value = birthday;
+      }
+      for (const wrap of root.querySelectorAll("#onboardingStep2BirthdayDisplayWrap")) {
+        wrap.classList.toggle("is-filled", Boolean(birthday));
+        wrap.setAttribute("aria-expanded", String(Boolean(wrap.closest(".baby-sheet-field")?.classList.contains("is-birthday-open"))));
+      }
+      for (const value of root.querySelectorAll("#onboardingStep2GenderDisplay")) {
+        value.textContent = safeGender || "Select";
+      }
+      for (const select of root.querySelectorAll("#onboardingStep2GenderSelect")) {
+        if (select.value !== safeGender) select.value = safeGender;
+      }
+      for (const button of root.querySelectorAll("#onboardingStep2GenderButton")) {
+        button.classList.toggle("is-filled", Boolean(safeGender));
+        button.setAttribute("aria-expanded", String(Boolean(button.closest(".baby-sheet-field")?.classList.contains("is-gender-open"))));
+      }
+      for (const option of root.querySelectorAll(".onboarding-step[data-step=\"2\"] .baby-gender-option[data-baby-gender]")) {
+        const isSelected = option.dataset.babyGender === safeGender;
+        option.classList.toggle("is-selected", isSelected);
+        option.setAttribute("aria-selected", String(isSelected));
+      }
+      for (const value of root.querySelectorAll("#onboardingStep2PrematureDisplay")) {
+        value.textContent = premature ? "Yes" : "No";
+      }
     }
 
     function setBabyAge(months) {
@@ -8174,13 +9742,10 @@
       babyEditorVisible = nextVisible;
       editor.style.display = nextVisible ? "flex" : "none";
       if (nextVisible) {
-        const firstNameInput = root.querySelector("#babySheetFirstNameInput");
-        const lastNameInput = root.querySelector("#babySheetLastNameInput");
-        if (firstNameInput) firstNameInput.value = "";
-        if (lastNameInput) lastNameInput.value = "";
-        pendingBabyGender = "";
+        if (!(onboardingScenario === "empty" && onboardingStep === 2 && onboardingEmptyNameCollected)) {
+          pendingBabyGender = "";
+        }
         updateBabyEditorForm(root);
-        root.querySelector("#babySheetFirstNameInput")?.focus();
       }
     }
 
@@ -8537,7 +10102,7 @@
         if (nameInput.value !== pendingBabyName) nameInput.value = pendingBabyName;
       }
       for (const genderDisplay of root.querySelectorAll("#babySheetGenderDisplay, #onboardingEmptyBabyGenderDisplay")) {
-        genderDisplay.textContent = safeGender || "Gender";
+        genderDisplay.textContent = safeGender || (genderDisplay.id === "babySheetGenderDisplay" ? "Select" : "Gender");
       }
       for (const genderSelect of root.querySelectorAll("#babySheetGenderSelect, #onboardingEmptyBabyGenderSelect")) {
         if (genderSelect.value !== safeGender) genderSelect.value = safeGender;
@@ -8555,7 +10120,11 @@
         if (birthdayInput.value !== pendingBabyBirthday) birthdayInput.value = pendingBabyBirthday;
       }
       for (const birthdayDisplay of root.querySelectorAll("#babySheetBirthdayDisplay, #onboardingEmptyBabyBirthdayDisplay")) {
-        birthdayDisplay.textContent = pendingBabyBirthday ? formatBirthday(pendingBabyBirthday) : "Child's Birthday";
+        if (birthdayDisplay.id === "babySheetBirthdayDisplay") {
+          birthdayDisplay.textContent = pendingBabyBirthday ? formatBirthdayLong(pendingBabyBirthday) : "May 16 2026";
+        } else {
+          birthdayDisplay.textContent = pendingBabyBirthday ? formatBirthday(pendingBabyBirthday) : "Child's Birthday";
+        }
       }
       for (const birthdayDisplayWrap of root.querySelectorAll("#babySheetBirthdayDisplayWrap, #onboardingEmptyBabyBirthdayDisplayWrap")) {
         birthdayDisplayWrap.classList.toggle("is-filled", Boolean(pendingBabyBirthday));
@@ -8567,7 +10136,7 @@
       }
       const emptyStepButton = root.querySelector("#onboardingStep1Next");
       if (emptyStepButton && onboardingScenario === "empty" && !getCurrentOnboardingBaby()) {
-        emptyStepButton.disabled = !hasRequiredBabyInfo;
+        emptyStepButton.disabled = !String(safeName).trim();
       }
     }
 
@@ -8727,6 +10296,69 @@
       onboardingAnalysisActive = false;
     }
 
+    function getOnboardingRecommendLines() {
+      const baby = getCurrentOnboardingBaby();
+      const babyName = baby?.name || "宝宝";
+      return [
+        `The current age stage of ${babyName} is ${getAgeDisplayFromBirthday(baby?.birthday)}`,
+        "The sleep characteristics of a baby at this stage are xxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "We recommend xxxxxxxxx",
+        "See detailed recommended parameters below"
+      ];
+    }
+
+    function clearOnboardingRecommendTyping(options = {}) {
+      if (onboardingRecommendTypingTimer) {
+        window.clearTimeout(onboardingRecommendTypingTimer);
+        onboardingRecommendTypingTimer = null;
+      }
+      onboardingRecommendTypingActive = false;
+      onboardingRecommendTypingComplete = false;
+      if (!options.preserveText) {
+        onboardingRecommendDisplayedLines = ["", "", "", ""];
+      }
+    }
+
+    function startOnboardingRecommendTyping() {
+      const lines = getOnboardingRecommendLines();
+      const wordsByLine = lines.map((line) => String(line).trim().split(/\s+/).filter(Boolean));
+      const totalWords = wordsByLine.reduce((sum, words) => sum + words.length, 0);
+      const totalPauseDuration = ONBOARDING_RECOMMEND_LINE_PAUSE_MS * Math.max(0, wordsByLine.length - 1);
+      const wordDelay = Math.max(
+        45,
+        Math.round((ONBOARDING_RECOMMEND_TYPE_DURATION_MS - totalPauseDuration) / Math.max(totalWords, 1))
+      );
+
+      clearOnboardingRecommendTyping();
+      onboardingRecommendTypingActive = true;
+      onboardingRecommendDisplayedLines = ["", "", "", ""];
+      updateOnboardingDisplays();
+
+      const typeNextWord = (lineIndex, wordIndex) => {
+        if (onboardingStep !== 3) return;
+        const lineWords = wordsByLine[lineIndex] || [];
+        onboardingRecommendDisplayedLines[lineIndex] = lineWords.slice(0, wordIndex + 1).join(" ");
+        updateOnboardingDisplays();
+
+        const isLastWordInLine = wordIndex >= lineWords.length - 1;
+        const isLastLine = lineIndex >= wordsByLine.length - 1;
+        if (isLastWordInLine && isLastLine) {
+          onboardingRecommendTypingActive = false;
+          onboardingRecommendTypingComplete = true;
+          onboardingRecommendTypingTimer = null;
+          updateOnboardingDisplays();
+          return;
+        }
+
+        const nextLineIndex = isLastWordInLine ? lineIndex + 1 : lineIndex;
+        const nextWordIndex = isLastWordInLine ? 0 : wordIndex + 1;
+        const nextDelay = isLastWordInLine ? ONBOARDING_RECOMMEND_LINE_PAUSE_MS : wordDelay;
+        onboardingRecommendTypingTimer = window.setTimeout(() => typeNextWord(nextLineIndex, nextWordIndex), nextDelay);
+      };
+
+      onboardingRecommendTypingTimer = window.setTimeout(() => typeNextWord(0, 0), 120);
+    }
+
     function startOnboardingAnalysis() {
       if (onboardingAnalysisTimer) {
         window.clearTimeout(onboardingAnalysisTimer);
@@ -8748,12 +10380,17 @@
       const previousStep = onboardingStep;
       onboardingStep = order.includes(nextStep) ? nextStep : order[0];
       toggleAgeSheet(false);
-      if (onboardingStep === 3 && previousStep !== 3) {
-        startOnboardingAnalysis();
-      } else {
-        clearOnboardingAnalysis();
+      clearOnboardingAnalysis();
+      if (onboardingStep !== 3) {
+        clearOnboardingRecommendTyping();
         updateOnboardingDisplays();
+        return;
       }
+      if (previousStep !== 3) {
+        startOnboardingRecommendTyping();
+        return;
+      }
+      updateOnboardingDisplays();
     }
 
     function removeCustomScene(sceneId) {
@@ -8909,10 +10546,14 @@
       const recommendation = getRecommendedProfile();
       const scene = scenes.find((item) => item.id === recommendation.sceneId) || scenes[0];
       const isAnalyzingRecommendation = onboardingStep === 3 && onboardingAnalysisActive;
+      const isBabyPickerLayout = onboardingStep === 1 && onboardingScenario === "multi";
+      const isEmptyNameStep = onboardingScenario === "empty" && onboardingStep === 1 && !getCurrentOnboardingBaby() && !onboardingEmptyNameCollected;
+      const recommendLines = getOnboardingRecommendLines();
+      const isRecommendTyping = onboardingStep === 3 && onboardingRecommendTypingActive && !onboardingRecommendTypingComplete;
       const stepOneMeta = {
         multi: {
-          title: `${DEVICE_NAME} 将照护的宝宝是？`,
-          copy: "确认后，这张床的哄睡设置将以这位宝宝的信息为准。",
+          title: isBabyPickerLayout ? "\"Which baby are you taking care of?\"" : `${DEVICE_NAME} 将照护的宝宝是？`,
+          copy: isBabyPickerLayout ? "To provide better service, you can only bind one baby to the smart bed at a time." : "确认后，这张床的哄睡设置将以这位宝宝的信息为准。",
           sectionTitle: "请选择"
         },
         single: {
@@ -8921,8 +10562,8 @@
           sectionTitle: "请确认"
         },
         empty: {
-          title: "请先录入宝宝信息",
-          copy: "录入后将直接生成适合当前阶段的哄睡推荐方案。",
+          title: "“What’s your baby’s name?”",
+          copy: "A nickname is totally fine, too.",
           sectionTitle: "宝宝信息"
         }
       }[onboardingScenario] || {
@@ -8933,12 +10574,16 @@
       const stepMeta = {
         1: stepOneMeta,
         2: {
-          title: `确认 ${babyName} 的生日和月龄`,
-          copy: "生日将用于估算月龄，帮助匹配适合当前阶段的哄睡方案。"
+          title: onboardingScenario === "empty" && !baby
+            ? `“Tell us about ${String(pendingBabyName || "").trim() || "your baby"}”`
+            : `"Please confirm whether ${babyName}'s date of birth is correct"`,
+          copy: onboardingScenario === "empty" && !baby
+            ? ""
+            : `This will affect the sleep plan we customize for ${babyName}`
         },
         3: {
-          title: isAnalyzingRecommendation ? "" : `已为 ${babyName} 生成哄睡推荐方案`,
-          copy: isAnalyzingRecommendation ? "" : "以下配置将保存至“Smart”卡，后续可随时调整。"
+          title: "",
+          copy: ""
         }
       };
       const currentStep = stepMeta[onboardingStep] || stepMeta[order[0]];
@@ -8946,10 +10591,16 @@
         flow.classList.toggle("is-empty-scenario", onboardingScenario === "empty");
         flow.classList.toggle("is-empty-create-state", onboardingScenario === "empty" && !baby);
         flow.classList.toggle("is-analysis-active", isAnalyzingRecommendation);
+        flow.classList.toggle("is-baby-picker-layout", isBabyPickerLayout);
+        flow.classList.toggle("is-empty-name-step", isEmptyNameStep);
+        flow.classList.toggle("is-age-confirm-step", onboardingStep === 2);
+        flow.classList.toggle("is-recommend-step", onboardingStep === 3 && !isAnalyzingRecommendation);
+        flow.classList.toggle("is-recommend-typing", isRecommendTyping);
+        flow.classList.toggle("is-hidden", onboardingScenario === "empty" && onboardingStep === 2 && !baby && babyEditorVisible);
       }
 
       for (const value of root.querySelectorAll("#onboardingProgressLabel")) {
-        value.textContent = `步骤 ${stepNumber} / ${totalSteps}`;
+        value.textContent = "";
       }
       for (const value of root.querySelectorAll("#onboardingProgressFill")) {
         value.style.width = `${(stepNumber / totalSteps) * 100}%`;
@@ -8961,18 +10612,48 @@
         value.textContent = currentStep.copy;
         value.classList.toggle("is-empty", !currentStep.copy);
       }
+      for (const value of root.querySelectorAll("#onboardingRecommendStageLine")) {
+        value.textContent = onboardingStep === 3
+          ? (onboardingRecommendTypingComplete ? recommendLines[0] : onboardingRecommendDisplayedLines[0])
+          : recommendLines[0];
+      }
+      for (const value of root.querySelectorAll("#onboardingRecommendTraitsLine")) {
+        value.textContent = onboardingStep === 3
+          ? (onboardingRecommendTypingComplete ? recommendLines[1] : onboardingRecommendDisplayedLines[1])
+          : recommendLines[1];
+      }
+      for (const value of root.querySelectorAll("#onboardingRecommendPlanLine")) {
+        value.textContent = onboardingStep === 3
+          ? (onboardingRecommendTypingComplete ? recommendLines[2] : onboardingRecommendDisplayedLines[2])
+          : recommendLines[2];
+      }
+      for (const value of root.querySelectorAll("#onboardingRecommendDetailLine")) {
+        value.textContent = onboardingStep === 3
+          ? (onboardingRecommendTypingComplete ? recommendLines[3] : onboardingRecommendDisplayedLines[3])
+          : recommendLines[3];
+      }
       for (const value of root.querySelectorAll('.onboarding-step[data-step="1"] .onboarding-section-title')) {
         value.textContent = stepOneMeta.sectionTitle;
       }
       for (const value of root.querySelectorAll("#onboardingStep1Next")) {
-        value.textContent = onboardingScenario === "empty" && !baby ? "新增宝宝信息" : "下一步";
+        value.textContent = isBabyPickerLayout || isEmptyNameStep ? "Next" : (onboardingScenario === "empty" && !baby ? "新增宝宝信息" : "下一步");
+        value.disabled = isEmptyNameStep ? !String(pendingBabyName || "").trim() : (onboardingScenario === "empty" && !baby ? !Boolean(String(pendingBabyName || "").trim() && String(pendingBabyGender || "").trim() && pendingBabyBirthday) : false);
       }
       for (const value of root.querySelectorAll("#onboardingAddBabyButton")) {
-        value.textContent = "新增宝宝信息";
+        value.textContent = isBabyPickerLayout ? "Add Another Baby" : "新增宝宝信息";
         value.classList.toggle("is-hidden", onboardingScenario === "empty");
       }
+      for (const value of root.querySelectorAll("#onboardingStep2AddBabyButton")) {
+        value.classList.toggle("is-visible", onboardingScenario === "single");
+      }
       for (const form of root.querySelectorAll("#onboardingEmptyBabyForm")) {
-        form.classList.toggle("is-visible", onboardingScenario === "empty" && !baby);
+        form.classList.toggle("is-visible", onboardingScenario === "empty" && !baby && onboardingEmptyNameCollected);
+      }
+      for (const input of root.querySelectorAll("#onboardingEmptyNameStageInput")) {
+        if (input.value !== pendingBabyName) input.value = pendingBabyName;
+      }
+      for (const clearButton of root.querySelectorAll("#onboardingEmptyNameClearButton")) {
+        clearButton.classList.toggle("is-hidden", !String(pendingBabyName || "").trim());
       }
       for (const step of root.querySelectorAll(".onboarding-step")) {
         step.classList.toggle("is-active", Number(step.dataset.step) === onboardingStep);
@@ -9041,11 +10722,21 @@
       }
       const editor = root.querySelector("#babyEditorScreen");
       if (editor) {
+        editor.classList.toggle("is-empty-onboarding-editor", onboardingScenario === "empty" && onboardingStep === 2 && !baby);
         editor.style.display = babyEditorVisible ? "flex" : "none";
+      }
+      for (const value of root.querySelectorAll(".baby-editor-title")) {
+        value.textContent = onboardingScenario === "empty" && onboardingStep === 2 && !baby
+          ? `“Tell us about ${String(pendingBabyName || "").trim() || "your baby"}”`
+          : "“Tell us about your baby”";
+      }
+      for (const fill of root.querySelectorAll(".baby-editor-progress-fill")) {
+        fill.style.width = `${(stepNumber / totalSteps) * 100}%`;
       }
       for (const option of root.querySelectorAll(".age-sheet-option")) {
         option.classList.toggle("is-selected", Number(option.dataset.months) === selectedBabyAgeMonths);
       }
+      updateAgeConfirmEditor(root);
       updateBabyEditorForm(root);
     }
 
@@ -9053,8 +10744,10 @@
       const babyChoiceButtons = layer.querySelectorAll(".onboarding-choice-card");
       const returnButton = layer.querySelector("#onboardingReturnButton");
       const addBabyButton = layer.querySelector("#onboardingAddBabyButton");
+      const step2AddBabyButton = layer.querySelector("#onboardingStep2AddBabyButton");
       const step1NextButton = layer.querySelector("#onboardingStep1Next");
       const skipButton = layer.querySelector("#onboardingSkipButton");
+      const headerSkipButton = layer.querySelector("#onboardingHeaderSkipButton");
       const ageSkipButton = layer.querySelector("#onboardingAgeSkipButton");
       const step3SkipButton = layer.querySelector("#onboardingStep3SkipButton");
       const ageButton = layer.querySelector("#onboardingAgeButton");
@@ -9070,16 +10763,35 @@
       const babyBirthdayInput = layer.querySelector("#babySheetBirthdayInput");
       const babyAgeGrid = layer.querySelector("#babySheetAgeGrid");
       const babyConfirmButton = layer.querySelector("#babySheetConfirmButton");
+      const babyEditorAddAnotherButton = layer.querySelector("#babyEditorAddAnotherButton");
       const babyCancelButton = layer.querySelector("#babySheetCancelButton");
       const babySkipButton = layer.querySelector("#babySheetSkipButton");
+      const step2NameInput = layer.querySelector("#onboardingStep2NameInput");
+      const step2GenderSelect = layer.querySelector("#onboardingStep2GenderSelect");
+      const step2PrematureButton = layer.querySelector("#onboardingStep2PrematureButton");
 
       for (const button of babyChoiceButtons) {
         button.addEventListener("click", () => selectBabyProfile(button.dataset.babyId || getOnboardingBabyList()[0]?.id || babies[0]?.id));
       }
       if (returnButton) {
         returnButton.addEventListener("click", () => {
+          if (onboardingScenario === "empty" && onboardingStep === 2 && babyEditorVisible) {
+            babyEditorVisible = false;
+            onboardingStep = 1;
+            onboardingEmptyNameCollected = false;
+            pendingBabyGender = "";
+            pendingBabyBirthday = "";
+            pendingBabyAge = 3;
+            updateOnboardingDisplays(layer);
+            return;
+          }
           if (babyEditorVisible) {
             toggleBabyEditor(false);
+            return;
+          }
+          if (onboardingScenario === "empty" && onboardingStep === 1 && onboardingEmptyNameCollected) {
+            onboardingEmptyNameCollected = false;
+            updateOnboardingDisplays(layer);
             return;
           }
 	          if (getOnboardingStepIndex() > 0) {
@@ -9098,8 +10810,29 @@
         pendingBabyAge = 3;
         toggleBabyEditor(true);
       });
+      if (step2AddBabyButton) {
+        step2AddBabyButton.addEventListener("click", () => {
+          if (ageSheet) ageSheet.style.display = "none";
+          pendingBabyName = "";
+          pendingBabyGender = "";
+          pendingBabyBirthday = "";
+          pendingBabyAge = 3;
+          toggleBabyEditor(true);
+        });
+      }
       if (step1NextButton) step1NextButton.addEventListener("click", () => {
-        if (onboardingScenario === "empty" && !getCurrentOnboardingBaby()) {
+        if (onboardingScenario === "empty") {
+          if (!onboardingEmptyNameCollected) {
+            if (!String(pendingBabyName || "").trim()) return;
+            onboardingEmptyNameCollected = true;
+            onboardingStep = 2;
+            babyEditorVisible = true;
+            pendingBabyGender = "";
+            pendingBabyBirthday = "";
+            pendingBabyAge = 3;
+            updateOnboardingDisplays(layer);
+            return;
+          }
           if (!addBabyProfile(pendingBabyName, pendingBabyBirthday, pendingBabyAge)) return;
           goToOnboardingStep(3);
           toast(`已添加 ${getCurrentOnboardingBaby()?.name || "宝宝"}`);
@@ -9108,7 +10841,7 @@
         goToOnboardingStep(getOnboardingNextStep());
       });
       if (skipButton) skipButton.addEventListener("click", skipRecommendedOnboarding);
-      if (ageSkipButton) ageSkipButton.addEventListener("click", skipRecommendedOnboarding);
+      if (headerSkipButton) headerSkipButton.addEventListener("click", skipRecommendedOnboarding);
       if (step3SkipButton) step3SkipButton.addEventListener("click", skipRecommendedOnboarding);
       if (babySkipButton) babySkipButton.addEventListener("click", skipRecommendedOnboarding);
       if (ageButton) ageButton.addEventListener("click", () => toggleAgeSheet());
@@ -9120,7 +10853,7 @@
         onboardingBirthdayInput.addEventListener("input", updateOnboardingBirthday);
         onboardingBirthdayInput.addEventListener("change", updateOnboardingBirthday);
       }
-      layer.querySelector("#onboardingBirthdayButton")?.addEventListener("click", (event) => {
+      layer.querySelector("#onboardingStep2BirthdayDisplayWrap")?.addEventListener("click", (event) => {
         event.stopPropagation();
         const field = event.currentTarget.closest(".baby-sheet-field");
         const nextOpen = !field?.classList.contains("is-birthday-open");
@@ -9131,8 +10864,65 @@
         field?.classList.toggle("is-birthday-open", nextOpen);
         updateOnboardingDisplays(layer);
       });
-      if (babyEditorBackButton) babyEditorBackButton.addEventListener("click", () => toggleBabyEditor(false));
+      if (step2NameInput) {
+        step2NameInput.addEventListener("input", () => updateSelectedBabyName(step2NameInput.value));
+        step2NameInput.addEventListener("change", () => updateSelectedBabyName(step2NameInput.value));
+      }
+      for (const genderButton of layer.querySelectorAll("#onboardingStep2GenderButton")) {
+        genderButton.addEventListener("click", (event) => {
+          event.stopPropagation();
+          const field = genderButton.closest(".baby-sheet-field");
+          const nextOpen = !field?.classList.contains("is-gender-open");
+          closeBirthdayOptions();
+          closeGenderOptions(field);
+          field?.classList.toggle("is-gender-open", nextOpen);
+          updateAgeConfirmEditor(layer);
+        });
+      }
+      for (const genderOption of layer.querySelectorAll(".onboarding-step[data-step=\"2\"] .baby-gender-option[data-baby-gender]")) {
+        genderOption.addEventListener("click", () => {
+          updateSelectedBabyGender(genderOption.dataset.babyGender || "");
+          closeGenderOptions();
+        });
+      }
+      if (step2GenderSelect) {
+        const updateGender = () => updateSelectedBabyGender(step2GenderSelect.value);
+        step2GenderSelect.addEventListener("input", updateGender);
+        step2GenderSelect.addEventListener("change", updateGender);
+      }
+      if (step2PrematureButton) {
+        step2PrematureButton.addEventListener("click", () => {
+          const baby = getCurrentOnboardingBaby();
+          updateSelectedBabyPremature(!baby?.premature);
+        });
+      }
+      if (babyEditorBackButton) {
+        babyEditorBackButton.addEventListener("click", () => {
+          if (onboardingScenario === "empty" && onboardingStep === 2) {
+            babyEditorVisible = false;
+            onboardingStep = 1;
+            onboardingEmptyNameCollected = false;
+            pendingBabyGender = "";
+            pendingBabyBirthday = "";
+            pendingBabyAge = 3;
+            updateOnboardingDisplays(layer);
+            return;
+          }
+          toggleBabyEditor(false);
+        });
+      }
       if (babyCancelButton) babyCancelButton.addEventListener("click", () => toggleBabyEditor(false));
+      if (babyEditorAddAnotherButton) {
+        babyEditorAddAnotherButton.addEventListener("click", () => {
+          pendingBabyName = "";
+          pendingBabyGender = "";
+          pendingBabyBirthday = "";
+          pendingBabyAge = 3;
+          closeGenderOptions();
+          closeBirthdayOptions();
+          updateBabyEditorForm(layer);
+        });
+      }
 
       const closeGenderOptions = (exceptField = null) => {
         for (const field of layer.querySelectorAll(".baby-sheet-field.is-gender-open")) {
@@ -9274,6 +11064,18 @@
           updateBabyEditorForm(layer);
         });
       }
+      for (const emptyStageNameInput of layer.querySelectorAll("#onboardingEmptyNameStageInput")) {
+        emptyStageNameInput.addEventListener("input", () => {
+          pendingBabyName = emptyStageNameInput.value;
+          updateOnboardingDisplays(layer);
+        });
+      }
+      for (const clearButton of layer.querySelectorAll("#onboardingEmptyNameClearButton")) {
+        clearButton.addEventListener("click", () => {
+          pendingBabyName = "";
+          updateOnboardingDisplays(layer);
+        });
+      }
 
       for (const emptyBirthdayInput of layer.querySelectorAll("#onboardingEmptyBabyBirthdayInput")) {
         const updateEmptyBabyBirthday = () => updatePendingBabyBirthday(emptyBirthdayInput.value, layer);
@@ -9326,6 +11128,7 @@
           selectedBabyId,
           selectedBabyAgeMonths,
           powerHintShown,
+          babies,
           babyAgeById,
           pendingBabyBirthday,
           babyEditorVisible,
@@ -9362,6 +11165,20 @@
             if (typeof saved.babyAgeById[baby.id] === "number") {
               babyAgeById[baby.id] = saved.babyAgeById[baby.id];
             }
+          }
+        }
+        if (Array.isArray(saved.babies)) {
+          for (const savedBaby of saved.babies) {
+            if (!savedBaby || typeof savedBaby !== "object" || typeof savedBaby.id !== "string") continue;
+            const localBaby = babies.find((baby) => baby.id === savedBaby.id);
+            if (!localBaby) continue;
+            if (typeof savedBaby.name === "string" && savedBaby.name.trim()) {
+              localBaby.name = savedBaby.name.trim();
+              localBaby.avatar = getBabyAvatar(localBaby.name);
+            }
+            if (typeof savedBaby.gender === "string") localBaby.gender = savedBaby.gender;
+            if (typeof savedBaby.birthday === "string" && savedBaby.birthday.trim()) localBaby.birthday = savedBaby.birthday.trim();
+            if (typeof savedBaby.premature === "boolean") localBaby.premature = savedBaby.premature;
           }
         }
         if (typeof saved.completedOnboardingVersion === "number") completedOnboardingVersion = saved.completedOnboardingVersion;
